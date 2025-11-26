@@ -1,6 +1,6 @@
 {
-  "name": "ng-tailadmin",
-  "version": "0.0.0",
+  "name": "devflowfix",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
