@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
+import { authGaurd } from './shared/components/auth/auth.gaurd';
 
 export const routes: Routes = [
   {
     path: '',
     loadComponent: () => 
       import('./shared/layout/app-layout/app-layout.component').then(m => m.AppLayoutComponent),
+    canActivate: [authGaurd],
     children: [
       {
         path: '',
