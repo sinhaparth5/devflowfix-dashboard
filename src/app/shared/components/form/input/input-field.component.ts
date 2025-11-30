@@ -8,15 +8,17 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
     <div class="relative">
       <input
         [type]="type"
-        [id]="id"
         [name]="name"
         [placeholder]="placeholder"
         [value]="value"
-        [min]="min"
-        [max]="max"
-        [step]="step"
         [disabled]="disabled"
         [ngClass]="inputClasses"
+        [attr.id]="id || null"
+        [attr.min]="min || null"
+        [attr.max]="max || null"
+        [attr.step]="step || null"
+        [attr.maxlength]="maxlength || null"
+        [attr.required]="required !== undefined && required !== false ? true : null"
         (input)="onInput($event)"
       />
 
@@ -36,20 +38,23 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class InputFieldComponent {
 
   @Input() type: string = 'text';
-  @Input() id?: string = '';
+  @Input() id?: string;
   @Input() name?: string = '';
   @Input() placeholder?: string = '';
   @Input() value: string | number = '';
-  @Input() min?: string;
-  @Input() max?: string;
-  @Input() step?: number;
+  @Input() min?: string | number;
+  @Input() max?: string | number;
+  @Input() step?: number | string;
+  @Input() maxlength?: number | string;
   @Input() disabled: boolean = false;
+  @Input() required?: boolean | string;
   @Input() success: boolean = false;
   @Input() error: boolean = false;
   @Input() hint?: string;
   @Input() className: string = '';
 
   @Output() valueChange = new EventEmitter<string | number>();
+  @Output() input = new EventEmitter<Event>();
 
   get inputClasses(): string {
     let inputClasses = `h-11 w-full rounded-lg border appearance-none px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 ${this.className}`;
@@ -68,6 +73,9 @@ export class InputFieldComponent {
 
   onInput(event: Event) {
     const input = event.target as HTMLInputElement;
-    this.valueChange.emit(this.type === 'number' ? +input.value : input.value);
+    const newValue = this.type === 'number' ? +input.value : input.value;
+    this.value = newValue;
+    this.valueChange.emit(newValue);
+    this.input.emit(event);
   }
 }
