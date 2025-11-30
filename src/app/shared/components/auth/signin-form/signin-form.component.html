@@ -1,5 +1,4 @@
-
-  <div class="w-full max-w-md pt-10 mx-auto">
+<div class="w-full max-w-md pt-10 mx-auto">
     <a
       routerLink="/"
       class="inline-flex items-center text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
@@ -20,9 +19,21 @@
         </p>
       </div>
 
+      <!-- Error Message -->
+      @if (errorMessage) {
+        <div class="p-4 mb-4 text-sm text-red-800 bg-red-100 rounded-lg dark:bg-red-900/20 dark:text-red-400" role="alert">
+          <div class="flex items-start">
+            <svg class="flex-shrink-0 w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+            </svg>
+            <span>{{ errorMessage }}</span>
+          </div>
+        </div>
+      }
+
       <!-- OAuth Buttons -->
      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
-        <button class="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
+        <button type="button" class="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
           <svg
             width="20"
             height="20"
@@ -49,7 +60,7 @@
           </svg>
           Sign in with Google
         </button>
-        <button class="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
+        <button type="button" class="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
           <svg
             width="21"
             class="fill-current"
@@ -83,10 +94,10 @@
           <app-input-field
             type="email"
             placeholder="info@gmail.com"
-            [value]="email"
+            [(value)]="email"
+            (input)="clearError()"
             name="email"
-            class="form-input"
-            required
+            [required]="true"
           />
         </div>
 
@@ -96,10 +107,10 @@
             <app-input-field
               [type]="showPassword ? 'text' : 'password'"
               placeholder="Enter your password"
-              [value]="password"
+              [(value)]="password"
+              (input)="clearError()"
               name="password"
-              class="form-input"
-              required
+              [required]="true"
             />
             <span
               (click)="togglePasswordVisibility()"
@@ -113,6 +124,24 @@
             </span>
           </div>
         </div>
+
+        <!-- MFA Code Input (shown when MFA is required) -->
+        @if (showMfaInput) {
+          <div>
+            <app-label>MFA Code <span class="text-error-500">*</span></app-label>
+            <app-input-field
+              type="text"
+              placeholder="Enter your 6-digit code"
+              [(value)]="mfaCode"
+              (input)="clearError()"
+              name="mfaCode"
+              [maxlength]="6"
+            />
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              Enter the code from your authenticator app
+            </p>
+          </div>
+        }
 
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
@@ -132,9 +161,18 @@
         <app-button
           className="w-full"
           size="sm"
-          (btnClick)="onSignIn()"
+          type="submit"
+          [disabled]="isLoading"
         >
-          Sign in
+          @if (isLoading) {
+            <svg class="inline w-4 h-4 mr-2 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Signing in...
+          } @else {
+            Sign in
+          }
         </app-button>
       </form>
 
@@ -151,4 +189,3 @@
       </div>
     </div>
   </div>
-
