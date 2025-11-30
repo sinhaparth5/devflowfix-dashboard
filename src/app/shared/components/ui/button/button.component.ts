@@ -16,6 +16,7 @@ import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
 })
 export class ButtonComponent {
 
+  @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input() size: 'sm' | 'md' = 'md';
   @Input() variant: 'primary' | 'outline' = 'primary';
   @Input() disabled = false;
@@ -43,7 +44,9 @@ export class ButtonComponent {
 
   onClick(event: Event) {
     if (!this.disabled) {
-      this.btnClick.emit(event);
+      if (this.type !== 'submit') {
+        this.btnClick.emit(event);
+      }
     }
   }
 }
