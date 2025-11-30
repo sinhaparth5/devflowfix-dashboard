@@ -198,15 +198,25 @@ export class AuthService {
         const navigator = window.navigator;
         const screen = window.screen;
 
-        const fingerprint = {
-            userAgent: navigator.userAgent,
-            language: navigator.language,
-            platform: navigator.platform,
-            screenResolution: `${screen.width}x${screen.height}`,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            timestamp: Date.now()
-        };
+        const browserInfo = [
+            navigator.platform || 'unknown',
+            screen.width + 'x' + screen.height,
+            navigator.language || 'unknown',
+            new Date().getTimezoneOffset().toString()
+        ].join('|');
 
-        return btoa(JSON.stringify(fingerprint));
+        let hash = 0;
+        for (let i = 0; i < browserInfo.length; i++) {
+            const char = browserInfo.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash;
+        }
+
+        const platform = (navigator.platform || 'unknown').substring(0, 20);
+        const resolution = `${screen.width}x${screen.height}`;
+        const hashStr = Math.abs(hash).toString(16);
+        const timestamp = Date.now().toString(36);
+
+        return `${platform}-${resolution}-${hashStr}-${timestamp}`;
     }
 }
