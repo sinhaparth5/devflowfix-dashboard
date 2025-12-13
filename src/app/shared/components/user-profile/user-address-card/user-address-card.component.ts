@@ -69,15 +69,23 @@ export class UserAddressCardComponent implements OnInit {
 
   handleSave() {
     this.isSaving = true;
-    this.userDetailsService.updateUserDetails(this.userDetails).subscribe({
+
+    // Only send address fields
+    const addressData: Partial<UserDetails> = {
+      country: this.userDetails.country,
+      city: this.userDetails.city,
+      postal_code: this.userDetails.postal_code,
+    };
+
+    this.userDetailsService.updateUserDetails(addressData).subscribe({
       next: (updatedDetails) => {
         this.userDetails = updatedDetails;
         this.isSaving = false;
         this.closeModal();
-        console.log('User details updated successfully');
+        console.log('Address updated successfully');
       },
       error: (error) => {
-        console.error('Error updating user details:', error);
+        console.error('Error updating address:', error);
         this.isSaving = false;
       }
     });

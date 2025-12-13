@@ -1,85 +1,33 @@
 <div class="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
   <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-    <div class="flex-1">
-      <h4 class="text-lg font-semibold text-gray-800 dark:text-white/90 mb-6">
-        Address & Social Links
+    <div>
+      <h4 class="text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-6">
+        Address
       </h4>
-
-      <!-- Address Section -->
-      <div class="mb-8">
-        <h5 class="text-sm font-semibold text-gray-700 dark:text-white/80 mb-4">Address</h5>
-        <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
-          <div>
-            <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-              Country
-            </p>
-            <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-              {{ userDetails.country || 'Not set' }}
-            </p>
-          </div>
-          <div>
-            <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-              City
-            </p>
-            <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-              {{ userDetails.city || 'Not set' }}
-            </p>
-          </div>
-          <div>
-            <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-              Postal Code
-            </p>
-            <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-              {{ userDetails.postal_code || 'Not set' }}
-            </p>
-          </div>
+      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
+        <div>
+          <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+            Country
+          </p>
+          <p class="text-sm font-medium text-gray-800 dark:text-white/90">
+            {{ userDetails.country || 'Not set' }}
+          </p>
         </div>
-      </div>
-
-      <!-- Social Links Section -->
-      <div>
-        <h5 class="text-sm font-semibold text-gray-700 dark:text-white/80 mb-4">Social Links</h5>
-        <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
-          <div>
-            <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-              Facebook
-            </p>
-            <p class="text-sm font-medium text-gray-800 dark:text-white/90 truncate">
-              {{ userDetails.facebook_link || 'Not set' }}
-            </p>
-          </div>
-          <div>
-            <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-              Twitter
-            </p>
-            <p class="text-sm font-medium text-gray-800 dark:text-white/90 truncate">
-              {{ userDetails.twitter_link || 'Not set' }}
-            </p>
-          </div>
-          <div>
-            <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-              LinkedIn
-            </p>
-            <p class="text-sm font-medium text-gray-800 dark:text-white/90 truncate">
-              {{ userDetails.linkedin_link || 'Not set' }}
-            </p>
-          </div>
-          <div>
-            <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-              Instagram
-            </p>
-            <p class="text-sm font-medium text-gray-800 dark:text-white/90 truncate">
-              {{ userDetails.instagram_link || 'Not set' }}
-            </p>
-          </div>
-          <div>
-            <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-              GitHub
-            </p>
-            <p class="text-sm font-medium text-gray-800 dark:text-white/90 truncate">
-              {{ userDetails.github_link || 'Not set' }}
-            </p>
-          </div>
+        <div>
+          <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+            City
+          </p>
+          <p class="text-sm font-medium text-gray-800 dark:text-white/90">
+            {{ userDetails.city || 'Not set' }}
+          </p>
+        </div>
+        <div>
+          <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+            Postal Code
+          </p>
+          <p class="text-sm font-medium text-gray-800 dark:text-white/90">
+            {{ userDetails.postal_code || 'Not set' }}
+          </p>
         </div>
       </div>
     </div>
@@ -111,102 +59,46 @@
   <app-modal
     [isOpen]="isOpen"
     (close)="closeModal()"
-    className="max-w-[800px] m-4"
+    className="max-w-[700px] m-4"
   >
     <div class="relative w-full p-4 overflow-y-auto bg-white no-scrollbar rounded-3xl dark:bg-gray-900 lg:p-11">
       <div class="px-2 pr-14">
         <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-          Edit Address & Social Links
+          Edit Address
         </h4>
         <p class="mb-6 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">
-          Update your address and social media links to keep your profile up-to-date.
+          Update your address details to keep your profile up-to-date.
         </p>
       </div>
       <form class="flex flex-col" (ngSubmit)="handleSave()">
-        <div class="px-2 overflow-y-auto custom-scrollbar max-h-[60vh]">
-          <!-- Address Section -->
-          <div class="mb-6">
-            <h5 class="text-base font-semibold text-gray-700 dark:text-white/80 mb-4">Address Information</h5>
-            <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-              <div>
-                <app-label>Country</app-label>
-                <app-input-field
-                  type="text"
-                  [(value)]="userDetails.country"
-                  name="country"
-                  placeholder="Enter your country"
-                />
-              </div>
-              <div>
-                <app-label>City</app-label>
-                <app-input-field
-                  type="text"
-                  [(value)]="userDetails.city"
-                  name="city"
-                  placeholder="Enter your city"
-                />
-              </div>
-              <div>
-                <app-label>Postal Code</app-label>
-                <app-input-field
-                  type="text"
-                  [(value)]="userDetails.postal_code"
-                  name="postal_code"
-                  placeholder="Enter postal code"
-                />
-              </div>
+        <div class="px-2 overflow-y-auto custom-scrollbar">
+          <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+            <div>
+              <app-label>Country</app-label>
+              <app-input-field
+                type="text"
+                [(value)]="userDetails.country"
+                name="country"
+                placeholder="Enter your country"
+              />
             </div>
-          </div>
-
-          <!-- Social Links Section -->
-          <div>
-            <h5 class="text-base font-semibold text-gray-700 dark:text-white/80 mb-4">Social Media Links</h5>
-            <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-              <div>
-                <app-label>Facebook</app-label>
-                <app-input-field
-                  type="url"
-                  [(value)]="userDetails.facebook_link"
-                  name="facebook_link"
-                  placeholder="https://facebook.com/username"
-                />
-              </div>
-              <div>
-                <app-label>Twitter</app-label>
-                <app-input-field
-                  type="url"
-                  [(value)]="userDetails.twitter_link"
-                  name="twitter_link"
-                  placeholder="https://twitter.com/username"
-                />
-              </div>
-              <div>
-                <app-label>LinkedIn</app-label>
-                <app-input-field
-                  type="url"
-                  [(value)]="userDetails.linkedin_link"
-                  name="linkedin_link"
-                  placeholder="https://linkedin.com/in/username"
-                />
-              </div>
-              <div>
-                <app-label>Instagram</app-label>
-                <app-input-field
-                  type="url"
-                  [(value)]="userDetails.instagram_link"
-                  name="instagram_link"
-                  placeholder="https://instagram.com/username"
-                />
-              </div>
-              <div>
-                <app-label>GitHub</app-label>
-                <app-input-field
-                  type="url"
-                  [(value)]="userDetails.github_link"
-                  name="github_link"
-                  placeholder="https://github.com/username"
-                />
-              </div>
+            <div>
+              <app-label>City</app-label>
+              <app-input-field
+                type="text"
+                [(value)]="userDetails.city"
+                name="city"
+                placeholder="Enter your city"
+              />
+            </div>
+            <div>
+              <app-label>Postal Code</app-label>
+              <app-input-field
+                type="text"
+                [(value)]="userDetails.postal_code"
+                name="postal_code"
+                placeholder="Enter postal code"
+              />
             </div>
           </div>
         </div>
