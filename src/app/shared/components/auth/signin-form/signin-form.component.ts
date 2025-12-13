@@ -28,6 +28,7 @@ export class SigninFormComponent {
   isChecked = false;
   isLoading = false;
   errorMessage = '';
+  emailError = '';
 
   email = '';
   password = '';
@@ -41,6 +42,17 @@ export class SigninFormComponent {
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
+  }
+
+  validateEmail() {
+    if (this.email && this.email.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(this.email)) {
+        this.emailError = 'Please enter a valid email address';
+      } else {
+        this.emailError = '';
+      }
+    }
   }
 
   onSignIn() {
@@ -62,6 +74,7 @@ export class SigninFormComponent {
     const loginData: LoginRequest = {
       email: this.email,
       password: this.password,
+      remember_me: this.isChecked
     }
 
     if (this.mfaCode) {
@@ -74,7 +87,6 @@ export class SigninFormComponent {
         this.router.navigate(['/']);
       },
       error: (error) => {
-        console.error('Login failed:', error);
         this.isLoading = false;
 
         // Handle different error scenarios
@@ -94,5 +106,6 @@ export class SigninFormComponent {
 
   clearError() {
     this.errorMessage = '';
+    this.emailError = '';
   }
 }

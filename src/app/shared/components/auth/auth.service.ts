@@ -15,6 +15,7 @@ export interface LoginRequest {
     password: string;
     device_fingerprint?: string;
     mfa_code?: string;
+    remember_me?: boolean;
 }
 
 export interface LoginResponse {

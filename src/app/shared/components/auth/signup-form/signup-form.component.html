@@ -5,7 +5,7 @@
       <path d="M12.7083 5L7.5 10.2083L12.7083 15.4167" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
         stroke-linejoin="round"></path>
     </svg>
-    Back to dashboard
+    Back to homepage
   </a>
 </div>
 
@@ -63,7 +63,31 @@
       </div>
     </div>
 
-    <form>
+    <!-- Error Message -->
+    @if (errorMessage) {
+      <div class="p-4 mb-4 text-sm text-red-800 bg-red-100 rounded-lg dark:bg-red-900/20 dark:text-red-400" role="alert">
+        <div class="flex items-start">
+          <svg class="flex-shrink-0 w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+          </svg>
+          <span>{{ errorMessage }}</span>
+        </div>
+      </div>
+    }
+
+    <!-- Success Message -->
+    @if (successMessage) {
+      <div class="p-4 mb-4 text-sm text-green-800 bg-green-100 rounded-lg dark:bg-green-900/20 dark:text-green-400" role="alert">
+        <div class="flex items-start">
+          <svg class="flex-shrink-0 w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+          <span>{{ successMessage }}</span>
+        </div>
+      </div>
+    }
+
+    <form (ngSubmit)="onSignUp()">
       <div class="space-y-5">
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <!-- First Name -->
@@ -71,14 +95,14 @@
             <app-label>
               First Name<span class="text-error-500">*</span>
             </app-label>
-            <app-input-field type="text" [value]="fname" id="fname" name="fname" placeholder="Enter your first name" />
+            <app-input-field type="text" [(value)]="fname" (input)="clearError()" id="fname" name="fname" autocomplete="given-name" placeholder="Enter your first name" />
           </div>
           <!-- Last Name -->
           <div class="sm:col-span-1">
             <app-label>
               Last Name<span class="text-error-500">*</span>
             </app-label>
-            <app-input-field type="text" [value]="lname" id="lname" name="lname" placeholder="Enter your last name" />
+            <app-input-field type="text" [(value)]="lname" (input)="clearError()" id="lname" name="lname" autocomplete="family-name" placeholder="Enter your last name" />
           </div>
         </div>
         <!-- Email -->
@@ -86,14 +110,17 @@
           <app-label>
             Email <span class="text-error-500">*</span>
           </app-label>
-          <app-input-field type="email" [value]="email" id="email" name="email" placeholder="Enter your email" />
+          <app-input-field type="email" [(value)]="email" (input)="clearError()" (blur)="validateEmail()" id="email" name="email" autocomplete="email" placeholder="Enter your email" />
+          @if (emailError) {
+            <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ emailError }}</p>
+          }
         </div>
         <!-- Password -->
         <div>
           <app-label>Password <span class="text-error-500">*</span></app-label>
           <div class="relative">
             <app-input-field [type]="showPassword ? 'text' : 'password'" placeholder="Enter your password"
-              [value]="password" name="password" class="form-input" required />
+              [(value)]="password" (input)="clearError()" name="password" autocomplete="new-password" required />
             <span (click)="togglePasswordVisibility()" class="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-1/2">
               @if (showPassword) {
               <svg width="1em" height="1em" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -130,8 +157,18 @@
         <!-- Button -->
         <div>
           <button
-            class="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600">
-            Sign Up
+            type="submit"
+            [disabled]="isLoading"
+            class="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600 disabled:opacity-50 disabled:cursor-not-allowed">
+            @if (isLoading) {
+              <svg class="inline w-4 h-4 mr-2 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Creating account...
+            } @else {
+              Sign Up
+            }
           </button>
         </div>
       </div>
@@ -139,9 +176,9 @@
 
     <div class="mt-5">
       <p class="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
-        Don't have an account?
-        <a routerLink="/signup" class="text-brand-500 hover:text-brand-600 dark:text-brand-400">
-          Sign Up
+        Already have an account?
+        <a routerLink="/signin" class="text-brand-500 hover:text-brand-600 dark:text-brand-400">
+          Sign In
         </a>
       </p>
     </div>

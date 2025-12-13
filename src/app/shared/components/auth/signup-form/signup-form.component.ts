@@ -26,6 +26,7 @@ export class SignupFormComponent {
   isLoading = false;
   errorMessage = '';
   successMessage = '';
+  emailError = '';
 
   fname = '';
   lname = '';
@@ -39,6 +40,17 @@ export class SignupFormComponent {
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
+  }
+
+  validateEmail() {
+    if (this.email && this.email.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(this.email)) {
+        this.emailError = 'Please enter a valid email address';
+      } else {
+        this.emailError = '';
+      }
+    }
   }
 
   validatePassword(password: string): { valid: boolean; message: string } {
@@ -102,7 +114,6 @@ export class SignupFormComponent {
 
     this.authService.register(userData).subscribe({
       next: (response) => {
-        console.log('Registration successful:', response);
         this.isLoading = false;
         this.successMessage = 'Account created successfully! Redirecting to sign in...';
         
@@ -112,7 +123,6 @@ export class SignupFormComponent {
         }, 2000);
       },
       error: (error) => {
-        console.error('Registration failed:', error);
         this.isLoading = false;
 
         // Handle different error scenarios
@@ -135,5 +145,7 @@ export class SignupFormComponent {
 
   clearError() {
     this.errorMessage = '';
+    this.successMessage = '';
+    this.emailError = '';
   }
 }
