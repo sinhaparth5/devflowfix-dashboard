@@ -95,7 +95,8 @@ export class UserMetaCardComponent implements OnInit {
     this.isLoadingSocial = true;
     this.userDetailsService.getUserDetails().subscribe({
       next: (details) => {
-        this.userDetails = details;
+        // Merge with existing data to preserve any fields
+        this.userDetails = { ...this.userDetails, ...details };
         this.userForm.patchValue({
           facebook_link: details.facebook_link || '',
           twitter_link: details.twitter_link || '',
@@ -211,10 +212,22 @@ export class UserMetaCardComponent implements OnInit {
         // Update social links
         this.userDetailsService.updateUserDetails(socialLinksData).subscribe({
           next: (details) => {
-            this.userDetails = details;
-            this.isSaving = false;
-            this.closeModal();
-            console.log('User information and social links updated successfully');
+            // Merge the response with existing data to preserve all fields
+            this.userDetails = { ...this.userDetails, ...details };
+
+            // Refresh the current user profile to update the cookie and observable
+            this.authService.getCurrentUserProfile().subscribe({
+              next: () => {
+                this.isSaving = false;
+                this.closeModal();
+                console.log('User information and social links updated successfully');
+              },
+              error: () => {
+                // Even if refresh fails, the data is saved, so close modal
+                this.isSaving = false;
+                this.closeModal();
+              }
+            });
           },
           error: (error) => {
             this.isSaving = false;

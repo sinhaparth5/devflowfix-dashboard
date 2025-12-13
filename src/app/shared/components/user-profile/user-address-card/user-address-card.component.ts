@@ -49,12 +49,14 @@ export class UserAddressCardComponent implements OnInit {
     this.isLoading = true;
     this.userDetailsService.getUserDetails().subscribe({
       next: (details) => {
-        this.userDetails = details;
+        // Merge with existing data to preserve any fields
+        this.userDetails = { ...this.userDetails, ...details };
         this.isLoading = false;
       },
       error: (error) => {
         console.error('Error loading user details:', error);
         this.isLoading = false;
+        // If error occurs, at least set loading to false
       }
     });
   }
@@ -79,7 +81,8 @@ export class UserAddressCardComponent implements OnInit {
 
     this.userDetailsService.updateUserDetails(addressData).subscribe({
       next: (updatedDetails) => {
-        this.userDetails = updatedDetails;
+        // Merge the response with existing data to preserve social links and other fields
+        this.userDetails = { ...this.userDetails, ...updatedDetails };
         this.isSaving = false;
         this.closeModal();
         console.log('Address updated successfully');
