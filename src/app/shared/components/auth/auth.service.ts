@@ -29,13 +29,25 @@ export interface LoginResponse {
 export interface UserResponse {
     user_id: string;
     email: string;
-    first_name: string;
-    last_name: string;
+    full_name: string;
     role: string;
     is_active: boolean;
     is_mfa_enabled: boolean;
+    avatar_url?: string;
+    github_username?: string;
+    organization_id?: string;
+    team_id?: string;
+    preferences?: any;
     created_at: string;
     updated_at: string;
+}
+
+export interface UpdateUserRequest {
+    full_name?: string;
+    github_username?: string;
+    organization_id?: string;
+    team_id?: string;
+    preferences?: any;
 }
 
 @Injectable({
@@ -105,8 +117,8 @@ export class AuthService {
             refresh_token: refreshToken
         }).pipe(
             tap((response: any) => {
-                localStorage.setItem('access_token', response.access_token);
-                localStorage.setItem('refresh_token', response.refresh_token);
+                this.setCookie('access_token', response.access_token, 7);
+                this.setCookie('refresh_token', response.refresh_token, 30);
             })
         );
     }
@@ -124,7 +136,7 @@ export class AuthService {
             .pipe(
                 tap(user => {
                     this.currentUserSubject.next(user);
-                    localStorage.setItem('current_user', JSON.stringify(user));
+                    this.setCookie('current_user', JSON.stringify(user), 30);
                 })
             );
     }
@@ -133,9 +145,9 @@ export class AuthService {
      * Store authentication data
      */
     private storeAuthData(response: LoginResponse): void {
-        localStorage.setItem('access_token', response.access_token);
-        localStorage.setItem('refresh_token', response.refresh_token);
-        localStorage.setItem('current_user', JSON.stringify(response.user));
+        this.setCookie('access_token', response.access_token, 7);
+        this.setCookie('refresh_token', response.refresh_token, 30);
+        this.setCookie('current_user', JSON.stringify(response.user), 30);
         this.currentUserSubject.next(response.user);
     }
 
@@ -143,9 +155,9 @@ export class AuthService {
      * Clear authentication data
      */
     private clearAuthData(): void {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-        localStorage.removeItem('current_user');
+        this.deleteCookie('access_token');
+        this.deleteCookie('refresh_token');
+        this.deleteCookie('current_user');
         this.currentUserSubject.next(null);
     }
 
@@ -153,7 +165,7 @@ export class AuthService {
      * Load user from storage
      */
     private loadUserFromStorage(): void {
-        const userStr = localStorage.getItem('current_user');
+        const userStr = this.getCookie('current_user');
         if (userStr) {
             try {
                 const user = JSON.parse(userStr);
@@ -168,14 +180,14 @@ export class AuthService {
      * Get access token
      */
     getAccessToken(): string | null {
-        return localStorage.getItem('access_token');
+        return this.getCookie('access_token');
     }
 
     /**
      * Get refresh token
      */
     getRefreshToken(): string | null {
-        return localStorage.getItem('refresh_token');
+        return this.getCookie('refresh_token');
     }
 
     /**
@@ -190,6 +202,50 @@ export class AuthService {
      */
     getCurrentUser(): UserResponse | null {
         return this.currentUserSubject.value;
+    }
+
+    /**
+     * Upload/Update user avatar
+     */
+    updateAvatar(file: File): Observable<any> {
+        const token = this.getAccessToken();
+        const formData = new FormData();
+        formData.append('avatar_file', file);
+
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+        });
+
+        return this.http.post(`${this.apiUrl}/me/avatar`, formData, { headers })
+            .pipe(
+                tap((response: any) => {
+                    const currentUser = this.getCurrentUser();
+                    if (currentUser && response.avatar_url) {
+                        currentUser.avatar_url = response.avatar_url;
+                        this.setCookie('current_user', JSON.stringify(currentUser), 30);
+                        this.currentUserSubject.next(currentUser);
+                    }
+                })
+            );
+    }
+
+    /**
+     * Update user information
+     */
+    updateUserInfo(userData: UpdateUserRequest): Observable<UserResponse> {
+        const token = this.getAccessToken();
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        });
+
+        return this.http.patch<UserResponse>(`${this.apiUrl}/me`, userData, { headers })
+            .pipe(
+                tap(user => {
+                    this.currentUserSubject.next(user);
+                    this.setCookie('current_user', JSON.stringify(user), 30);
+                })
+            );
     }
 
     /**
@@ -219,5 +275,38 @@ export class AuthService {
         const timestamp = Date.now().toString(36);
 
         return `${platform}-${resolution}-${hashStr}-${timestamp}`;
+    }
+
+    /**
+     * Set a cookie
+     */
+    private setCookie(name: string, value: string, days: number): void {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+        const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+        document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires.toUTCString()}; path=/; SameSite=Strict${secure}`;
+    }
+
+    /**
+     * Get a cookie
+     */
+    private getCookie(name: string): string | null {
+        const nameEQ = name + '=';
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) {
+                return decodeURIComponent(c.substring(nameEQ.length, c.length));
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Delete a cookie
+     */
+    private deleteCookie(name: string): void {
+        document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     }
 }

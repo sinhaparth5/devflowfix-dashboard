@@ -3,6 +3,8 @@ import { DropdownComponent } from '../../ui/dropdown/dropdown.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DropdownItemTwoComponent } from '../../ui/dropdown/dropdown-item/dropdown-item.component-two';
+import { AuthService, UserResponse } from '../../auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-dropdown',
@@ -11,6 +13,11 @@ import { DropdownItemTwoComponent } from '../../ui/dropdown/dropdown-item/dropdo
 })
 export class UserDropdownComponent {
   isOpen = false;
+  currentUser$: Observable<UserResponse | null>;
+
+  constructor(private authService: AuthService) {
+    this.currentUser$ = this.authService.currentUser$;
+  }
 
   toggleDropdown() {
     this.isOpen = !this.isOpen;
@@ -18,5 +25,28 @@ export class UserDropdownComponent {
 
   closeDropdown() {
     this.isOpen = false;
+  }
+
+  handleSignout() {
+    this.authService.logout(false).subscribe({
+      next: () => {
+        console.log('Logged out successfully');
+      },
+      error: (error) => {
+        console.error('Logout failed:', error);
+      }
+    });
+  }
+
+  getAvatarUrl(user: UserResponse | null): string {
+    return user?.avatar_url || '/images/user/owner.png';
+  }
+
+  getUserName(user: UserResponse | null): string {
+    return user?.full_name || 'User';
+  }
+
+  getUserEmail(user: UserResponse | null): string {
+    return user?.email || '';
   }
 }

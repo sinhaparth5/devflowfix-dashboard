@@ -1,30 +1,20 @@
 import { Component } from '@angular/core';
 import { ModalService } from '../../../services/modal.service';
 import { CommonModule } from '@angular/common';
-import { InputFieldComponent } from '../../form/input/input-field.component';
-import { ButtonComponent } from '../../ui/button/button.component';
-import { LabelComponent } from '../../form/label/label.component';
-import { ModalComponent } from '../../ui/modal/modal.component';
+import { AuthService, UserResponse } from '../../auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-info-card',
   imports: [
     CommonModule,
-    InputFieldComponent,
-    ButtonComponent,
-    LabelComponent,
-    ModalComponent,
   ],
   templateUrl: './user-info-card.component.html',
   styles: ``
 })
 export class UserInfoCardComponent {
-
-  constructor(public modal: ModalService) {}
-
+  currentUser$: Observable<UserResponse | null>;
   isOpen = false;
-  openModal() { this.isOpen = true; }
-  closeModal() { this.isOpen = false; }
 
   user = {
     firstName: 'Musharof',
@@ -39,6 +29,28 @@ export class UserInfoCardComponent {
       instagram: 'https://instagram.com/PimjoHQ',
     },
   };
+
+  constructor(
+    public modal: ModalService,
+    private authService: AuthService
+  ) {
+    this.currentUser$ = this.authService.currentUser$;
+  }
+
+  openModal() { this.isOpen = true; }
+  closeModal() { this.isOpen = false; }
+
+  getFullName(user: UserResponse | null): string {
+    return user?.full_name || 'N/A';
+  }
+
+  getEmail(user: UserResponse | null): string {
+    return user?.email || 'N/A';
+  }
+
+  getGithubUsername(user: UserResponse | null): string {
+    return user?.github_username || 'N/A';
+  }
 
   handleSave() {
     // Handle save logic here
