@@ -91,7 +91,7 @@ export class AuthService {
         ).pipe(
             tap(() => {
                 this.clearAuthData();
-                this.router.navigate(['/signing']);
+                this.router.navigate(['/']);
             })
         );
     }

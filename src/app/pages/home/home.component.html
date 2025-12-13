@@ -1,0 +1,101 @@
+<div class="flex flex-col min-h-screen bg-white dark:bg-gray-900">
+  <!-- Header -->
+  <header class="border-b border-gray-200 dark:border-gray-800">
+    <div class="container px-4 py-4 mx-auto sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <svg class="w-8 h-8 text-brand-500" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+          </svg>
+          <h1 class="text-xl font-bold text-gray-900 dark:text-white">DevFlowFix</h1>
+        </div>
+        <div class="flex items-center gap-3">
+          <a
+            routerLink="/signin"
+            class="px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+          >
+            Sign In
+          </a>
+          <a
+            routerLink="/signup"
+            class="px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg bg-brand-500 hover:bg-brand-600"
+          >
+            Sign Up
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="flex items-center justify-center flex-1 px-4 py-16 sm:px-6 lg:px-8">
+    <div class="w-full max-w-4xl mx-auto text-center">
+      <h2 class="mb-4 text-4xl font-bold text-gray-900 sm:text-5xl lg:text-6xl dark:text-white">
+        Welcome to DevFlowFix
+      </h2>
+      <p class="mb-8 text-lg text-gray-600 sm:text-xl dark:text-gray-400">
+        A modern dashboard template built with Angular and Tailwind CSS.
+        Manage your projects, track your progress, and collaborate with your team.
+      </p>
+      <div class="flex flex-col justify-center gap-4 sm:flex-row">
+        <a
+          routerLink="/signup"
+          class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white transition-colors rounded-lg bg-brand-500 hover:bg-brand-600"
+        >
+          Get Started
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+          </svg>
+        </a>
+        <a
+          routerLink="/signin"
+          class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-gray-700 transition-colors bg-gray-100 rounded-lg hover:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+        >
+          Sign In
+        </a>
+      </div>
+
+      <!-- Features Grid -->
+      <div class="grid gap-8 mt-16 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="p-6 bg-gray-50 rounded-xl dark:bg-white/5">
+          <div class="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-lg bg-brand-100 dark:bg-brand-900/30">
+            <svg class="w-6 h-6 text-brand-600 dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Fast & Efficient</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Built with performance in mind for a smooth user experience.</p>
+        </div>
+
+        <div class="p-6 bg-gray-50 rounded-xl dark:bg-white/5">
+          <div class="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-lg bg-brand-100 dark:bg-brand-900/30">
+            <svg class="w-6 h-6 text-brand-600 dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Secure</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Enterprise-grade security with authentication and authorization.</p>
+        </div>
+
+        <div class="p-6 bg-gray-50 rounded-xl dark:bg-white/5">
+          <div class="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-lg bg-brand-100 dark:bg-brand-900/30">
+            <svg class="w-6 h-6 text-brand-600 dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+            </svg>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Customizable</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Easily customize and extend to fit your specific needs.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-8 border-t border-gray-200 dark:border-gray-800">
+    <div class="container px-4 mx-auto text-center sm:px-6 lg:px-8">
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        &copy; 2025 DevFlowFix. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</div>

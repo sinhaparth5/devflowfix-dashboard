@@ -2,18 +2,27 @@ import { Routes } from '@angular/router';
 import { authGaurd } from './shared/components/auth/auth.gaurd';
 
 export const routes: Routes = [
+  // Public home page
   {
     path: '',
-    loadComponent: () => 
+    loadComponent: () =>
+      import('./pages/home/home.component').then(m => m.HomeComponent),
+    pathMatch: 'full',
+    title: 'DevFlowFix - Modern Dashboard Template'
+  },
+  // Protected dashboard routes
+  {
+    path: 'dashboard',
+    loadComponent: () =>
       import('./shared/layout/app-layout/app-layout.component').then(m => m.AppLayoutComponent),
     canActivate: [authGaurd],
     children: [
       {
         path: '',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/dashboard/ecommerce/ecommerce.component').then(m => m.EcommerceComponent),
         pathMatch: 'full',
-        title: 'Angular Ecommerce Dashboard | TailAdmin - Angular Admin Dashboard Template',
+        title: 'Dashboard | DevFlowFix',
       },
       {
         path: 'calendar',

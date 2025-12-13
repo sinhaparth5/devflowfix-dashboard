@@ -84,7 +84,7 @@ export class SigninFormComponent {
     this.authService.login(loginData).subscribe({
       next: (response) => {
         this.isLoading = false;
-        this.router.navigate(['/']);
+        this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         this.isLoading = false;
