@@ -26,108 +26,108 @@ export const routes: Routes = [
       },
       {
         path: 'calendar',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/calender/calender.component').then(m => m.CalenderComponent),
-        title: 'Angular Calendar | TailAdmin - Angular Admin Dashboard Template'
+        title: 'Calendar | DevFlowFix Dashboard'
       },
       {
         path: 'profile',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/profile/profile.component').then(m => m.ProfileComponent),
-        title: 'Angular Profile Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title: 'Profile | DevFlowFix Dashboard'
       },
       {
         path: 'form-elements',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/forms/form-elements/form-elements.component').then(m => m.FormElementsComponent),
-        title: 'Angular Form Elements Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title: 'Form Elements | DevFlowFix Dashboard'
       },
       {
         path: 'basic-tables',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/tables/basic-tables/basic-tables.component').then(m => m.BasicTablesComponent),
-        title: 'Angular Basic Tables Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title: 'Basic Tables | DevFlowFix Dashboard'
       },
       {
         path: 'blank',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/blank/blank.component').then(m => m.BlankComponent),
-        title: 'Angular Blank Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title: 'Blank Page | DevFlowFix Dashboard'
       },
       {
         path: 'invoice',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/invoices/invoices.component').then(m => m.InvoicesComponent),
-        title: 'Angular Invoice Details Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title: 'Invoice Details | DevFlowFix Dashboard'
       },
       {
         path: 'line-chart',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/charts/line-chart/line-chart.component').then(m => m.LineChartComponent),
-        title: 'Angular Line Chart Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title: 'Line Chart | DevFlowFix Dashboard'
       },
       {
         path: 'bar-chart',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/charts/bar-chart/bar-chart.component').then(m => m.BarChartComponent),
-        title: 'Angular Bar Chart Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title: 'Bar Chart | DevFlowFix Dashboard'
       },
       {
         path: 'alerts',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/ui-elements/alerts/alerts.component').then(m => m.AlertsComponent),
-        title: 'Angular Alerts Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title: 'Alerts | DevFlowFix Dashboard'
       },
       {
         path: 'avatars',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/ui-elements/avatar-element/avatar-element.component').then(m => m.AvatarElementComponent),
-        title: 'Angular Avatars Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title: 'Avatars | DevFlowFix Dashboard'
       },
       {
         path: 'badge',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/ui-elements/badges/badges.component').then(m => m.BadgesComponent),
-        title: 'Angular Badges Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title: 'Badges | DevFlowFix Dashboard'
       },
       {
         path: 'buttons',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/ui-elements/buttons/buttons.component').then(m => m.ButtonsComponent),
-        title: 'Angular Buttons Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title: 'Buttons | DevFlowFix Dashboard'
       },
       {
         path: 'images',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/ui-elements/images/images.component').then(m => m.ImagesComponent),
-        title: 'Angular Images Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title: 'Images | DevFlowFix Dashboard'
       },
       {
         path: 'videos',
-        loadComponent: () => 
+        loadComponent: () =>
           import('./pages/ui-elements/videos/videos.component').then(m => m.VideosComponent),
-        title: 'Angular Videos Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title: 'Videos | DevFlowFix Dashboard'
       },
     ]
   },
   // Auth pages
   {
     path: 'signin',
-    loadComponent: () => 
+    loadComponent: () =>
       import('./pages/auth-pages/sign-in/sign-in.component').then(m => m.SignInComponent),
-    title: 'Angular Sign In Dashboard | TailAdmin - Angular Admin Dashboard Template'
+    title: 'Sign In | DevFlowFix'
   },
   {
     path: 'signup',
-    loadComponent: () => 
+    loadComponent: () =>
       import('./pages/auth-pages/sign-up/sign-up.component').then(m => m.SignUpComponent),
-    title: 'Angular Sign Up Dashboard | TailAdmin - Angular Admin Dashboard Template'
+    title: 'Sign Up | DevFlowFix'
   },
   // Error pages
   {
     path: '**',
-    loadComponent: () => 
+    loadComponent: () =>
       import('./pages/other-page/not-found/not-found.component').then(m => m.NotFoundComponent),
-    title: 'Angular NotFound Dashboard | TailAdmin - Angular Admin Dashboard Template'
+    title: 'Page Not Found | DevFlowFix'
   },
 ];
