@@ -7,10 +7,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     const authService = inject(AuthService);
     const token = authService.getAccessToken();
 
-    // Skip adding token for auth endpoints
+    // Skip interceptor logic for auth endpoints and logout
     if (req.url.includes('/auth/login') ||
         req.url.includes('/auth/register') ||
-        req.url.includes('/auth/refresh')) {
+        req.url.includes('/auth/refresh') ||
+        req.url.includes('/auth/logout')) {
             return next(req);
         }
 
@@ -24,7 +25,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req).pipe(
     catchError((error) => {
       // If 401 error and we have a refresh token, try to refresh
-      if (error.status === 401 && authService.getRefreshToken()) {
+      if (error.status === 401 && authService.getRefreshToken() && !authService.isRefreshing()) {
         return authService.refreshToken().pipe(
           switchMap(() => {
             // Retry the request with new token
@@ -37,13 +38,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             return next(clonedReq);
           }),
           catchError((refreshError) => {
-            // Refresh failed, logout user
-            authService.logout(false).subscribe();
+            // Refresh failed, logout user (without calling API to avoid loop)
+            authService.clearAuth();
             return throwError(() => refreshError);
           })
         );
       }
-      
+
       return throwError(() => error);
     })
   );

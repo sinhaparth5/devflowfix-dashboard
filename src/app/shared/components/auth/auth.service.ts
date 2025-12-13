@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable, BehaviorSubject, tap } from "rxjs";
+import { Observable, BehaviorSubject, tap, catchError } from "rxjs";
 import { Router } from "@angular/router";
 
 export interface UserCreate {
@@ -57,6 +57,7 @@ export class AuthService {
     private apiUrl = 'https://devflowfix-new-production.up.railway.app/api/v1/auth';
     private currentUserSubject = new BehaviorSubject<UserResponse | null>(null);
     public currentUser$ = this.currentUserSubject.asObservable();
+    private refreshingToken = false;
 
     constructor(
         private http: HttpClient,
@@ -112,6 +113,7 @@ export class AuthService {
      * Refresh access token
      */
     refreshToken(): Observable<any> {
+        this.refreshingToken = true;
         const refreshToken = this.getRefreshToken();
         return this.http.post(`${this.apiUrl}/refresh`, {
             refresh_token: refreshToken
@@ -119,8 +121,28 @@ export class AuthService {
             tap((response: any) => {
                 this.setCookie('access_token', response.access_token, 7);
                 this.setCookie('refresh_token', response.refresh_token, 30);
+                this.refreshingToken = false;
+            }),
+            catchError((error) => {
+                this.refreshingToken = false;
+                throw error;
             })
         );
+    }
+
+    /**
+     * Check if currently refreshing token
+     */
+    isRefreshing(): boolean {
+        return this.refreshingToken;
+    }
+
+    /**
+     * Clear auth data without API call (used when refresh fails)
+     */
+    clearAuth(): void {
+        this.clearAuthData();
+        this.router.navigate(['/']);
     }
 
     /**
