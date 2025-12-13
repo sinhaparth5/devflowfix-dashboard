@@ -61,8 +61,7 @@ export class AnalyticsComponent implements OnInit {
     this.loadTrends();
     this.loadBreakdowns();
     this.loadMTTR();
-    // Temporarily disabled due to backend issue
-    // this.loadTopRepositories();
+    this.loadTopRepositories();
   }
 
   loadStats(): void {

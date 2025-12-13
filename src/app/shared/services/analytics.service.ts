@@ -51,8 +51,7 @@ export interface TopFailureType {
 
 export interface TopRepository {
   repository: string;
-  incident_count: number;
-  auto_fix_rate: number;
+  count: number;
 }
 
 export interface RemediationSuccess {
