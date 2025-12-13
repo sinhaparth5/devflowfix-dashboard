@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGaurd } from './shared/components/auth/auth.gaurd';
+import { guestGuard } from './shared/components/auth/guest.guard';
 
 export const routes: Routes = [
   // Public home page
@@ -110,17 +111,19 @@ export const routes: Routes = [
       },
     ]
   },
-  // Auth pages
+  // Auth pages (protected by guest guard - redirects logged-in users to dashboard)
   {
     path: 'signin',
     loadComponent: () =>
       import('./pages/auth-pages/sign-in/sign-in.component').then(m => m.SignInComponent),
+    canActivate: [guestGuard],
     title: 'Sign In | DevFlowFix'
   },
   {
     path: 'signup',
     loadComponent: () =>
       import('./pages/auth-pages/sign-up/sign-up.component').then(m => m.SignUpComponent),
+    canActivate: [guestGuard],
     title: 'Sign Up | DevFlowFix'
   },
   // Error pages

@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SeoService } from '../../shared/services/seo.service';
 import { LottieComponent, AnimationOptions } from 'ngx-lottie';
+import { AuthService, UserResponse } from '../../shared/components/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -23,9 +24,25 @@ export class HomeComponent implements OnInit {
     autoplay: true
   };
 
-  constructor(private seoService: SeoService) {}
+  isLoggedIn = false;
+  currentUser: UserResponse | null = null;
+
+  constructor(
+    private seoService: SeoService,
+    public authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    // Check authentication status
+    this.isLoggedIn = this.authService.isLoggedIn();
+    this.currentUser = this.authService.getCurrentUser();
+
+    // Subscribe to auth changes
+    this.authService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+      this.isLoggedIn = !!user;
+    });
+
     this.seoService.updateSEO({
       title: 'DevFlowFix - Automated Deployment Failure Resolution',
       description: 'DevFlowFix automatically fixes 75% of deployment failures in under 8 minutes using AI-powered analysis and remediation. Integrates with GitHub Actions, ArgoCD, and Kubernetes.',

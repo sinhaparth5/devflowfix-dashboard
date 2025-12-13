@@ -10,18 +10,32 @@
           <h1 class="text-xl font-bold text-gray-900 dark:text-white">DevFlowFix</h1>
         </div>
         <div class="flex items-center gap-3">
-          <a
-            routerLink="/signin"
-            class="px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-          >
-            Sign In
-          </a>
-          <a
-            routerLink="/signup"
-            class="px-4 py-2 text-sm font-medium text-white transition-all rounded-lg bg-brand-500 hover:bg-brand-600 hover:shadow-lg hover:shadow-brand-500/30"
-          >
-            Sign Up
-          </a>
+          @if (isLoggedIn && currentUser) {
+            <!-- Logged In: Show user info and dashboard link -->
+            <span class="hidden px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-300 sm:inline-block">
+              {{ currentUser.full_name }}
+            </span>
+            <a
+              routerLink="/dashboard"
+              class="px-4 py-2 text-sm font-medium text-white transition-all rounded-lg bg-brand-500 hover:bg-brand-600 hover:shadow-lg hover:shadow-brand-500/30"
+            >
+              Go to Dashboard
+            </a>
+          } @else {
+            <!-- Not Logged In: Show Sign In and Sign Up -->
+            <a
+              routerLink="/signin"
+              class="px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+            >
+              Sign In
+            </a>
+            <a
+              routerLink="/signup"
+              class="px-4 py-2 text-sm font-medium text-white transition-all rounded-lg bg-brand-500 hover:bg-brand-600 hover:shadow-lg hover:shadow-brand-500/30"
+            >
+              Sign Up
+            </a>
+          }
         </div>
       </div>
     </div>
