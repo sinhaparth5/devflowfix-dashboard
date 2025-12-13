@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../../../services/modal.service';
 import { CommonModule } from '@angular/common';
 import { InputFieldComponent } from '../../form/input/input-field.component';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { LabelComponent } from '../../form/label/label.component';
 import { ModalComponent } from '../../ui/modal/modal.component';
-import { FormsModule } from '@angular/forms';
+import { UserDetailsService, UserDetails } from '../../../services/user-details.service';
 
 @Component({
   selector: 'app-user-address-card',
@@ -15,29 +15,71 @@ import { FormsModule } from '@angular/forms';
     ButtonComponent,
     LabelComponent,
     ModalComponent,
-    FormsModule,
   ],
   templateUrl: './user-address-card.component.html',
   styles: ``
 })
-export class UserAddressCardComponent {
+export class UserAddressCardComponent implements OnInit {
 
-  constructor(public modal: ModalService) {}
+  constructor(
+    public modal: ModalService,
+    private userDetailsService: UserDetailsService
+  ) {}
 
   isOpen = false;
-  openModal() { this.isOpen = true; }
-  closeModal() { this.isOpen = false; }
+  isLoading = false;
+  isSaving = false;
 
-  address = {
-    country: 'United States.',
-    cityState: 'Phoenix, Arizona, United States.',
-    postalCode: 'ERT 2489',
-    taxId: 'AS4568384',
+  userDetails: UserDetails = {
+    country: '',
+    city: '',
+    postal_code: '',
+    facebook_link: '',
+    twitter_link: '',
+    linkedin_link: '',
+    instagram_link: '',
+    github_link: '',
   };
 
+  ngOnInit() {
+    this.loadUserDetails();
+  }
+
+  loadUserDetails() {
+    this.isLoading = true;
+    this.userDetailsService.getUserDetails().subscribe({
+      next: (details) => {
+        this.userDetails = details;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading user details:', error);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  openModal() {
+    this.isOpen = true;
+  }
+
+  closeModal() {
+    this.isOpen = false;
+  }
+
   handleSave() {
-    // Handle save logic here
-    console.log('Saving changes...');
-    this.modal.closeModal();
+    this.isSaving = true;
+    this.userDetailsService.updateUserDetails(this.userDetails).subscribe({
+      next: (updatedDetails) => {
+        this.userDetails = updatedDetails;
+        this.isSaving = false;
+        this.closeModal();
+        console.log('User details updated successfully');
+      },
+      error: (error) => {
+        console.error('Error updating user details:', error);
+        this.isSaving = false;
+      }
+    });
   }
 }

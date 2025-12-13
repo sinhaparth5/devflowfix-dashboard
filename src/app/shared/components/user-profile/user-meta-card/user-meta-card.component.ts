@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ModalService } from '../../../services/modal.service';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../../ui/modal/modal.component';
@@ -7,6 +7,7 @@ import { AuthService, UserResponse, UpdateUserRequest } from '../../auth/auth.se
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SanitizationService } from '../../../services/sanitization.service';
+import { UserDetailsService, UserDetails } from '../../../services/user-details.service';
 
 @Component({
   selector: 'app-user-meta-card',
@@ -19,16 +20,28 @@ import { SanitizationService } from '../../../services/sanitization.service';
   templateUrl: './user-meta-card.component.html',
   styles: ``
 })
-export class UserMetaCardComponent {
+export class UserMetaCardComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   currentUser$: Observable<UserResponse | null>;
   isOpen = false;
   isUploading = false;
   isSaving = false;
+  isLoadingSocial = false;
   uploadError: string | null = null;
   saveError: string | null = null;
   userForm: FormGroup;
+
+  userDetails: UserDetails = {
+    country: '',
+    city: '',
+    postal_code: '',
+    facebook_link: '',
+    twitter_link: '',
+    linkedin_link: '',
+    instagram_link: '',
+    github_link: '',
+  };
 
   // Example user data (could be made dynamic)
   user = {
@@ -37,12 +50,6 @@ export class UserMetaCardComponent {
     role: 'Team Manager',
     location: 'Arizona, United States',
     avatar: '/images/user/owner.jpg',
-    social: {
-      facebook: 'https://www.facebook.com/PimjoHQ',
-      x: 'https://x.com/PimjoHQ',
-      linkedin: 'https://www.linkedin.com/company/pimjo',
-      instagram: 'https://instagram.com/PimjoHQ',
-    },
     email: 'randomuser@pimjo.com',
     phone: '+09 363 398 46',
     bio: 'Team Manager',
@@ -52,7 +59,8 @@ export class UserMetaCardComponent {
     public modal: ModalService,
     private authService: AuthService,
     private fb: FormBuilder,
-    private sanitizationService: SanitizationService
+    private sanitizationService: SanitizationService,
+    private userDetailsService: UserDetailsService
   ) {
     this.currentUser$ = this.authService.currentUser$;
 
@@ -60,6 +68,11 @@ export class UserMetaCardComponent {
       full_name: [''],
       github_username: [''],
       email: [{value: '', disabled: true}],
+      facebook_link: [''],
+      twitter_link: [''],
+      linkedin_link: [''],
+      instagram_link: [''],
+      github_link: [''],
     });
 
     // Subscribe to current user and update form
@@ -70,6 +83,31 @@ export class UserMetaCardComponent {
           github_username: user.github_username || '',
           email: user.email || '',
         });
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.loadUserDetails();
+  }
+
+  loadUserDetails() {
+    this.isLoadingSocial = true;
+    this.userDetailsService.getUserDetails().subscribe({
+      next: (details) => {
+        this.userDetails = details;
+        this.userForm.patchValue({
+          facebook_link: details.facebook_link || '',
+          twitter_link: details.twitter_link || '',
+          linkedin_link: details.linkedin_link || '',
+          instagram_link: details.instagram_link || '',
+          github_link: details.github_link || '',
+        });
+        this.isLoadingSocial = false;
+      },
+      error: (error) => {
+        console.error('Error loading user details:', error);
+        this.isLoadingSocial = false;
       }
     });
   }
@@ -148,11 +186,42 @@ export class UserMetaCardComponent {
       ),
     };
 
+    // Prepare social links data
+    const socialLinksData: Partial<UserDetails> = {
+      facebook_link: this.sanitizationService.sanitizeText(
+        this.userForm.get('facebook_link')?.value
+      ),
+      twitter_link: this.sanitizationService.sanitizeText(
+        this.userForm.get('twitter_link')?.value
+      ),
+      linkedin_link: this.sanitizationService.sanitizeText(
+        this.userForm.get('linkedin_link')?.value
+      ),
+      instagram_link: this.sanitizationService.sanitizeText(
+        this.userForm.get('instagram_link')?.value
+      ),
+      github_link: this.sanitizationService.sanitizeText(
+        this.userForm.get('github_link')?.value
+      ),
+    };
+
+    // Update user info first, then social links
     this.authService.updateUserInfo(updateData).subscribe({
       next: () => {
-        this.isSaving = false;
-        this.closeModal();
-        console.log('User information updated successfully');
+        // Update social links
+        this.userDetailsService.updateUserDetails(socialLinksData).subscribe({
+          next: (details) => {
+            this.userDetails = details;
+            this.isSaving = false;
+            this.closeModal();
+            console.log('User information and social links updated successfully');
+          },
+          error: (error) => {
+            this.isSaving = false;
+            this.saveError = error.error?.message || 'Failed to update social links';
+            console.error('Social links update failed:', error);
+          }
+        });
       },
       error: (error) => {
         this.isSaving = false;
