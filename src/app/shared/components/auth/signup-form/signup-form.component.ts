@@ -6,6 +6,7 @@ import { InputFieldComponent } from '../../form/input/input-field.component';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService, UserCreate } from '../auth.service';
+import { SanitizationService } from '../../../services/sanitization.service';
 
 @Component({
   selector: 'app-signup-form',
@@ -35,7 +36,8 @@ export class SignupFormComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private sanitizationService: SanitizationService
   ) {}
 
   togglePasswordVisibility() {
@@ -76,6 +78,12 @@ export class SignupFormComponent {
     // Reset messages
     this.errorMessage = '';
     this.successMessage = '';
+
+    // Sanitize all inputs
+    this.fname = this.sanitizationService.sanitizeText(this.fname);
+    this.lname = this.sanitizationService.sanitizeText(this.lname);
+    this.email = this.sanitizationService.sanitizeEmail(this.email);
+    this.password = this.sanitizationService.sanitizeText(this.password);
 
     // Validate inputs
     if (!this.fname || !this.lname || !this.email || !this.password) {

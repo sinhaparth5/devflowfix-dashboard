@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
+import { SafeContentPipe } from '../../../pipes/safe-content.pipe';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-alert',
   imports: [
     CommonModule,
-    SafeHtmlPipe,
+    SafeContentPipe,
     RouterModule,
   ],
   templateUrl: './alert.component.html',

@@ -7,6 +7,7 @@ import { InputFieldComponent } from '../../form/input/input-field.component';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService, LoginRequest } from '../auth.service';
+import { SanitizationService } from '../../../services/sanitization.service';
 
 @Component({
   selector: 'app-signin-form',
@@ -37,7 +38,8 @@ export class SigninFormComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private sanitizationService: SanitizationService
   ) {}
 
   togglePasswordVisibility() {
@@ -57,6 +59,10 @@ export class SigninFormComponent {
 
   onSignIn() {
     this.errorMessage = '';
+
+    // Sanitize inputs
+    this.email = this.sanitizationService.sanitizeEmail(this.email);
+    this.password = this.sanitizationService.sanitizeText(this.password);
 
     if (!this.email || !this.password) {
       this.errorMessage = 'Please enter both email and password';

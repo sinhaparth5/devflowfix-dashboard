@@ -43,9 +43,17 @@
   <!-- Additional SEO -->
   <meta name="application-name" content="DevFlowFix">
   <meta name="apple-mobile-web-app-title" content="DevFlowFix">
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="msapplication-TileColor" content="#ff8800">
+
+  <!-- Security Headers (fallback for hosting platforms without header config) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
+  <!-- Content Security Policy (Note: frame-ancestors directive is ignored in meta tags) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://devflowfix-new-production.up.railway.app; base-uri 'self'; form-action 'self'">
 </head>
 <body>
   <app-root></app-root>

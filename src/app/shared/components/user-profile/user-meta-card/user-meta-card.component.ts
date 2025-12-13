@@ -6,6 +6,7 @@ import { ButtonComponent } from '../../ui/button/button.component';
 import { AuthService, UserResponse, UpdateUserRequest } from '../../auth/auth.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SanitizationService } from '../../../services/sanitization.service';
 
 @Component({
   selector: 'app-user-meta-card',
@@ -50,7 +51,8 @@ export class UserMetaCardComponent {
   constructor(
     public modal: ModalService,
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private sanitizationService: SanitizationService
   ) {
     this.currentUser$ = this.authService.currentUser$;
 
@@ -96,15 +98,14 @@ export class UserMetaCardComponent {
     if (input.files && input.files[0]) {
       const file = input.files[0];
 
-      // Validate file type
-      if (!file.type.startsWith('image/')) {
-        this.uploadError = 'Please select an image file';
-        return;
-      }
+      // Use sanitization service for validation
+      const validation = this.sanitizationService.validateFile(file, {
+        allowedTypes: ['image/'],
+        maxSize: 5 * 1024 * 1024 // 5MB
+      });
 
-      // Validate file size (5MB max)
-      if (file.size > 5 * 1024 * 1024) {
-        this.uploadError = 'File size must be less than 5MB';
+      if (!validation.valid) {
+        this.uploadError = validation.error || 'Invalid file';
         return;
       }
 
@@ -137,9 +138,14 @@ export class UserMetaCardComponent {
     this.isSaving = true;
     this.saveError = null;
 
+    // Sanitize form values before sending
     const updateData: UpdateUserRequest = {
-      full_name: this.userForm.get('full_name')?.value,
-      github_username: this.userForm.get('github_username')?.value,
+      full_name: this.sanitizationService.sanitizeText(
+        this.userForm.get('full_name')?.value
+      ),
+      github_username: this.sanitizationService.sanitizeText(
+        this.userForm.get('github_username')?.value
+      ),
     };
 
     this.authService.updateUserInfo(updateData).subscribe({

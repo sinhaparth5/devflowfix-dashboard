@@ -99,7 +99,7 @@
                     class="menu-item-icon-size"
                     [class.menu-item-icon-active]="openSubmenu === 'main-' + i"
                     [class.menu-item-icon-inactive]="openSubmenu !== 'main-' + i"
-                    [innerHTML]="nav.icon | safeHtml"
+                    [innerHTML]="nav.icon | safeHtml:true"
                   >
                   </span>
                   @if ((isExpanded$ | async) || (isHovered$ | async) ||
@@ -224,7 +224,7 @@
                       'menu-item-icon-active': isActive(nav.path),
                       'menu-item-icon-inactive': !isActive(nav.path)
                     }"
-                    [innerHTML]="nav.icon | safeHtml"
+                    [innerHTML]="nav.icon | safeHtml:true"
                   >
                   </span>
                   <span
@@ -305,7 +305,7 @@
                       'menu-item-icon-active': openSubmenu === 'others-' + i,
                       'menu-item-icon-inactive': openSubmenu !== 'others-' + i,
                     }"
-                    [innerHTML]="nav.icon | safeHtml"
+                    [innerHTML]="nav.icon | safeHtml:true"
                   >
                   </span>
                   @if ((isExpanded$ | async) || (isHovered$ | async) ||
@@ -430,7 +430,7 @@
                       'menu-item-icon-active': isActive(nav.path),
                       'menu-item-icon-inactive': !isActive(nav.path)
                     }"
-                    [innerHTML]="nav.icon | safeHtml"
+                    [innerHTML]="nav.icon | safeHtml:true"
                   >
                   </span>
                   <span

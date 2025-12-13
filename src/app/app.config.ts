@@ -6,13 +6,14 @@ import player from 'lottie-web';
 
 import { routes } from './app.routes';
 import { authInterceptor } from './shared/components/auth/auth.interceptor';
+import { sanitizationInterceptor } from './shared/interceptors/sanitization.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([authInterceptor])
+      withInterceptors([sanitizationInterceptor, authInterceptor])
     ),
     provideLottieOptions({
       player: () => player,
