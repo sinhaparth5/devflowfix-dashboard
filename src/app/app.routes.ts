@@ -21,9 +21,9 @@ export const routes: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('./pages/dashboard/ecommerce/ecommerce.component').then(m => m.EcommerceComponent),
+          import('./pages/dashboard/analytics/analytics.component').then(m => m.AnalyticsComponent),
         pathMatch: 'full',
-        title: 'Dashboard | DevFlowFix',
+        title: 'Analytics | DevFlowFix',
       },
       {
         path: 'calendar',
