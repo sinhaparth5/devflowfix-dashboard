@@ -2,22 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SeoService } from '../../../shared/services/seo.service';
 import { WebhookService, WebhookGenerateResponse, WebhookInfoResponse } from '../../../shared/services/webhook.service';
-import { TableComponent } from '../../../shared/components/ui/table/table.component';
-import { TableHeaderComponent } from '../../../shared/components/ui/table/table-header.component';
-import { TableBodyComponent } from '../../../shared/components/ui/table/table-body.component';
-import { TableRowComponent } from '../../../shared/components/ui/table/table-row.component';
-import { TableCellComponent } from '../../../shared/components/ui/table/table-cell.component';
 
 @Component({
   selector: 'app-webhooks',
   standalone: true,
   imports: [
-    CommonModule,
-    TableComponent,
-    TableHeaderComponent,
-    TableBodyComponent,
-    TableRowComponent,
-    TableCellComponent
+    CommonModule
   ],
   templateUrl: './webhooks.component.html',
   styles: ``
