@@ -1,0 +1,267 @@
+<div class="p-6 space-y-6">
+  <!-- Header -->
+  <div class="flex justify-between items-start">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Webhook Management</h1>
+      <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        Manage your GitHub webhook secrets and integration settings
+      </p>
+    </div>
+    <button
+      (click)="generateSecret()"
+      [disabled]="isGenerating"
+      class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+    >
+      {{ isGenerating ? 'Generating...' : (webhookInfo?.webhook_configuration?.secret_configured ? 'Regenerate Secret' : 'Generate Secret') }}
+    </button>
+  </div>
+
+  <!-- Error Message -->
+  @if (errorMessage) {
+    <div class="bg-red-100 border border-red-400 text-red-700 dark:bg-red-900 dark:border-red-700 dark:text-red-300 px-4 py-3 rounded-lg">
+      {{ errorMessage }}
+    </div>
+  }
+
+  <!-- Success Message -->
+  @if (successMessage && !showSecret) {
+    <div class="bg-green-100 border border-green-400 text-green-700 dark:bg-green-900 dark:border-green-700 dark:text-green-300 px-4 py-3 rounded-lg">
+      {{ successMessage }}
+    </div>
+  }
+
+  <!-- Loading State -->
+  @if (isLoading) {
+    <div class="flex justify-center items-center py-12">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+    </div>
+  }
+
+  <!-- Generated Secret Display -->
+  @if (showSecret && generatedSecret) {
+    <div class="bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-500 rounded-lg p-6 space-y-4">
+      <div class="flex justify-between items-start">
+        <div class="flex items-center gap-2">
+          <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <h2 class="text-xl font-bold text-blue-900 dark:text-blue-100">Important: Save Your Webhook Secret</h2>
+        </div>
+        <button (click)="dismissSecret()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <p class="text-sm text-blue-800 dark:text-blue-200">
+        This secret will only be shown once. Make sure to copy it now and save it securely.
+      </p>
+
+      <!-- Webhook Secret -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg p-4 space-y-2">
+        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Webhook Secret</label>
+        <div class="flex gap-2">
+          <code class="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded font-mono text-sm break-all">
+            {{ generatedSecret?.webhook_secret }}
+          </code>
+          <button
+            (click)="copyToClipboard(generatedSecret?.webhook_secret ?? '', 'secret')"
+            class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+          >
+            {{ copiedField === 'secret' ? 'Copied!' : 'Copy' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Webhook URL -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg p-4 space-y-2">
+        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Webhook URL</label>
+        <div class="flex gap-2">
+          <code class="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded font-mono text-sm break-all">
+            {{ generatedSecret?.webhook_url }}
+          </code>
+          <button
+            (click)="copyToClipboard(generatedSecret?.webhook_url ?? '', 'url')"
+            class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+          >
+            {{ copiedField === 'url' ? 'Copied!' : 'Copy' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Setup Instructions -->
+      <div class="mt-4 pt-4 border-t border-blue-300 dark:border-blue-700">
+        <h3 class="font-semibold text-blue-900 dark:text-blue-100 mb-3">Setup Instructions</h3>
+        <ol class="space-y-2 text-sm text-blue-800 dark:text-blue-200">
+          <li><strong>Step 1:</strong> Copy the webhook secret above and save it securely</li>
+          <li><strong>Step 2:</strong> Go to your GitHub repository settings</li>
+          <li><strong>Step 3:</strong> Click on "Webhooks" → "Add webhook"</li>
+          <li><strong>Step 4:</strong> Paste the Webhook URL in the "Payload URL" field</li>
+          <li><strong>Step 5:</strong> Select "application/json" as Content type</li>
+          <li><strong>Step 6:</strong> Paste your webhook secret in the "Secret" field</li>
+          <li><strong>Step 7:</strong> Select individual events: "Workflow runs" and "Check runs"</li>
+          <li><strong>Step 8:</strong> Ensure "Active" is checked and click "Add webhook"</li>
+        </ol>
+      </div>
+    </div>
+  }
+
+  <!-- Current Configuration -->
+  @if (webhookInfo && !isLoading) {
+    <div class="space-y-6">
+      <!-- Status Card -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Webhook Status</h2>
+          <span class="px-4 py-2 rounded-full text-sm font-medium {{ getStatusBadgeClass(webhookInfo?.status?.ready ?? false) }}">
+            {{ webhookInfo?.status?.message }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Webhook Configuration Card -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Webhook Configuration</h2>
+        </div>
+        <div class="p-6">
+          <dl class="space-y-4">
+            <!-- Secret Configured -->
+            <div class="flex flex-col sm:flex-row sm:items-center py-3 border-b border-gray-100 dark:border-gray-700">
+              <dt class="text-sm font-medium text-gray-600 dark:text-gray-400 w-full sm:w-1/3 mb-2 sm:mb-0">
+                Secret Configured
+              </dt>
+              <dd class="text-sm text-gray-900 dark:text-gray-100 w-full sm:w-2/3">
+                <span class="inline-flex px-3 py-1 rounded-full text-xs font-semibold {{ webhookInfo?.webhook_configuration?.secret_configured ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' }}">
+                  {{ webhookInfo?.webhook_configuration?.secret_configured ? 'Yes' : 'No' }}
+                </span>
+              </dd>
+            </div>
+
+            <!-- Secret Preview -->
+            @if (webhookInfo?.webhook_configuration?.secret_configured) {
+              <div class="flex flex-col sm:flex-row sm:items-center py-3 border-b border-gray-100 dark:border-gray-700">
+                <dt class="text-sm font-medium text-gray-600 dark:text-gray-400 w-full sm:w-1/3 mb-2 sm:mb-0">
+                  Secret Preview
+                </dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100 w-full sm:w-2/3">
+                  <code class="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 rounded font-mono text-xs">
+                    {{ webhookInfo?.webhook_configuration?.secret_preview }}
+                  </code>
+                </dd>
+              </div>
+
+              <div class="flex flex-col sm:flex-row sm:items-center py-3 border-b border-gray-100 dark:border-gray-700">
+                <dt class="text-sm font-medium text-gray-600 dark:text-gray-400 w-full sm:w-1/3 mb-2 sm:mb-0">
+                  Secret Length
+                </dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100 w-full sm:w-2/3">
+                  {{ webhookInfo?.webhook_configuration?.secret_length }} characters
+                </dd>
+              </div>
+
+              <div class="flex flex-col sm:flex-row sm:items-center py-3 border-b border-gray-100 dark:border-gray-700">
+                <dt class="text-sm font-medium text-gray-600 dark:text-gray-400 w-full sm:w-1/3 mb-2 sm:mb-0">
+                  Last Updated
+                </dt>
+                <dd class="text-sm text-gray-900 dark:text-gray-100 w-full sm:w-2/3">
+                  {{ formatDate(webhookInfo?.webhook_configuration?.last_updated ?? null) }}
+                </dd>
+              </div>
+            }
+
+            <!-- Webhook URL -->
+            <div class="flex flex-col py-3">
+              <dt class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+                Webhook URL
+              </dt>
+              <dd class="text-sm">
+                <div class="flex items-center gap-2 bg-gray-50 dark:bg-gray-900 p-3 rounded-lg">
+                  <code class="flex-1 text-blue-600 dark:text-blue-400 font-mono text-xs break-all">
+                    {{ webhookInfo?.webhook_configuration?.webhook_url }}
+                  </code>
+                  <button
+                    (click)="copyToClipboard(webhookInfo?.webhook_configuration?.webhook_url ?? '', 'current-url')"
+                    class="flex-shrink-0 px-3 py-1.5 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-xs font-medium"
+                  >
+                    {{ copiedField === 'current-url' ? 'Copied!' : 'Copy' }}
+                  </button>
+                </div>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <!-- GitHub Configuration Card -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">GitHub Configuration Settings</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Use these settings when configuring your GitHub webhook</p>
+        </div>
+        <div class="p-6">
+          <dl class="space-y-4">
+            <!-- Payload URL -->
+            <div class="flex flex-col py-3 border-b border-gray-100 dark:border-gray-700">
+              <dt class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+                Payload URL
+              </dt>
+              <dd class="text-sm">
+                <code class="block px-3 py-2 bg-gray-50 dark:bg-gray-900 text-blue-600 dark:text-blue-400 font-mono text-xs rounded break-all">
+                  {{ webhookInfo?.github_settings?.payload_url }}
+                </code>
+              </dd>
+            </div>
+
+            <!-- Content Type -->
+            <div class="flex flex-col sm:flex-row sm:items-center py-3 border-b border-gray-100 dark:border-gray-700">
+              <dt class="text-sm font-medium text-gray-600 dark:text-gray-400 w-full sm:w-1/3 mb-2 sm:mb-0">
+                Content Type
+              </dt>
+              <dd class="text-sm text-gray-900 dark:text-gray-100 w-full sm:w-2/3">
+                <code class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded text-xs">
+                  {{ webhookInfo?.github_settings?.content_type }}
+                </code>
+              </dd>
+            </div>
+
+            <!-- SSL Verification -->
+            <div class="flex flex-col sm:flex-row sm:items-center py-3 border-b border-gray-100 dark:border-gray-700">
+              <dt class="text-sm font-medium text-gray-600 dark:text-gray-400 w-full sm:w-1/3 mb-2 sm:mb-0">
+                SSL Verification
+              </dt>
+              <dd class="text-sm text-gray-900 dark:text-gray-100 w-full sm:w-2/3">
+                <span class="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 rounded-full text-xs font-medium">
+                  <svg class="w-3 h-3 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  {{ webhookInfo?.github_settings?.ssl_verification }}
+                </span>
+              </dd>
+            </div>
+
+            <!-- Events -->
+            <div class="flex flex-col py-3">
+              <dt class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">
+                Subscribed Events
+              </dt>
+              <dd class="text-sm">
+                <div class="flex flex-wrap gap-2">
+                  @for (event of webhookInfo?.github_settings?.events ?? []; track event) {
+                    <span class="inline-flex items-center px-3 py-1.5 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 rounded-md text-xs font-medium">
+                      <svg class="w-3 h-3 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                      </svg>
+                      {{ event }}
+                    </span>
+                  }
+                </div>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  }
+</div>
