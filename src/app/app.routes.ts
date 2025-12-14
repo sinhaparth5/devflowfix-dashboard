@@ -56,6 +56,12 @@ export const routes: Routes = [
         title: 'Blank Page | DevFlowFix Dashboard'
       },
       {
+        path: 'webhooks',
+        loadComponent: () =>
+          import('./pages/dashboard/webhooks/webhooks.component').then(m => m.WebhooksComponent),
+        title: 'Webhooks | DevFlowFix Dashboard'
+      },
+      {
         path: 'invoice',
         loadComponent: () =>
           import('./pages/invoices/invoices.component').then(m => m.InvoicesComponent),
