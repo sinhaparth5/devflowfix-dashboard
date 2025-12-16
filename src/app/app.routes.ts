@@ -62,6 +62,12 @@ export const routes: Routes = [
         title: 'Webhooks | DevFlowFix Dashboard'
       },
       {
+        path: 'pr-management',
+        loadComponent: () =>
+          import('./pages/dashboard/pr-management/pr-management.component').then(m => m.PrManagementComponent),
+        title: 'PR Management | DevFlowFix Dashboard'
+      },
+      {
         path: 'invoice',
         loadComponent: () =>
           import('./pages/invoices/invoices.component').then(m => m.InvoicesComponent),

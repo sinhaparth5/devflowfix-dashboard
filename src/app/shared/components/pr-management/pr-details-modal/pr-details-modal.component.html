@@ -1,0 +1,249 @@
+<app-modal
+  [isOpen]="isOpen"
+  (close)="onClose()"
+  [className]="'max-w-5xl'">
+
+  @if (isLoading) {
+    <div class="p-12">
+      <div class="flex items-center justify-center">
+        <svg class="h-12 w-12 animate-spin text-brand-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </div>
+      <p class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
+        Loading pull request details...
+      </p>
+    </div>
+  }
+
+  @if (errorMessage && !isLoading) {
+    <div class="p-8">
+      <div class="rounded-lg bg-error-50 p-4 dark:bg-error-900/20">
+        <p class="text-sm font-medium text-error-700 dark:text-error-400">
+          {{ errorMessage }}
+        </p>
+      </div>
+      <div class="mt-6 flex justify-end">
+        <button
+          (click)="onClose()"
+          class="rounded-md bg-gray-200 px-6 py-2 font-medium text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
+          Close
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (prDetails && !isLoading) {
+    <div class="p-6 lg:p-8">
+      <!-- Header -->
+      <div class="mb-6 flex flex-col gap-4 border-b border-gray-200 pb-6 dark:border-gray-700 sm:flex-row sm:items-start sm:justify-between">
+        <div class="flex-1">
+          <h2 class="text-2xl font-bold text-black dark:text-white">
+            {{ prDetails.title }}
+          </h2>
+          <div class="mt-2 flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
+            <span class="font-semibold">PR #{{ prDetails.pr_number }}</span>
+            <span class="text-gray-400">•</span>
+            <span>{{ prDetails.repository }}</span>
+            @if (prDetails.incident_id) {
+              <span class="text-gray-400">•</span>
+              <span class="text-gray-500">Incident: {{ prDetails.incident_id }}</span>
+            }
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <app-badge [color]="getStatusBadgeColor(prDetails.status)">
+            {{ prDetails.status }}
+          </app-badge>
+          <app-badge [color]="getConfidenceBadgeColor(prDetails.confidence_score)">
+            {{ formatConfidence(prDetails.confidence_score) }} confidence
+          </app-badge>
+        </div>
+      </div>
+
+      <!-- Details Grid -->
+      <div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <!-- Branch Info -->
+        <div>
+          <h3 class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+            Branch
+          </h3>
+          <p class="font-mono text-sm text-black dark:text-white">
+            {{ prDetails.branch }} → {{ prDetails.base_branch }}
+          </p>
+        </div>
+
+        <!-- Failure Type -->
+        <div>
+          <h3 class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+            Failure Type
+          </h3>
+          <p class="text-sm text-black dark:text-white">
+            {{ prDetails.failure_type }}
+          </p>
+        </div>
+
+        <!-- Files Changed -->
+        <div>
+          <h3 class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+            Files Changed
+          </h3>
+          <p class="text-sm text-black dark:text-white">
+            {{ prDetails.files_changed }} file{{ prDetails.files_changed !== 1 ? 's' : '' }}
+          </p>
+        </div>
+
+        <!-- Code Changes -->
+        <div>
+          <h3 class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+            Code Changes
+          </h3>
+          <p class="text-sm">
+            <span class="font-semibold text-success-500">+{{ prDetails.additions }}</span>
+            <span class="mx-2 text-gray-400">/</span>
+            <span class="font-semibold text-error-500">-{{ prDetails.deletions }}</span>
+          </p>
+        </div>
+
+        <!-- Commits -->
+        <div>
+          <h3 class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+            Commits
+          </h3>
+          <p class="text-sm text-black dark:text-white">
+            {{ prDetails.commits_count }}
+          </p>
+        </div>
+
+        <!-- Review Comments -->
+        <div>
+          <h3 class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+            Review Comments
+          </h3>
+          <p class="text-sm text-black dark:text-white">
+            {{ prDetails.review_comments_count }}
+          </p>
+        </div>
+
+        <!-- Has Conflicts -->
+        <div>
+          <h3 class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+            Conflicts
+          </h3>
+          <p class="text-sm">
+            @if (prDetails.has_conflicts) {
+              <span class="font-semibold text-error-500">Yes</span>
+            } @else {
+              <span class="font-semibold text-success-500">No</span>
+            }
+          </p>
+        </div>
+
+        <!-- Approved By -->
+        <div>
+          <h3 class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+            Approved By
+          </h3>
+          <p class="text-sm text-black dark:text-white">
+            {{ prDetails.approved_by || 'N/A' }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Timestamps -->
+      <div class="mb-6 grid grid-cols-1 gap-4 rounded-lg bg-gray-50 p-4 dark:bg-gray-800 md:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <h4 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
+            Created
+          </h4>
+          <p class="mt-1 text-sm text-black dark:text-white">
+            {{ formatDate(prDetails.created_at) }}
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
+            Updated
+          </h4>
+          <p class="mt-1 text-sm text-black dark:text-white">
+            {{ formatDate(prDetails.updated_at) }}
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
+            Merged
+          </h4>
+          <p class="mt-1 text-sm text-black dark:text-white">
+            {{ formatDate(prDetails.merged_at) }}
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
+            Closed
+          </h4>
+          <p class="mt-1 text-sm text-black dark:text-white">
+            {{ formatDate(prDetails.closed_at) }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Description -->
+      @if (prDetails.description) {
+        <div class="mb-6">
+          <h3 class="mb-3 text-lg font-semibold text-black dark:text-white">
+            Description
+          </h3>
+          <div class="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+            <pre class="whitespace-pre-wrap font-sans text-sm text-gray-700 dark:text-gray-300">{{ prDetails.description }}</pre>
+          </div>
+        </div>
+      }
+
+      <!-- Root Cause -->
+      @if (prDetails.root_cause) {
+        <div class="mb-6">
+          <h3 class="mb-3 text-lg font-semibold text-black dark:text-white">
+            Root Cause Analysis
+          </h3>
+          <div class="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+            <p class="text-sm text-gray-700 dark:text-gray-300">
+              {{ prDetails.root_cause }}
+            </p>
+          </div>
+        </div>
+      }
+
+      <!-- Metadata -->
+      @if (prDetails.metadata && Object.keys(prDetails.metadata).length > 0) {
+        <div class="mb-6">
+          <h3 class="mb-3 text-lg font-semibold text-black dark:text-white">
+            Additional Metadata
+          </h3>
+          <div class="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+            <pre class="whitespace-pre-wrap font-mono text-xs text-gray-700 dark:text-gray-300">{{ prDetails.metadata | json }}</pre>
+          </div>
+        </div>
+      }
+
+      <!-- Actions -->
+      <div class="flex flex-col gap-3 border-t border-gray-200 pt-6 dark:border-gray-700 sm:flex-row sm:justify-end">
+        <button
+          (click)="onClose()"
+          class="rounded-md bg-gray-200 px-6 py-2 font-medium text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
+          Close
+        </button>
+        <button
+          (click)="openPRInGitHub()"
+          class="inline-flex items-center justify-center rounded-md bg-brand-500 px-6 py-2 font-medium text-white hover:bg-brand-600">
+          <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          View on GitHub
+        </button>
+      </div>
+    </div>
+  }
+</app-modal>

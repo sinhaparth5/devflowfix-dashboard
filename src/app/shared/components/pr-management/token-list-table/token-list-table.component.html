@@ -1,0 +1,173 @@
+<div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+  <div class="border-b border-stroke px-7 py-5 dark:border-strokedark">
+    <h4 class="text-xl font-semibold text-black dark:text-white">
+      Registered Tokens
+    </h4>
+  </div>
+
+  <!-- Filters -->
+  <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex-1 sm:max-w-xs">
+        <app-input-field
+          [(value)]="filterOwner"
+          (input)="onFilterChange()"
+          placeholder="Filter by owner..."
+          [disabled]="isLoading">
+        </app-input-field>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <input
+          type="checkbox"
+          id="activeOnly"
+          [(ngModel)]="activeOnly"
+          (change)="onActiveToggleChange()"
+          [disabled]="isLoading"
+          class="h-5 w-5 rounded border-gray-300 text-brand-500 focus:ring-brand-500">
+        <label for="activeOnly" class="text-sm font-medium text-black dark:text-white">
+          Active only
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  @if (errorMessage && !isLoading) {
+    <div class="px-7 py-4">
+      <div class="rounded-lg bg-error-50 p-4 dark:bg-error-900/20">
+        <p class="text-sm font-medium text-error-700 dark:text-error-400">
+          {{ errorMessage }}
+        </p>
+      </div>
+    </div>
+  }
+
+  <!-- Loading State -->
+  @if (isLoading) {
+    <div class="px-7 py-12">
+      <div class="flex items-center justify-center">
+        <svg class="h-10 w-10 animate-spin text-brand-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </div>
+      <p class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
+        Loading tokens...
+      </p>
+    </div>
+  }
+
+  <!-- Table -->
+  @if (!isLoading && tokens.length > 0) {
+    <div class="overflow-x-auto">
+      <table class="w-full table-auto">
+        <thead>
+          <tr class="bg-gray-50 text-left dark:bg-meta-4">
+            <th class="px-7 py-4 font-medium text-black dark:text-white">
+              Owner/Repository
+            </th>
+            <th class="px-4 py-4 font-medium text-black dark:text-white">
+              Token
+            </th>
+            <th class="px-4 py-4 font-medium text-black dark:text-white">
+              Scopes
+            </th>
+            <th class="px-4 py-4 font-medium text-black dark:text-white">
+              Status
+            </th>
+            <th class="px-4 py-4 font-medium text-black dark:text-white">
+              Created
+            </th>
+            <th class="px-4 py-4 font-medium text-black dark:text-white">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (token of tokens; track token.token_id) {
+            <tr class="border-b border-stroke dark:border-strokedark">
+              <!-- Owner/Repo -->
+              <td class="px-7 py-5">
+                <p class="text-black dark:text-white">
+                  {{ token.owner }}@if (token.repo) {<span class="text-gray-500">/{{ token.repo }}</span>} @else {<span class="text-gray-400">/*</span>}
+                </p>
+                @if (token.description) {
+                  <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    {{ token.description }}
+                  </p>
+                }
+              </td>
+
+              <!-- Masked Token -->
+              <td class="px-4 py-5">
+                <code class="text-sm font-mono text-gray-600 dark:text-gray-300">
+                  {{ token.token_masked }}
+                </code>
+              </td>
+
+              <!-- Scopes -->
+              <td class="px-4 py-5">
+                <div class="flex flex-wrap gap-1">
+                  @for (scope of token.scopes; track scope) {
+                    <span class="inline-flex rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+                      {{ scope }}
+                    </span>
+                  }
+                </div>
+              </td>
+
+              <!-- Status -->
+              <td class="px-4 py-5">
+                <app-badge [color]="getBadgeColor(token.is_active)">
+                  {{ token.is_active ? 'Active' : 'Inactive' }}
+                </app-badge>
+              </td>
+
+              <!-- Created Date -->
+              <td class="px-4 py-5">
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  {{ formatDate(token.created_at) }}
+                </p>
+              </td>
+
+              <!-- Actions -->
+              <td class="px-4 py-5">
+                @if (token.is_active) {
+                  <button
+                    (click)="deactivateToken(token)"
+                    class="inline-flex items-center rounded bg-error-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-error-600">
+                    Deactivate
+                  </button>
+                } @else {
+                  <span class="text-sm text-gray-400 dark:text-gray-500">
+                    Deactivated
+                  </span>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!isLoading && tokens.length === 0 && !errorMessage) {
+    <div class="px-7 py-12">
+      <div class="text-center">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+        </svg>
+        <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-white">No tokens found</h3>
+        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+          @if (filterOwner || !activeOnly) {
+            Try adjusting your filters or register a new token.
+          } @else {
+            Get started by registering a GitHub token above.
+          }
+        </p>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,73 @@
+<div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+  <!-- Header -->
+  <div class="border-b border-stroke px-7 py-5 dark:border-strokedark">
+    <h3 class="font-medium text-black dark:text-white">PR Management</h3>
+    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+      Manage automated pull requests, GitHub tokens, and view statistics
+    </p>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="border-b border-stroke dark:border-strokedark">
+    <nav class="flex space-x-4 px-7 py-3" aria-label="Tabs">
+      <button
+        (click)="switchTab('prs')"
+        [class.text-brand-500]="activeTab === 'prs'"
+        [class.border-b-2]="activeTab === 'prs'"
+        [class.border-brand-500]="activeTab === 'prs'"
+        [class.text-gray-500]="activeTab !== 'prs'"
+        [class.dark:text-gray-400]="activeTab !== 'prs'"
+        class="px-3 py-2 font-medium transition-colors hover:text-brand-500 dark:hover:text-brand-400">
+        Pull Requests
+      </button>
+      <button
+        (click)="switchTab('tokens')"
+        [class.text-brand-500]="activeTab === 'tokens'"
+        [class.border-b-2]="activeTab === 'tokens'"
+        [class.border-brand-500]="activeTab === 'tokens'"
+        [class.text-gray-500]="activeTab !== 'tokens'"
+        [class.dark:text-gray-400]="activeTab !== 'tokens'"
+        class="px-3 py-2 font-medium transition-colors hover:text-brand-500 dark:hover:text-brand-400">
+        GitHub Tokens
+      </button>
+      <button
+        (click)="switchTab('stats')"
+        [class.text-brand-500]="activeTab === 'stats'"
+        [class.border-b-2]="activeTab === 'stats'"
+        [class.border-brand-500]="activeTab === 'stats'"
+        [class.text-gray-500]="activeTab !== 'stats'"
+        [class.dark:text-gray-400]="activeTab !== 'stats'"
+        class="px-3 py-2 font-medium transition-colors hover:text-brand-500 dark:hover:text-brand-400">
+        Statistics
+      </button>
+    </nav>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="p-7">
+    <!-- Pull Requests Tab -->
+    @if (activeTab === 'prs') {
+      <app-pr-list-table (viewDetails)="openPRDetails($event)"></app-pr-list-table>
+    }
+
+    <!-- GitHub Tokens Tab -->
+    @if (activeTab === 'tokens') {
+      <div class="space-y-6">
+        <app-token-registration-form (tokenRegistered)="onTokenRegistered()"></app-token-registration-form>
+        <app-token-list-table></app-token-list-table>
+      </div>
+    }
+
+    <!-- Statistics Tab -->
+    @if (activeTab === 'stats') {
+      <app-pr-stats-dashboard></app-pr-stats-dashboard>
+    }
+  </div>
+</div>
+
+<!-- PR Details Modal -->
+<app-pr-details-modal
+  [isOpen]="isPRDetailsModalOpen"
+  [prId]="selectedPRId"
+  (close)="closePRDetailsModal()">
+</app-pr-details-modal>

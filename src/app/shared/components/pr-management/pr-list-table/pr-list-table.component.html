@@ -1,0 +1,257 @@
+<div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+  <div class="border-b border-stroke px-7 py-5 dark:border-strokedark">
+    <h4 class="text-xl font-semibold text-black dark:text-white">
+      Automated Pull Requests
+    </h4>
+    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+      View and manage pull requests created by DevFlowFix
+    </p>
+  </div>
+
+  <!-- Filters -->
+  <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <!-- Incident ID Filter -->
+      <div>
+        <label class="mb-2 block text-sm font-medium text-black dark:text-white">
+          Incident ID
+        </label>
+        <app-input-field
+          [(value)]="incidentIdFilter"
+          (input)="onFilterChange()"
+          placeholder="Filter by incident..."
+          [disabled]="isLoading">
+        </app-input-field>
+      </div>
+
+      <!-- Repository Filter -->
+      <div>
+        <label class="mb-2 block text-sm font-medium text-black dark:text-white">
+          Repository
+        </label>
+        <app-input-field
+          [(value)]="repositoryFilter"
+          (input)="onFilterChange()"
+          placeholder="e.g., owner/repo"
+          [disabled]="isLoading">
+        </app-input-field>
+      </div>
+
+      <!-- Status Filter -->
+      <div>
+        <label class="mb-2 block text-sm font-medium text-black dark:text-white">
+          Status
+        </label>
+        <app-select
+          [options]="statusOptions"
+          [defaultValue]="statusFilter"
+          (change)="onStatusFilterChange($event)">
+        </app-select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  @if (errorMessage && !isLoading) {
+    <div class="px-7 py-4">
+      <div class="rounded-lg bg-error-50 p-4 dark:bg-error-900/20">
+        <p class="text-sm font-medium text-error-700 dark:text-error-400">
+          {{ errorMessage }}
+        </p>
+      </div>
+    </div>
+  }
+
+  <!-- Loading State -->
+  @if (isLoading) {
+    <div class="px-7 py-12">
+      <div class="flex items-center justify-center">
+        <svg class="h-10 w-10 animate-spin text-brand-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </div>
+      <p class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
+        Loading pull requests...
+      </p>
+    </div>
+  }
+
+  <!-- Table -->
+  @if (!isLoading && prs.length > 0) {
+    <div class="overflow-x-auto">
+      <table class="w-full table-auto">
+        <thead>
+          <tr class="bg-gray-50 text-left dark:bg-meta-4">
+            <th class="px-7 py-4 font-medium text-black dark:text-white">
+              PR Info
+            </th>
+            <th class="px-4 py-4 font-medium text-black dark:text-white">
+              Repository
+            </th>
+            <th class="px-4 py-4 font-medium text-black dark:text-white">
+              Status
+            </th>
+            <th class="px-4 py-4 font-medium text-black dark:text-white">
+              Confidence
+            </th>
+            <th class="px-4 py-4 font-medium text-black dark:text-white">
+              Changes
+            </th>
+            <th class="px-4 py-4 font-medium text-black dark:text-white">
+              Created
+            </th>
+            <th class="px-4 py-4 font-medium text-black dark:text-white">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (pr of prs; track pr.id) {
+            <tr class="border-b border-stroke dark:border-strokedark hover:bg-gray-50 dark:hover:bg-meta-4">
+              <!-- PR Info -->
+              <td class="px-7 py-5">
+                <p class="font-medium text-black dark:text-white">
+                  #{{ pr.pr_number }} {{ pr.title }}
+                </p>
+                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  {{ pr.failure_type }}
+                </p>
+                @if (pr.incident_id) {
+                  <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                    Incident: {{ pr.incident_id }}
+                  </p>
+                }
+              </td>
+
+              <!-- Repository -->
+              <td class="px-4 py-5">
+                <p class="text-sm text-black dark:text-white">
+                  {{ pr.repository }}
+                </p>
+                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  {{ pr.branch }}
+                </p>
+              </td>
+
+              <!-- Status -->
+              <td class="px-4 py-5">
+                <app-badge [color]="getStatusBadgeColor(pr.status)">
+                  {{ pr.status }}
+                </app-badge>
+                @if (pr.merged_at) {
+                  <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    {{ formatDate(pr.merged_at) }}
+                  </p>
+                }
+              </td>
+
+              <!-- Confidence Score -->
+              <td class="px-4 py-5">
+                <app-badge [color]="getConfidenceBadgeColor(pr.confidence_score)">
+                  {{ formatConfidence(pr.confidence_score) }}
+                </app-badge>
+              </td>
+
+              <!-- Changes -->
+              <td class="px-4 py-5">
+                <p class="text-sm text-black dark:text-white">
+                  {{ pr.files_changed }} file{{ pr.files_changed !== 1 ? 's' : '' }}
+                </p>
+                <p class="mt-1 text-xs">
+                  <span class="text-success-500">+{{ pr.additions }}</span>
+                  <span class="mx-1 text-gray-400">/</span>
+                  <span class="text-error-500">-{{ pr.deletions }}</span>
+                </p>
+              </td>
+
+              <!-- Created Date -->
+              <td class="px-4 py-5">
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  {{ formatDate(pr.created_at) }}
+                </p>
+              </td>
+
+              <!-- Actions -->
+              <td class="px-4 py-5">
+                <div class="flex gap-2">
+                  <button
+                    (click)="onViewDetails(pr.id)"
+                    class="inline-flex items-center rounded bg-brand-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-600">
+                    View Details
+                  </button>
+                  @if (pr.pr_url) {
+                    <a
+                      [href]="pr.pr_url"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center rounded bg-gray-200 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
+                      GitHub
+                      <svg class="ml-1 h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  }
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="border-t border-stroke px-7 py-4 dark:border-strokedark">
+      <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+        <p class="text-sm text-gray-600 dark:text-gray-300">
+          Showing {{ skip + 1 }} to {{ Math.min(skip + limit, total) }} of {{ total }} pull requests
+        </p>
+
+        <div class="flex items-center gap-2">
+          <button
+            (click)="onPreviousPage()"
+            [disabled]="!hasPreviousPage"
+            class="inline-flex items-center rounded bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
+            <svg class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Previous
+          </button>
+
+          <span class="text-sm text-gray-600 dark:text-gray-300">
+            Page {{ currentPage }} of {{ totalPages }}
+          </span>
+
+          <button
+            (click)="onNextPage()"
+            [disabled]="!hasNextPage"
+            class="inline-flex items-center rounded bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
+            Next
+            <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!isLoading && prs.length === 0 && !errorMessage) {
+    <div class="px-7 py-12">
+      <div class="text-center">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-white">No pull requests found</h3>
+        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+          @if (incidentIdFilter || repositoryFilter || statusFilter) {
+            Try adjusting your filters to see more results.
+          } @else {
+            No automated pull requests have been created yet.
+          }
+        </p>
+      </div>
+    </div>
+  }
+</div>

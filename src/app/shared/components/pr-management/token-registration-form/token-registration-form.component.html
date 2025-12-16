@@ -1,0 +1,129 @@
+<div class="rounded-sm border border-stroke bg-white p-7 shadow-default dark:border-strokedark dark:bg-boxdark">
+  <div class="mb-5">
+    <h4 class="text-xl font-semibold text-black dark:text-white">
+      Register GitHub Token
+    </h4>
+    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+      Register a GitHub Personal Access Token for automated PR creation
+    </p>
+  </div>
+
+  <!-- Success Message -->
+  @if (showSuccess) {
+    <div class="mb-5 rounded-lg bg-success-50 p-4 dark:bg-success-900/20">
+      <p class="text-sm font-medium text-success-700 dark:text-success-400">
+        {{ successMessage }}
+      </p>
+    </div>
+  }
+
+  <!-- Error Message -->
+  @if (errorMessage) {
+    <div class="mb-5 rounded-lg bg-error-50 p-4 dark:bg-error-900/20">
+      <p class="text-sm font-medium text-error-700 dark:text-error-400">
+        {{ errorMessage }}
+      </p>
+    </div>
+  }
+
+  <form (submit)="onSubmit(); $event.preventDefault()">
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+      <!-- Owner Field (Required) -->
+      <div>
+        <app-label>
+          Owner (GitHub Organization/User) <span class="text-error-500">*</span>
+        </app-label>
+        <app-input-field
+          [(value)]="owner"
+          placeholder="e.g., myorg or myusername"
+          [error]="!!ownerError"
+          [disabled]="isSubmitting">
+        </app-input-field>
+        @if (ownerError) {
+          <p class="mt-1 text-sm text-error-500">{{ ownerError }}</p>
+        }
+      </div>
+
+      <!-- Repository Field (Optional) -->
+      <div>
+        <app-label>
+          Repository (Optional)
+        </app-label>
+        <app-input-field
+          [(value)]="repo"
+          placeholder="e.g., my-repo (leave empty for org-level)"
+          [disabled]="isSubmitting">
+        </app-input-field>
+        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          Leave empty to register token for entire organization
+        </p>
+      </div>
+    </div>
+
+    <!-- Token Field (Required) -->
+    <div class="mt-5">
+      <app-label>
+        GitHub Personal Access Token <span class="text-error-500">*</span>
+      </app-label>
+      <app-input-field
+        [(value)]="token"
+        type="password"
+        placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+        [error]="!!tokenError"
+        [disabled]="isSubmitting">
+      </app-input-field>
+      @if (tokenError) {
+        <p class="mt-1 text-sm text-error-500">{{ tokenError }}</p>
+      }
+      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+        Your token will be encrypted and stored securely
+      </p>
+    </div>
+
+    <!-- Description Field (Optional) -->
+    <div class="mt-5">
+      <app-label>
+        Description (Optional)
+      </app-label>
+      <app-text-area
+        [(value)]="description"
+        placeholder="e.g., Token for production deployments"
+        [rows]="2"
+        [disabled]="isSubmitting">
+      </app-text-area>
+    </div>
+
+    <!-- Scopes Field (Optional) -->
+    <div class="mt-5">
+      <app-label>
+        Scopes (Optional)
+      </app-label>
+      <app-input-field
+        [(value)]="scopes"
+        placeholder="e.g., repo, workflow, contents (comma-separated)"
+        [disabled]="isSubmitting">
+      </app-input-field>
+      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+        Comma-separated list of token scopes
+      </p>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="mt-6">
+      <button
+        type="submit"
+        [disabled]="isSubmitting"
+        class="inline-flex items-center justify-center rounded-md bg-brand-500 px-6 py-3 text-center font-medium text-white hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-50 lg:px-8 xl:px-10">
+        @if (isSubmitting) {
+          <svg class="mr-2 h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Registering...
+        } @else {
+          Register Token
+        }
+      </button>
+    </div>
+  </form>
+</div>
