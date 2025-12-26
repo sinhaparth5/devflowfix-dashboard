@@ -535,7 +535,7 @@ GET /incidents
 - `limit` (default: 100, max: 1000): Records per page
 - `source` (optional): Filter by incident source (github, argocd, kubernetes, etc.)
 - `severity` (optional): Filter by severity (critical, high, medium, low)
-- `outcome` (optional): Filter by outcome (resolved, pending, failed, escalated, rolled_back)
+- `outcome` (optional): Filter by outcome (success, pending, failed, escalated, rolled_back, timeout, cancelled)
 - `failure_type` (optional): Filter by failure type
 - `start_date` (optional): Filter incidents after this date
 - `end_date` (optional): Filter incidents before this date
