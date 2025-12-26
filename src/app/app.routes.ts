@@ -68,6 +68,36 @@ export const routes: Routes = [
         title: 'PR Management | DevFlowFix Dashboard'
       },
       {
+        path: 'incidents',
+        loadComponent: () =>
+          import('./pages/dashboard/incidents/incidents-list/incidents-list.component').then(m => m.IncidentsListComponent),
+        title: 'Incidents | DevFlowFix Dashboard'
+      },
+      {
+        path: 'incidents/stats',
+        loadComponent: () =>
+          import('./pages/dashboard/incidents/incidents-stats/incidents-stats.component').then(m => m.IncidentsStatsComponent),
+        title: 'Incident Statistics | DevFlowFix Dashboard'
+      },
+      {
+        path: 'incidents/:id',
+        loadComponent: () =>
+          import('./pages/dashboard/incidents/incident-details/incident-details.component').then(m => m.IncidentDetailsComponent),
+        title: 'Incident Details | DevFlowFix Dashboard'
+      },
+      {
+        path: 'admin/incidents',
+        loadComponent: () =>
+          import('./pages/dashboard/admin/admin-incidents/admin-incidents.component').then(m => m.AdminIncidentsComponent),
+        title: 'Admin - All Incidents | DevFlowFix Dashboard'
+      },
+      {
+        path: 'admin/stats',
+        loadComponent: () =>
+          import('./pages/dashboard/admin/admin-stats/admin-stats.component').then(m => m.AdminStatsComponent),
+        title: 'Admin - Global Stats | DevFlowFix Dashboard'
+      },
+      {
         path: 'invoice',
         loadComponent: () =>
           import('./pages/invoices/invoices.component').then(m => m.InvoicesComponent),

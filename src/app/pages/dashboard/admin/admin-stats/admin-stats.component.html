@@ -1,0 +1,161 @@
+<div class="p-6">
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Admin - Global Statistics</h1>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Organization-wide incident analytics</p>
+    </div>
+    <a
+      routerLink="/dashboard/admin/incidents"
+      class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+      View All Incidents
+    </a>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="flex justify-center items-center p-12">
+    <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+    <p class="text-red-800 dark:text-red-400">{{ error }}</p>
+  </div>
+
+  <!-- Statistics Content -->
+  <div *ngIf="!isLoading && !error && stats">
+    <!-- Overview Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Total Incidents</p>
+            <p class="text-3xl font-bold text-gray-900 dark:text-white mt-2">{{ stats.total_incidents }}</p>
+          </div>
+          <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Success Rate</p>
+            <p [class]="'text-3xl font-bold mt-2 ' + getSuccessRateColor(stats.success_rate)">
+              {{ stats.success_rate.toFixed(1) }}%
+            </p>
+          </div>
+          <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Resolved</p>
+            <p class="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">{{ stats.resolved_count }}</p>
+          </div>
+          <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Avg Resolution Time</p>
+            <p class="text-3xl font-bold text-gray-900 dark:text-white mt-2">
+              {{ formatTime(stats.average_resolution_time) }}
+            </p>
+          </div>
+          <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Breakdown Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <p class="text-sm text-gray-600 dark:text-gray-400">Pending</p>
+        <p class="text-2xl font-bold text-yellow-600 dark:text-yellow-400 mt-1">{{ stats.pending_count }}</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <p class="text-sm text-gray-600 dark:text-gray-400">Failed</p>
+        <p class="text-2xl font-bold text-red-600 dark:text-red-400 mt-1">{{ stats.failed_count }}</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <p class="text-sm text-gray-600 dark:text-gray-400">Escalated</p>
+        <p class="text-2xl font-bold text-purple-600 dark:text-purple-400 mt-1">{{ stats.escalated_count }}</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <p class="text-sm text-gray-600 dark:text-gray-400">Rolled Back</p>
+        <p class="text-2xl font-bold text-orange-600 dark:text-orange-400 mt-1">{{ stats.rolled_back_count }}</p>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">By Source</h3>
+        <apx-chart
+          *ngIf="sourceChartOptions.chart && sourceChartOptions.series && sourceChartOptions.series.length > 0"
+          [series]="sourceChartOptions.series || []"
+          [chart]="sourceChartOptions.chart!"
+          [labels]="sourceChartOptions.labels || []"
+          [colors]="sourceChartOptions.colors || []"
+          [legend]="sourceChartOptions.legend!"
+          [dataLabels]="sourceChartOptions.dataLabels!">
+        </apx-chart>
+        <div *ngIf="!sourceChartOptions.chart || !sourceChartOptions.series || sourceChartOptions.series.length === 0" class="flex items-center justify-center h-64 text-gray-500 dark:text-gray-400">
+          No data available
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">By Severity</h3>
+        <apx-chart
+          *ngIf="severityChartOptions.chart && severityChartOptions.series && severityChartOptions.series.length > 0"
+          [series]="severityChartOptions.series || []"
+          [chart]="severityChartOptions.chart!"
+          [plotOptions]="severityChartOptions.plotOptions!"
+          [dataLabels]="severityChartOptions.dataLabels!"
+          [xaxis]="severityChartOptions.xaxis!"
+          [colors]="severityChartOptions.colors || []">
+        </apx-chart>
+        <div *ngIf="!severityChartOptions.chart || !severityChartOptions.series || severityChartOptions.series.length === 0" class="flex items-center justify-center h-64 text-gray-500 dark:text-gray-400">
+          No data available
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">By Outcome</h3>
+        <apx-chart
+          *ngIf="outcomeChartOptions.chart && outcomeChartOptions.series && outcomeChartOptions.series.length > 0"
+          [series]="outcomeChartOptions.series || []"
+          [chart]="outcomeChartOptions.chart!"
+          [labels]="outcomeChartOptions.labels || []"
+          [colors]="outcomeChartOptions.colors || []"
+          [legend]="outcomeChartOptions.legend!"
+          [dataLabels]="outcomeChartOptions.dataLabels!">
+        </apx-chart>
+        <div *ngIf="!outcomeChartOptions.chart || !outcomeChartOptions.series || outcomeChartOptions.series.length === 0" class="flex items-center justify-center h-64 text-gray-500 dark:text-gray-400">
+          No data available
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
