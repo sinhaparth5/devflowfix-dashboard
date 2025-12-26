@@ -522,17 +522,339 @@ PUT /user-details/me
 
 ---
 
+## 6. Incidents APIs
+
+**Service File**: `src/app/shared/services/incidents.service.ts` (to be implemented)
+
+### 6.1 List User Incidents
+```
+GET /incidents
+```
+**Query Parameters**:
+- `skip` (default: 0): Pagination offset
+- `limit` (default: 100, max: 1000): Records per page
+- `source` (optional): Filter by incident source (github, argocd, kubernetes, etc.)
+- `severity` (optional): Filter by severity (critical, high, medium, low)
+- `outcome` (optional): Filter by outcome (resolved, pending, failed, escalated, rolled_back)
+- `failure_type` (optional): Filter by failure type
+- `start_date` (optional): Filter incidents after this date
+- `end_date` (optional): Filter incidents before this date
+- `search` (optional): Search in error logs
+
+**Response**:
+```json
+{
+  "incidents": [
+    {
+      "incident_id": "string",
+      "source": "string",
+      "severity": "string",
+      "outcome": "string",
+      "failure_type": "string",
+      "error_log": "string",
+      "created_at": "string",
+      "resolved_at": "string",
+      "user_id": "string"
+    }
+  ],
+  "total": "number",
+  "skip": "number",
+  "limit": "number",
+  "has_more": "boolean"
+}
+```
+
+### 6.2 Get Incident Details
+```
+GET /incidents/{incident_id}
+```
+**Response**: Detailed incident information including analysis, remediation steps, and context
+
+### 6.3 Get User Incident Statistics
+```
+GET /incidents/stats
+```
+**Query Parameters**:
+- `start_date` (optional): Stats after this date
+- `end_date` (optional): Stats before this date
+
+**Response**:
+```json
+{
+  "total_incidents": "number",
+  "resolved_count": "number",
+  "failed_count": "number",
+  "pending_count": "number",
+  "escalated_count": "number",
+  "rolled_back_count": "number",
+  "success_rate": "number",
+  "average_resolution_time": "number",
+  "by_source": "object",
+  "by_severity": "object",
+  "by_failure_type": "object"
+}
+```
+
+### 6.4 Admin Endpoints
+
+#### 6.4.1 List All Incidents (Admin Only)
+```
+GET /incidents/admin/all
+```
+**Query Parameters**:
+- `skip`, `limit`: Pagination
+- `user_id` (optional): Filter by user ID
+- `source`, `severity`, `outcome`: Filters
+
+**Response**: Same as regular list but includes incidents from all users
+
+#### 6.4.2 Get Global Incident Statistics (Admin Only)
+```
+GET /incidents/admin/stats
+```
+**Response**: Aggregated statistics across all users
+
+#### 6.4.3 Assign Incident to User (Admin Only)
+```
+POST /incidents/{incident_id}/assign
+```
+**Request Body**:
+```json
+{
+  "user_id": "string"
+}
+```
+
+---
+
+## Backend API Implementation Guide
+
+### Base URL
+All backend APIs are served from:
+```
+https://devflowfix-new-production.up.railway.app/api/v1
+```
+
+### Authentication Requirements
+Most endpoints require JWT Bearer token authentication:
+```
+Authorization: Bearer <access_token>
+```
+
+### Error Handling
+All endpoints return standardized error responses:
+```json
+{
+  "detail": "Error message description",
+  "status_code": 400
+}
+```
+
+Common status codes:
+- `200`: Success
+- `201`: Created
+- `400`: Bad Request
+- `401`: Unauthorized
+- `403`: Forbidden
+- `404`: Not Found
+- `423`: Locked (account locked)
+- `500`: Internal Server Error
+
+---
+
+## How to Implement Frontend Services
+
+### 1. Authentication Service
+Already implemented in `src/app/shared/components/auth/auth.service.ts`
+
+**Key Features**:
+- User registration with avatar upload (base64 or file upload)
+- Login with MFA support
+- Token refresh mechanism
+- Session management
+- Password change/reset
+- MFA setup/enable/disable
+- API key management
+
+### 2. Incidents Service (To Implement)
+
+**Recommended Implementation**:
+```typescript
+// src/app/shared/services/incidents.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '@environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class IncidentsService {
+  private apiUrl = `${environment.apiUrl}/incidents`;
+
+  constructor(private http: HttpClient) {}
+
+  listIncidents(filters?: {
+    skip?: number;
+    limit?: number;
+    source?: string;
+    severity?: string;
+    outcome?: string;
+    failure_type?: string;
+    start_date?: string;
+    end_date?: string;
+    search?: string;
+  }): Observable<any> {
+    let params = new HttpParams();
+    if (filters) {
+      Object.keys(filters).forEach(key => {
+        if (filters[key] !== undefined && filters[key] !== null) {
+          params = params.set(key, filters[key]);
+        }
+      });
+    }
+    return this.http.get(`${this.apiUrl}`, { params });
+  }
+
+  getIncident(incidentId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${incidentId}`);
+  }
+
+  getIncidentStats(startDate?: string, endDate?: string): Observable<any> {
+    let params = new HttpParams();
+    if (startDate) params = params.set('start_date', startDate);
+    if (endDate) params = params.set('end_date', endDate);
+    return this.http.get(`${this.apiUrl}/stats`, { params });
+  }
+
+  // Admin endpoints
+  listAllIncidents(filters?: any): Observable<any> {
+    let params = new HttpParams();
+    if (filters) {
+      Object.keys(filters).forEach(key => {
+        if (filters[key]) params = params.set(key, filters[key]);
+      });
+    }
+    return this.http.get(`${this.apiUrl}/admin/all`, { params });
+  }
+
+  getGlobalStats(startDate?: string, endDate?: string): Observable<any> {
+    let params = new HttpParams();
+    if (startDate) params = params.set('start_date', startDate);
+    if (endDate) params = params.set('end_date', endDate);
+    return this.http.get(`${this.apiUrl}/admin/stats`, { params });
+  }
+
+  assignIncident(incidentId: string, userId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${incidentId}/assign`, { user_id: userId });
+  }
+}
+```
+
+### 3. Webhook Configuration
+
+**Already Implemented**: Webhook service exists in backend
+
+**Usage Flow**:
+1. User authenticates
+2. Generate webhook secret via `POST /webhook/secret/generate/me`
+3. Configure GitHub webhook with returned URL and secret
+4. Receive webhook events at `/webhook/github/{user_id}`
+5. Check webhook info via `GET /webhook/secret/info/me`
+
+### 4. PR Management
+
+**Already Implemented**: Available in `src/app/shared/services/pr-management.service.ts`
+
+**Usage Flow**:
+1. Register GitHub token via `POST /pr-management/tokens/register`
+2. List tokens via `GET /pr-management/tokens`
+3. View automated PRs via `GET /pr-management/pulls`
+4. Check PR statistics via `GET /pr-management/stats`
+
+### 5. Analytics Dashboard
+
+**Already Implemented**: Available in `src/app/shared/services/analytics.service.ts`
+
+**Key Metrics Available**:
+- Incident statistics and trends
+- MTTR (Mean Time To Repair)
+- Auto-fix rates
+- Confidence score distribution
+- Top failure types and repositories
+- Hourly/daily distribution patterns
+
+---
+
+## Integration Patterns
+
+### Pattern 1: Real-time Incident Monitoring
+```typescript
+// Component example
+export class IncidentsListComponent implements OnInit {
+  incidents$ = this.incidentsService.listIncidents({
+    limit: 20,
+    source: 'github',
+    outcome: 'pending'
+  });
+
+  ngOnInit() {
+    // Refresh every 30 seconds
+    interval(30000).pipe(
+      switchMap(() => this.incidents$)
+    ).subscribe();
+  }
+}
+```
+
+### Pattern 2: Analytics Dashboard
+```typescript
+export class AnalyticsDashboardComponent {
+  overview$ = this.analyticsService.getOverview(30); // 30 days
+  stats$ = this.analyticsService.getStats();
+  mttr$ = this.analyticsService.getMTTR();
+}
+```
+
+### Pattern 3: Webhook Setup Wizard
+```typescript
+export class WebhookSetupComponent {
+  async setupWebhook() {
+    const result = await this.webhookService.generateSecret().toPromise();
+    // Display result.webhook_url and result.webhook_secret
+    // Show setup instructions
+    return result.setup_instructions;
+  }
+}
+```
+
+---
+
 ## Summary
 
-- **Total API Services**: 5
-- **Total Endpoints**: 43+
-- **Base URL**: Single production Railway endpoint
+- **Total API Services**: 6
+- **Total Endpoints**: 60+
+- **Base URL**: `https://devflowfix-new-production.up.railway.app/api/v1`
 - **Authentication**: JWT Bearer tokens with auto-refresh
 - **Primary Features**:
   - Authentication & User Management
+  - Incident Management & Tracking
   - PR Management (GitHub Integration)
   - Analytics & Reporting
   - Webhook Configuration
   - User Profile Management
 
-All API calls include proper error handling and use Angular's HttpClient with typed responses for type safety.
+### Backend Technology Stack
+- **Framework**: FastAPI (Python)
+- **Database**: PostgreSQL with SQLAlchemy ORM
+- **Authentication**: JWT with session management
+- **Security**: HMAC-SHA256 webhook signatures, MFA support
+- **Background Tasks**: FastAPI BackgroundTasks for async processing
+
+### Frontend Integration
+- **HTTP Client**: Angular HttpClient
+- **Interceptors**: Auth interceptor, XSS sanitization
+- **State Management**: RxJS Observables
+- **Security**: Content Security Policy, Input validation
+
+All API calls include proper error handling, logging, and use typed responses for type safety.
