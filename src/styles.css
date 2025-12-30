@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap")
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap")
 layer(base);
 
 @import "tailwindcss";
@@ -9,6 +9,7 @@ layer(base);
 @theme {
   --font-*: initial;
   --font-outfit: Outfit, sans-serif;
+  --font-playfair: "Playfair Display", serif;
 
   --breakpoint-*: initial;
   --breakpoint-2xsm: 375px;
@@ -54,6 +55,19 @@ layer(base);
   --color-brand-800: #b35f00;
   --color-brand-900: #804400;
   --color-brand-950: #663600;
+
+  --color-mustard-25: #fffef7;
+  --color-mustard-50: #fffbeb;
+  --color-mustard-100: #fff3c1;
+  --color-mustard-200: #ffe588;
+  --color-mustard-300: #ffd54f;
+  --color-mustard-400: #ffc107;
+  --color-mustard-500: #f9a825;
+  --color-mustard-600: #f57f17;
+  --color-mustard-700: #e65100;
+  --color-mustard-800: #bf360c;
+  --color-mustard-900: #9c2706;
+  --color-mustard-950: #6d1b00;
 
   --color-blue-light-25: #f5fbff;
   --color-blue-light-50: #f0f9ff;

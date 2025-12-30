@@ -1,278 +1,981 @@
-<div class="flex flex-col min-h-screen bg-gradient-to-b from-white to-brand-50/30 dark:from-gray-900 dark:to-gray-900">
+<div class="flex flex-col min-h-screen overflow-hidden bg-[#f5f3f0] dark:bg-gray-900">
+
   <!-- Header -->
-  <header class="border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50">
-    <div class="container px-4 py-4 mx-auto sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between">
+  <header class="sticky top-0 z-50 bg-white border-b border-gray-100 backdrop-blur-md bg-opacity-90 dark:bg-gray-900 dark:bg-opacity-90 dark:border-gray-800">
+    <div class="container px-6 py-4 mx-auto max-w-7xl">
+      <div class="flex items-center justify-between animate-fade-in-up">
+        <!-- Logo -->
         <div class="flex items-center gap-2">
-          <svg class="w-8 h-8 text-brand-500" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-          </svg>
-          <h1 class="text-xl font-bold text-gray-900 dark:text-white">DevFlowFix</h1>
+          <div class="flex items-center justify-center w-6 h-6 transition-transform rounded hover:scale-110 bg-brand-500">
+            <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+            </svg>
+          </div>
+          <span class="text-xl font-bold text-gray-900 dark:text-white">DevFlowFix</span>
         </div>
-        <div class="flex items-center gap-3">
-          @if (isLoggedIn && currentUser) {
-            <!-- Logged In: Show user info and dashboard link -->
-            <span class="hidden px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-300 sm:inline-block">
-              {{ currentUser.full_name }}
-            </span>
-            <a
-              routerLink="/dashboard"
-              class="px-4 py-2 text-sm font-medium text-white transition-all rounded-lg bg-brand-500 hover:bg-brand-600 hover:shadow-lg hover:shadow-brand-500/30"
-            >
-              Go to Dashboard
-            </a>
-          } @else {
-            <!-- Not Logged In: Show Sign In and Sign Up -->
-            <a
-              routerLink="/signin"
-              class="px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-            >
-              Sign In
-            </a>
-            <a
-              routerLink="/signup"
-              class="px-4 py-2 text-sm font-medium text-white transition-all rounded-lg bg-brand-500 hover:bg-brand-600 hover:shadow-lg hover:shadow-brand-500/30"
-            >
-              Sign Up
-            </a>
-          }
-        </div>
+
+        <!-- Navigation -->
+        <nav class="hidden gap-8 md:flex">
+          <a href="#" class="text-sm font-medium text-gray-900 transition-all hover:text-brand-500 hover:scale-105 dark:text-white dark:hover:text-brand-400">Home</a>
+          <a href="#about" class="text-sm font-medium text-gray-600 transition-all hover:text-brand-500 hover:scale-105 dark:text-gray-400 dark:hover:text-brand-400">About</a>
+          <a href="#product" class="text-sm font-medium text-gray-600 transition-all hover:text-brand-500 hover:scale-105 dark:text-gray-400 dark:hover:text-brand-400">Product</a>
+          <a href="#blog" class="text-sm font-medium text-gray-600 transition-all hover:text-brand-500 hover:scale-105 dark:text-gray-400 dark:hover:text-brand-400">Blog</a>
+          <a href="#pricing" class="text-sm font-medium text-gray-600 transition-all hover:text-brand-500 hover:scale-105 dark:text-gray-400 dark:hover:text-brand-400">Pricing</a>
+        </nav>
+
+        <!-- CTA Button -->
+        @if (isLoggedIn && currentUser) {
+          <a routerLink="/dashboard" class="px-6 py-2.5 text-sm font-semibold text-white transition-all rounded-full bg-brand-500 hover:bg-brand-600 hover:shadow-lg hover:scale-105">
+            Go to Dashboard
+          </a>
+        } @else {
+          <a routerLink="/signup" class="px-6 py-2.5 text-sm font-semibold text-white transition-all rounded-full bg-brand-500 hover:bg-brand-600 hover:shadow-lg hover:scale-105">
+            Sign up for free
+          </a>
+        }
       </div>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="relative px-4 py-16 overflow-hidden sm:px-6 lg:px-8 sm:py-24">
-    <div class="container relative z-10 mx-auto">
-      <div class="grid items-center gap-12 lg:grid-cols-2">
-        <!-- Hero Content -->
-        <div class="text-center lg:text-left">
-          <div class="inline-flex items-center px-4 py-2 mb-6 text-sm font-medium rounded-full bg-brand-100 text-brand-700 dark:bg-brand-500/20 dark:text-brand-400">
-            <span class="relative flex w-2 h-2 mr-2">
-              <span class="absolute inline-flex w-full h-full rounded-full opacity-75 animate-ping bg-brand-500"></span>
-              <span class="relative inline-flex w-2 h-2 rounded-full bg-brand-500"></span>
-            </span>
-            AI-Powered Deployment Automation
+  <section class="relative px-6 py-20 overflow-hidden bg-[#f5f3f0] dark:bg-gray-900">
+    <!-- Large Background Text with Scroll Animation -->
+    <div class="scroll-text" data-direction="left" data-speed="0.3" style="top: 25%; left: 0;">DEVFLOW • FIX • DEPLOY</div>
+
+    <!-- Animated Background Elements -->
+    <div class="absolute w-64 h-64 rounded-full opacity-20 top-20 right-20 bg-brand-100 blur-3xl animate-pulse-slow"></div>
+    <div class="absolute w-96 h-96 rounded-full opacity-10 bottom-20 left-20 bg-mustard-100 blur-3xl animate-pulse-slow delay-300"></div>
+
+    <!-- Funky Floating Shapes -->
+    <div class="absolute w-20 h-20 border-4 border-brand-400 top-32 left-12 animate-rotate-slow opacity-30" style="transform: rotate(45deg);"></div>
+    <div class="absolute w-16 h-16 border-4 border-mustard-400 rounded-full bottom-32 right-16 animate-float opacity-40"></div>
+    <div class="absolute w-24 h-24 bg-brand-200 top-64 right-32 animate-wiggle opacity-20" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"></div>
+    <div class="absolute p-3 bg-white border-2 border-gray-900 shadow-lg rounded-2xl top-1/2 left-20 animate-float-circle" style="transform: rotate(-12deg);">
+      <svg class="w-6 h-6 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+      </svg>
+    </div>
+    <div class="absolute w-14 h-14 bg-mustard-300 rounded-full bottom-48 left-1/3 animate-float opacity-25"></div>
+    <div class="absolute p-2 bg-white border-2 border-gray-900 rounded-full shadow-md top-96 right-1/4 animate-wiggle">
+      <div class="w-5 h-5 rounded-full bg-gradient-to-br from-brand-500 to-brand-600"></div>
+    </div>
+
+    <div class="container relative mx-auto max-w-7xl">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
+
+        <!-- Left Content -->
+        <div class="space-y-8">
+          <div class="animate-fade-in-left">
+            <div class="inline-flex items-center gap-2 mb-6">
+              <div class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></div>
+              <span class="text-xs font-semibold tracking-wider text-brand-500 uppercase">DEVFLOWFIX PRODUCT OVERVIEW</span>
+            </div>
+
+            <h1 class="mb-6 text-5xl font-bold leading-tight text-gray-900 lg:text-6xl dark:text-white">
+              The Future of<br>
+              Decision - Making<br>
+              Made Simple
+              <span class="inline-block ml-2 animate-pulse-slow">
+                <svg class="w-10 h-10 text-gray-900 dark:text-white" viewBox="0 0 40 40" fill="none">
+                  <path d="M20 4L22.5 17.5L20 20L17.5 17.5L20 4Z" fill="currentColor"/>
+                  <path d="M36 20L22.5 22.5L20 20L22.5 17.5L36 20Z" fill="currentColor"/>
+                  <path d="M20 36L17.5 22.5L20 20L22.5 22.5L20 36Z" fill="currentColor"/>
+                  <path d="M4 20L17.5 17.5L20 20L17.5 22.5L4 20Z" fill="currentColor"/>
+                </svg>
+              </span>
+            </h1>
+
+            <p class="mb-8 text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+              Crafted for designers and developers alike, DevFlowFix offers an unrivaled innovative platform
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex flex-wrap gap-4">
+              <button class="px-6 py-3 text-sm font-semibold text-gray-900 transition-all bg-white border-2 border-gray-300 rounded-full hover:border-brand-500 hover:scale-105 hover:shadow-lg dark:bg-gray-800 dark:text-white dark:border-gray-600">
+                See all Reviews
+              </button>
+              <button class="px-6 py-3 text-sm font-semibold text-white transition-all rounded-full bg-brand-500 hover:bg-brand-600 hover:shadow-xl hover:scale-105">
+                <span class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
+                  </svg>
+                  Watch Video (Free)
+                </span>
+              </button>
+            </div>
           </div>
 
-          <h2 class="mb-6 text-4xl font-bold leading-tight text-gray-900 sm:text-5xl lg:text-6xl dark:text-white">
-            Fix Deployment Failures
-            <span class="block mt-2 text-brand-500">In Under 8 Minutes</span>
-          </h2>
-
-          <p class="mb-8 text-lg leading-relaxed text-gray-600 sm:text-xl dark:text-gray-400">
-            DevFlowFix automatically resolves <span class="font-semibold text-brand-600 dark:text-brand-400">75% of deployment failures</span> using AI-powered analysis and remediation. Seamlessly integrates with GitHub Actions, ArgoCD, and Kubernetes.
-          </p>
-
-          <div class="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
-            <a
-              routerLink="/signup"
-              class="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white transition-all rounded-lg shadow-lg bg-brand-500 hover:bg-brand-600 hover:shadow-xl hover:shadow-brand-500/30 hover:scale-105"
-            >
-              Start Free Trial
-              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-              </svg>
-            </a>
-            <a
-              routerLink="/signin"
-              class="inline-flex items-center justify-center px-8 py-4 text-base font-medium transition-all border-2 rounded-lg text-brand-600 border-brand-500 hover:bg-brand-50 dark:text-brand-400 dark:border-brand-500 dark:hover:bg-brand-500/10"
-            >
-              Watch Demo
-            </a>
-          </div>
-
-          <!-- Stats -->
-          <div class="grid grid-cols-3 gap-4 mt-12">
-            <div class="p-4 rounded-lg bg-white/50 dark:bg-white/5">
-              <div class="text-2xl font-bold text-brand-600 dark:text-brand-400">75%</div>
-              <div class="text-sm text-gray-600 dark:text-gray-400">Auto-Fixed</div>
-            </div>
-            <div class="p-4 rounded-lg bg-white/50 dark:bg-white/5">
-              <div class="text-2xl font-bold text-brand-600 dark:text-brand-400">&lt;8min</div>
-              <div class="text-sm text-gray-600 dark:text-gray-400">Resolution Time</div>
-            </div>
-            <div class="p-4 rounded-lg bg-white/50 dark:bg-white/5">
-              <div class="text-2xl font-bold text-brand-600 dark:text-brand-400">24/7</div>
-              <div class="text-sm text-gray-600 dark:text-gray-400">Monitoring</div>
-            </div>
+          <div class="flex items-center gap-2 pt-8 text-xs text-gray-500 animate-fade-in-up delay-300 dark:text-gray-500">
+            <div class="w-4 h-4 border-2 border-gray-400 rounded-full animate-pulse"></div>
+            Scroll down for new section
           </div>
         </div>
 
-        <!-- Hero Lottie -->
-        <div class="flex items-center justify-center">
-          <div class="relative w-full max-w-lg">
-            <div class="absolute inset-0 bg-gradient-to-r from-brand-400 to-brand-600 rounded-full opacity-20 blur-3xl"></div>
-            <ng-lottie
-              [options]="heroOptions"
-              class="relative w-full h-auto"
-            ></ng-lottie>
+        <!-- Right Mockup Cards -->
+        <div class="relative h-[600px] hidden lg:block animate-fade-in-right delay-200">
+
+          <!-- Hand-drawn arrow pointing to card -->
+          <svg class="absolute top-32 left-8 animate-wiggle" width="80" height="80" viewBox="0 0 80 80" style="z-index: 5;">
+            <path d="M10 10 Q 30 40, 50 60" stroke="#ff8800" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M50 60 L 45 52 M50 60 L 42 58" stroke="#ff8800" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>
+
+          <!-- Decorative doodle circle -->
+          <div class="absolute w-16 h-16 border-2 border-dashed rounded-full border-brand-500 top-10 right-32 animate-pulse-slow opacity-60"></div>
+
+          <!-- Funky badge -->
+          <div class="absolute p-3 bg-white border-2 border-gray-900 rounded-full shadow-lg funky-badge top-96 left-4 animate-float-circle">
+            <svg class="w-6 h-6 text-brand-500" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+            </svg>
           </div>
+
+          <!-- Back Card - Sales Overview (More tilted) -->
+          <div class="absolute p-6 transition-all transform bg-white border-2 border-gray-900 shadow-2xl animate-float-tilted top-20 right-12 w-80 rounded-3xl hover:shadow-brand-500/30">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-bold text-gray-900">Sales Overview</h3>
+              <div class="flex gap-1">
+                <div class="w-1 h-1 bg-gray-400 rounded-full"></div>
+                <div class="w-1 h-1 bg-gray-400 rounded-full"></div>
+                <div class="w-1 h-1 bg-gray-400 rounded-full"></div>
+              </div>
+            </div>
+
+            <!-- Bar Chart with Animation -->
+            <div class="flex items-end justify-between h-32 gap-2 mb-4">
+              <div class="flex flex-col items-center flex-1 gap-1">
+                <div class="w-full transition-all duration-500 bg-gray-200 rounded-t hover:bg-brand-200" style="height: 40%"></div>
+                <span class="text-xs text-gray-500">Mon</span>
+              </div>
+              <div class="flex flex-col items-center flex-1 gap-1">
+                <div class="w-full transition-all duration-500 rounded-t bg-brand-500 hover:bg-brand-600" style="height: 80%"></div>
+                <span class="text-xs text-gray-500">Tue</span>
+              </div>
+              <div class="flex flex-col items-center flex-1 gap-1">
+                <div class="w-full transition-all duration-500 rounded-t bg-brand-500 hover:bg-brand-600" style="height: 100%"></div>
+                <span class="text-xs text-gray-500">Wed</span>
+              </div>
+              <div class="flex flex-col items-center flex-1 gap-1">
+                <div class="w-full transition-all duration-500 rounded-t bg-brand-500 hover:bg-brand-600" style="height: 60%"></div>
+                <span class="text-xs text-gray-500">Thu</span>
+              </div>
+              <div class="flex flex-col items-center flex-1 gap-1">
+                <div class="w-full transition-all duration-500 bg-gray-200 rounded-t hover:bg-brand-200" style="height: 50%"></div>
+                <span class="text-xs text-gray-500">Fri</span>
+              </div>
+            </div>
+
+            <!-- List Items -->
+            <div class="space-y-2">
+              <div class="flex items-center gap-2 p-2 transition-all rounded-lg bg-gray-50 hover:bg-brand-50 hover:scale-105">
+                <div class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></div>
+                <span class="text-xs text-gray-600">Jobs recently</span>
+              </div>
+              <div class="flex items-center gap-2 p-2 transition-all rounded-lg bg-gray-50 hover:bg-brand-50 hover:scale-105">
+                <div class="w-2 h-2 rounded-full bg-brand-500 animate-pulse delay-100"></div>
+                <span class="text-xs text-gray-600">Goals rate</span>
+              </div>
+              <div class="flex items-center gap-2 p-2 transition-all rounded-lg bg-gray-50 hover:bg-brand-50 hover:scale-105">
+                <div class="w-2 h-2 rounded-full bg-brand-500 animate-pulse delay-200"></div>
+                <span class="text-xs text-gray-600">To-do rate</span>
+              </div>
+              <div class="flex items-center gap-2 p-2 transition-all rounded-lg bg-gray-50 hover:bg-brand-50 hover:scale-105">
+                <div class="w-2 h-2 rounded-full bg-brand-500 animate-pulse delay-300"></div>
+                <span class="text-xs text-gray-600">Upload file</span>
+              </div>
+              <div class="flex items-center gap-2 p-2 transition-all rounded-lg bg-gray-50 hover:bg-brand-50 hover:scale-105">
+                <div class="w-2 h-2 rounded-full bg-brand-500 animate-pulse delay-400"></div>
+                <span class="text-xs text-gray-600">Work rate</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Decorative Circle (More funky) -->
+          <div class="absolute p-4 transition-all transform bg-white border-3 border-gray-900 shadow-xl animate-float-circle rounded-full bottom-32 left-20 hover:border-brand-500 hover:scale-110" style="transform: rotate(-15deg);">
+            <svg class="w-8 h-8 text-gray-900" viewBox="0 0 40 40" fill="none">
+              <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2"/>
+              <path d="M20 8L22 18L20 20L18 18L20 8Z" fill="currentColor"/>
+              <path d="M32 20L22 22L20 20L22 18L32 20Z" fill="currentColor"/>
+              <path d="M20 32L18 22L20 20L22 22L20 32Z" fill="currentColor"/>
+              <path d="M8 20L18 18L20 20L18 22L8 20Z" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof Section -->
+  <section class="relative px-6 py-16 overflow-hidden bg-white dark:bg-gray-800">
+    <!-- Large Background Text with Scroll Animation -->
+    <div class="scroll-text" data-direction="right" data-speed="0.25" style="top: 25%; right: 0;">25,000+ TEAMS • TRUSTED</div>
+
+    <!-- Funky Floating Shapes -->
+    <div class="absolute w-16 h-16 border-4 border-brand-400 top-8 left-16 animate-float opacity-30" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);"></div>
+    <div class="absolute w-12 h-12 border-3 border-mustard-400 rounded-full bottom-12 right-20 animate-wiggle opacity-40"></div>
+    <div class="absolute p-2 bg-white border-2 border-gray-900 rounded-full shadow-md top-1/2 left-1/4 animate-float-circle">
+      <div class="w-4 h-4 rounded-full bg-brand-500"></div>
+    </div>
+    <div class="absolute w-10 h-10 bg-brand-200 top-12 right-1/3 animate-rotate-slow opacity-25" style="transform: rotate(30deg);"></div>
+
+    <div class="container mx-auto max-w-7xl">
+      <div class="flex flex-wrap items-center justify-between gap-8 animate-fade-in-up">
+        <div class="flex items-baseline gap-2">
+          <span class="text-xl font-normal text-gray-900 dark:text-white">More than</span>
+          <span class="text-3xl font-bold transition-all text-brand-500 hover:scale-110" style="color: #ff8800;">25,000</span>
+          <span class="text-xl font-normal text-gray-900 dark:text-white">teams use DevFlowFix</span>
+        </div>
+        <a href="#" class="flex items-center gap-2 text-sm font-semibold text-gray-900 transition-all hover:text-brand-500 hover:gap-3 dark:text-white">
+          Learn More
+          <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Company Logos with stagger animation -->
+      <div class="grid grid-cols-2 gap-6 mt-12 md:grid-cols-4">
+        <div class="flex items-center justify-center h-20 p-6 transition-all bg-white border border-gray-200 hover-lift rounded-2xl animate-scale-in dark:bg-gray-900 dark:border-gray-700">
+          <span class="text-lg font-bold text-gray-900 dark:text-white">HubSpot</span>
+        </div>
+        <div class="flex items-center justify-center h-20 p-6 transition-all bg-white border border-gray-200 hover-lift rounded-2xl animate-scale-in delay-100 dark:bg-gray-900 dark:border-gray-700">
+          <span class="text-lg font-bold text-gray-900 dark:text-white">Amplitude</span>
+        </div>
+        <div class="flex items-center justify-center h-20 p-6 transition-all bg-white border border-gray-200 hover-lift rounded-2xl animate-scale-in delay-200 dark:bg-gray-900 dark:border-gray-700">
+          <span class="text-lg font-bold text-gray-900 dark:text-white">WROX/WIOX</span>
+        </div>
+        <div class="flex items-center justify-center h-20 p-6 transition-all bg-white border border-gray-200 hover-lift rounded-2xl animate-scale-in delay-300 dark:bg-gray-900 dark:border-gray-700">
+          <span class="text-lg font-bold text-gray-900 dark:text-white">Company</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Features Grid -->
-  <section class="px-4 py-16 bg-white dark:bg-gray-900 sm:px-6 lg:px-8">
-    <div class="container mx-auto">
-      <div class="mb-12 text-center">
-        <h3 class="mb-4 text-3xl font-bold text-gray-900 dark:text-white">
-          Intelligent Deployment Protection
-        </h3>
+  <!-- Stats Cards Section -->
+  <section class="relative px-6 py-16 overflow-hidden bg-[#f5f3f0] dark:bg-gray-900">
+    <!-- Large Background Text with Scroll Animation -->
+    <div class="scroll-text" data-direction="left" data-speed="0.35" style="top: 25%; left: 0;">STATS • 75% • 99.9%</div>
+
+    <!-- Funky Floating Shapes -->
+    <div class="absolute w-20 h-20 border-4 border-brand-400 top-16 right-20 animate-rotate-slow opacity-30"></div>
+    <div class="absolute w-16 h-16 bg-mustard-200 bottom-24 left-16 animate-float opacity-40" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"></div>
+    <div class="absolute p-4 bg-white border-2 border-gray-900 shadow-lg rounded-2xl top-1/3 left-1/4 animate-wiggle" style="transform: rotate(-8deg);">
+      <svg class="w-6 h-6 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+    <div class="absolute w-14 h-14 border-3 border-mustard-400 rounded-full bottom-32 right-1/3 animate-float-circle opacity-35"></div>
+    <div class="absolute w-10 h-10 bg-brand-300 top-48 left-12 animate-wiggle opacity-25" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);"></div>
+
+    <div class="container mx-auto max-w-7xl">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <!-- Stat Card 1 -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-800 dark:border-gray-700" style="transform: rotate(-1deg);">
+          <div class="flex items-center justify-center w-16 h-16 mb-4 rounded-full gradient-orange-soft">
+            <svg class="w-8 h-8 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"/>
+              <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"/>
+            </svg>
+          </div>
+          <div class="text-4xl font-bold text-gray-900 dark:text-white">75%</div>
+          <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">Auto-Fix Rate</div>
+        </div>
+
+        <!-- Stat Card 2 -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-800 dark:border-gray-700" style="transition-delay: 0.1s; transform: rotate(1deg);">
+          <div class="flex items-center justify-center w-16 h-16 mb-4 rounded-full gradient-orange-soft">
+            <svg class="w-8 h-8 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <div class="text-4xl font-bold text-gray-900 dark:text-white">&lt;8min</div>
+          <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">Average Fix Time</div>
+        </div>
+
+        <!-- Stat Card 3 -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-800 dark:border-gray-700" style="transition-delay: 0.2s; transform: rotate(-1.5deg);">
+          <div class="flex items-center justify-center w-16 h-16 mb-4 rounded-full gradient-orange-soft">
+            <svg class="w-8 h-8 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+              <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <div class="text-4xl font-bold text-gray-900 dark:text-white">99.9%</div>
+          <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">Success Rate</div>
+        </div>
+
+        <!-- Stat Card 4 -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-800 dark:border-gray-700" style="transition-delay: 0.3s; transform: rotate(0.8deg);">
+          <div class="flex items-center justify-center w-16 h-16 mb-4 rounded-full gradient-orange-soft">
+            <svg class="w-8 h-8 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+            </svg>
+          </div>
+          <div class="text-4xl font-bold text-gray-900 dark:text-white">10K+</div>
+          <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">Happy Users</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="relative px-6 py-20 overflow-hidden bg-white dark:bg-gray-800">
+    <!-- Large Background Text with Scroll Animation -->
+    <div class="scroll-text" data-direction="right" data-speed="0.28" style="top: 25%; right: 0;">POWERFUL • SOLUTIONS</div>
+
+    <!-- Funky Floating Shapes -->
+    <div class="absolute w-24 h-24 border-4 border-brand-400 top-20 left-20 animate-rotate-slow opacity-25" style="clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);"></div>
+    <div class="absolute w-18 h-18 bg-mustard-200 bottom-28 right-24 animate-float opacity-35" style="border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;"></div>
+    <div class="absolute p-3 bg-white border-2 border-gray-900 rounded-full shadow-lg top-1/2 left-16 animate-float-circle">
+      <svg class="w-5 h-5 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1z"/>
+      </svg>
+    </div>
+    <div class="absolute w-12 h-12 border-3 border-mustard-400 top-56 right-1/4 animate-wiggle opacity-30"></div>
+    <div class="absolute w-16 h-16 bg-brand-200 bottom-40 left-1/3 animate-float-circle opacity-25" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);"></div>
+
+    <div class="container mx-auto max-w-7xl">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
+
+        <!-- Left Content -->
+        <div class="space-y-8 scroll-hidden-left">
+          <div>
+            <div class="inline-flex items-center gap-2 mb-6">
+              <div class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></div>
+              <span class="text-xs font-semibold tracking-wider text-brand-500 uppercase">CONTENT SECTION</span>
+            </div>
+
+            <h2 class="mb-6 text-4xl font-bold leading-tight text-gray-900 lg:text-5xl dark:text-white">
+              Provide powerful<br>
+              solutions at all times.
+            </h2>
+
+            <p class="mb-10 text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+              Whether your time-saving automation bot, a weather-bot, or a more complex<br>
+              interactive app to powerful solutions. Build powerful marketing sites.
+            </p>
+          </div>
+
+          <!-- Stats -->
+          <div class="grid gap-8 md:grid-cols-2">
+            <div class="p-6 transition-all bg-white border border-gray-200 hover-lift rounded-2xl dark:bg-gray-900 dark:border-gray-700">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="flex items-center justify-center w-12 h-12 transition-transform rounded-full bg-brand-100 hover:scale-110 dark:bg-brand-500/20">
+                  <svg class="w-6 h-6 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M13 7H7v6h6V7z"/>
+                    <path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <span class="text-4xl font-bold text-gray-900 dark:text-white">98%</span>
+              </div>
+              <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                With Spectra's integrated design, your creations will help on any device.
+              </p>
+            </div>
+
+            <div class="p-6 transition-all bg-white border border-gray-200 hover-lift rounded-2xl dark:bg-gray-900 dark:border-gray-700">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="flex items-center justify-center w-12 h-12 transition-transform rounded-full bg-brand-100 hover:scale-110 dark:bg-brand-500/20">
+                  <svg class="w-6 h-6 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M13 7H7v6h6V7z"/>
+                    <path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <span class="text-4xl font-bold text-gray-900 dark:text-white">24K+</span>
+              </div>
+              <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                Spectra is here to make the process of building on-site messaging.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Mockup -->
+        <div class="relative h-96 scroll-hidden-right">
+          <!-- Decorative doodle -->
+          <div class="absolute w-12 h-12 border-2 border-dashed rounded-full border-brand-500 -top-4 left-20 animate-pulse-slow opacity-50"></div>
+
+          <div class="absolute p-8 transition-all transform bg-white border-2 border-gray-900 shadow-2xl hover-lift top-10 right-0 w-80 rounded-3xl" style="transform: rotate(8deg);">
+            <div class="mb-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-sm font-semibold text-gray-900">Wait Dashboard</span>
+                <button class="transition-transform text-gray-400 hover:text-gray-600 hover:rotate-90">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="text-3xl font-bold text-gray-900">32,826</div>
+            </div>
+
+            <!-- Simple Wave Chart -->
+            <svg class="w-full h-24" viewBox="0 0 300 100" fill="none">
+              <path d="M0 50 Q 50 20, 100 40 T 200 50 T 300 30" stroke="#FFB8B8" stroke-width="2" fill="none"/>
+              <path d="M0 50 Q 50 20, 100 40 T 200 50 T 300 30 L 300 100 L 0 100 Z" fill="url(#gradient)" opacity="0.3"/>
+              <defs>
+                <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#FFB8B8"/>
+                  <stop offset="100%" stop-color="#FFB8B8" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <!-- Decorative Element -->
+          <div class="absolute flex items-center justify-center w-16 h-16 transition-all transform bg-white border-2 border-gray-900 shadow-lg hover-lift rounded-2xl top-4 left-12 hover:rotate-12" style="transform: rotate(-12deg);">
+            <svg class="w-8 h-8 text-brand-500" viewBox="0 0 40 40" fill="none">
+              <circle cx="20" cy="20" r="3" fill="currentColor" class="animate-pulse"/>
+              <circle cx="20" cy="8" r="2" fill="currentColor" class="animate-pulse delay-100"/>
+              <circle cx="20" cy="32" r="2" fill="currentColor" class="animate-pulse delay-200"/>
+              <circle cx="8" cy="20" r="2" fill="currentColor" class="animate-pulse delay-300"/>
+              <circle cx="32" cy="20" r="2" fill="currentColor" class="animate-pulse delay-400"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="relative px-6 py-20 overflow-hidden bg-[#f5f3f0] dark:bg-gray-900">
+    <!-- Large Background Text with Scroll Animation -->
+    <div class="scroll-text" data-direction="left" data-speed="0.33" style="top: 25%; left: 0;">PRICING • $29 • $99</div>
+
+    <!-- Funky Floating Shapes -->
+    <div class="absolute w-20 h-20 bg-brand-200 top-24 right-24 animate-rotate-slow opacity-30" style="border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;"></div>
+    <div class="absolute w-16 h-16 border-4 border-mustard-400 bottom-32 left-20 animate-float opacity-35"></div>
+    <div class="absolute p-4 bg-white border-2 border-gray-900 shadow-xl rounded-2xl top-1/3 right-1/4 animate-wiggle" style="transform: rotate(8deg);">
+      <svg class="w-6 h-6 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+    <div class="absolute w-12 h-12 bg-mustard-200 bottom-40 right-1/3 animate-float-circle opacity-30" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);"></div>
+    <div class="absolute w-14 h-14 border-3 border-brand-400 rounded-full top-52 left-1/4 animate-wiggle opacity-25"></div>
+
+    <div class="container mx-auto max-w-7xl">
+      <div class="mb-16 text-center scroll-hidden">
+        <div class="inline-flex items-center gap-2 mb-6">
+          <div class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></div>
+          <span class="text-xs font-semibold tracking-wider text-brand-500 uppercase">PRICING PLANS</span>
+        </div>
+        <h2 class="mb-4 text-4xl font-bold text-gray-900 lg:text-5xl dark:text-white">
+          Choose the perfect plan<br>
+          for your team
+        </h2>
         <p class="text-lg text-gray-600 dark:text-gray-400">
-          Powered by NVIDIA NIM and advanced RAG technology
+          Simple, transparent pricing that grows with you
+        </p>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-3">
+        <!-- Starter Plan -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-800 dark:border-gray-700" style="transform: rotate(-2deg);">
+          <div class="mb-6">
+            <h3 class="mb-2 text-2xl font-bold text-gray-900 dark:text-white">Starter</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Perfect for small teams</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-5xl font-bold text-gray-900 dark:text-white">$29</span>
+            <span class="text-gray-600 dark:text-gray-400">/month</span>
+          </div>
+          <button class="w-full px-6 py-3 mb-6 text-sm font-semibold text-gray-900 transition-all bg-white border-2 border-gray-300 rounded-full hover:border-brand-500 hover:scale-105 dark:bg-gray-700 dark:text-white">
+            Start Free Trial
+          </button>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Up to 100 deployments
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Basic analytics
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Email support
+            </li>
+          </ul>
+        </div>
+
+        <!-- Pro Plan (Featured) -->
+        <div class="relative p-8 transition-all transform border-2 border-gray-900 rounded-3xl bg-gradient-to-br from-brand-500 to-brand-600 hover-lift scroll-scale-hidden" style="transition-delay: 0.1s; transform: rotate(1deg);">
+          <div class="absolute top-0 right-0 px-4 py-1 text-xs font-semibold text-white rounded-bl-xl rounded-tr-2xl bg-mustard-600">
+            POPULAR
+          </div>
+          <div class="mb-6">
+            <h3 class="mb-2 text-2xl font-bold text-white">Professional</h3>
+            <p class="text-sm text-white/90">For growing businesses</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-5xl font-bold text-white">$99</span>
+            <span class="text-white/90">/month</span>
+          </div>
+          <button class="w-full px-6 py-3 mb-6 text-sm font-semibold transition-all bg-white rounded-full text-brand-600 hover:bg-gray-100 hover:scale-105">
+            Start Free Trial
+          </button>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-sm text-white/90">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Unlimited deployments
+            </li>
+            <li class="flex items-center gap-2 text-sm text-white/90">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Advanced analytics
+            </li>
+            <li class="flex items-center gap-2 text-sm text-white/90">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Priority support
+            </li>
+            <li class="flex items-center gap-2 text-sm text-white/90">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Custom integrations
+            </li>
+          </ul>
+        </div>
+
+        <!-- Enterprise Plan -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-800 dark:border-gray-700" style="transition-delay: 0.2s; transform: rotate(-1.5deg);">
+          <div class="mb-6">
+            <h3 class="mb-2 text-2xl font-bold text-gray-900 dark:text-white">Enterprise</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">For large organizations</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-5xl font-bold text-gray-900 dark:text-white">Custom</span>
+          </div>
+          <button class="w-full px-6 py-3 mb-6 text-sm font-semibold text-white transition-all rounded-full bg-brand-500 hover:bg-brand-600 hover:scale-105">
+            Contact Sales
+          </button>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Everything in Pro
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Dedicated support
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              SLA guarantee
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Custom training
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="relative px-6 py-20 overflow-hidden bg-white dark:bg-gray-800">
+    <!-- Large Background Text with Scroll Animation -->
+    <div class="scroll-text" data-direction="right" data-speed="0.31" style="top: 25%; right: 0;">FEATURES • QUALITY</div>
+
+    <!-- Funky Floating Shapes -->
+    <div class="absolute w-22 h-22 border-4 border-brand-400 top-28 left-24 animate-rotate-slow opacity-25" style="clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);"></div>
+    <div class="absolute w-18 h-18 bg-mustard-200 bottom-36 right-28 animate-float opacity-35" style="border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%;"></div>
+    <div class="absolute p-4 bg-white border-2 border-gray-900 shadow-lg rounded-3xl top-1/2 right-16 animate-float-circle" style="transform: rotate(-12deg);">
+      <svg class="w-7 h-7 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+    <div class="absolute w-14 h-14 bg-brand-200 top-72 left-1/3 animate-wiggle opacity-30" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"></div>
+    <div class="absolute p-3 bg-white border-2 border-gray-900 rounded-full shadow-md bottom-28 left-20 animate-float">
+      <div class="w-5 h-5 rounded-full bg-gradient-to-br from-brand-500 to-brand-600"></div>
+    </div>
+    <div class="absolute w-10 h-10 border-3 border-mustard-400 rounded-full bottom-48 right-1/4 animate-float-circle opacity-30"></div>
+
+    <div class="container mx-auto max-w-7xl">
+      <div class="mb-16 text-center scroll-hidden">
+        <h2 class="mb-4 text-4xl font-bold text-gray-900 lg:text-5xl dark:text-white">
+          Learn about our product<br>
+          and core features
+        </h2>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+        <!-- Feature 1 -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-900 dark:border-gray-700" style="transform: rotate(-1deg);">
+          <div class="flex items-center justify-center w-12 h-12 mb-6 transition-transform rounded-full bg-brand-100 hover:scale-110 dark:bg-brand-500/20">
+            <svg class="w-6 h-6 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+              <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+
+          <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Quality First</h3>
+
+          <p class="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+            Whether you're a seasoned professional or just starting your creative journey,
+          </p>
+
+          <div class="space-y-3">
+            <div class="flex items-center gap-2 transition-transform hover:translate-x-1">
+              <div class="flex items-center justify-center flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 dark:bg-brand-500/20">
+                <svg class="w-3 h-3 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-sm text-gray-600 dark:text-gray-400">Automated testing</span>
+            </div>
+            <div class="flex items-center gap-2 transition-transform hover:translate-x-1">
+              <div class="flex items-center justify-center flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 dark:bg-brand-500/20">
+                <svg class="w-3 h-3 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-sm text-gray-600 dark:text-gray-400">Code quality checks</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-900 dark:border-gray-700" style="transition-delay: 0.1s; transform: rotate(1.5deg);">
+          <div class="flex items-center justify-center w-12 h-12 mb-6 transition-transform rounded-full bg-brand-100 hover:scale-110 dark:bg-brand-500/20">
+            <svg class="w-6 h-6 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+
+          <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Reliability DevFlowFix</h3>
+
+          <p class="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+            Spectra is here to make the process of building websites seamless and inspiring.
+          </p>
+
+          <div class="space-y-3">
+            <div class="flex items-center gap-2 transition-transform hover:translate-x-1">
+              <div class="flex items-center justify-center flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 dark:bg-brand-500/20">
+                <svg class="w-3 h-3 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-sm text-gray-600 dark:text-gray-400">99.9% uptime</span>
+            </div>
+            <div class="flex items-center gap-2 transition-transform hover:translate-x-1">
+              <div class="flex items-center justify-center flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 dark:bg-brand-500/20">
+                <svg class="w-3 h-3 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-sm text-gray-600 dark:text-gray-400">Auto-scaling</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-900 dark:border-gray-700" style="transition-delay: 0.2s; transform: rotate(-0.5deg);">
+          <div class="flex items-center justify-center w-12 h-12 mb-6 transition-transform rounded-full bg-brand-100 hover:scale-110 dark:bg-brand-500/20">
+            <svg class="w-6 h-6 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+            </svg>
+          </div>
+
+          <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Community</h3>
+
+          <p class="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+            At the heart of being a designer, yet incredibly powerful and intuitive,
+          </p>
+
+          <div class="space-y-3">
+            <div class="flex items-center gap-2 transition-transform hover:translate-x-1">
+              <div class="flex items-center justify-center flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 dark:bg-brand-500/20">
+                <svg class="w-3 h-3 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-sm text-gray-600 dark:text-gray-400">Active forums</span>
+            </div>
+            <div class="flex items-center gap-2 transition-transform hover:translate-x-1">
+              <div class="flex items-center justify-center flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 dark:bg-brand-500/20">
+                <svg class="w-3 h-3 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-sm text-gray-600 dark:text-gray-400">Expert guidance</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-900 dark:border-gray-700" style="transition-delay: 0.3s; transform: rotate(1deg);">
+          <div class="flex items-center justify-center w-12 h-12 mb-6 transition-transform rounded-full bg-brand-100 hover:scale-110 dark:bg-brand-500/20">
+            <svg class="w-6 h-6 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+
+          <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Secure & Safe</h3>
+
+          <p class="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+            Enterprise-grade security with encryption and compliance built-in.
+          </p>
+
+          <div class="space-y-3">
+            <div class="flex items-center gap-2 transition-transform hover:translate-x-1">
+              <div class="flex items-center justify-center flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 dark:bg-brand-500/20">
+                <svg class="w-3 h-3 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-sm text-gray-600 dark:text-gray-400">End-to-end encryption</span>
+            </div>
+            <div class="flex items-center gap-2 transition-transform hover:translate-x-1">
+              <div class="flex items-center justify-center flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 dark:bg-brand-500/20">
+                <svg class="w-3 h-3 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-sm text-gray-600 dark:text-gray-400">SOC 2 compliant</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-900 dark:border-gray-700" style="transition-delay: 0.4s; transform: rotate(-1.2deg);">
+          <div class="flex items-center justify-center w-12 h-12 mb-6 transition-transform rounded-full bg-brand-100 hover:scale-110 dark:bg-brand-500/20">
+            <svg class="w-6 h-6 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/>
+              <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"/>
+            </svg>
+          </div>
+
+          <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">24/7 Support</h3>
+
+          <p class="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+            Get help whenever you need it with our dedicated support team.
+          </p>
+
+          <div class="space-y-3">
+            <div class="flex items-center gap-2 transition-transform hover:translate-x-1">
+              <div class="flex items-center justify-center flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 dark:bg-brand-500/20">
+                <svg class="w-3 h-3 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-sm text-gray-600 dark:text-gray-400">Live chat</span>
+            </div>
+            <div class="flex items-center gap-2 transition-transform hover:translate-x-1">
+              <div class="flex items-center justify-center flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 dark:bg-brand-500/20">
+                <svg class="w-3 h-3 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-sm text-gray-600 dark:text-gray-400">Phone support</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-900 dark:border-gray-700" style="transition-delay: 0.5s; transform: rotate(0.8deg);">
+          <div class="flex items-center justify-center w-12 h-12 mb-6 transition-transform rounded-full bg-brand-100 hover:scale-110 dark:bg-brand-500/20">
+            <svg class="w-6 h-6 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M13 7H7v6h6V7z"/>
+              <path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+
+          <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Easy Integration</h3>
+
+          <p class="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+            Seamlessly connect with your existing tools and workflows.
+          </p>
+
+          <div class="space-y-3">
+            <div class="flex items-center gap-2 transition-transform hover:translate-x-1">
+              <div class="flex items-center justify-center flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 dark:bg-brand-500/20">
+                <svg class="w-3 h-3 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-sm text-gray-600 dark:text-gray-400">REST API</span>
+            </div>
+            <div class="flex items-center gap-2 transition-transform hover:translate-x-1">
+              <div class="flex items-center justify-center flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 dark:bg-brand-500/20">
+                <svg class="w-3 h-3 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <span class="text-sm text-gray-600 dark:text-gray-400">Webhooks</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="relative px-6 py-20 overflow-hidden bg-[#f5f3f0] dark:bg-gray-900">
+    <!-- Large Background Text with Scroll Animation -->
+    <div class="scroll-text" data-direction="left" data-speed="0.34" style="top: 25%; left: 0;">★★★★★ REVIEWS</div>
+
+    <!-- Funky Floating Shapes -->
+    <div class="absolute w-20 h-20 bg-brand-200 top-32 right-32 animate-rotate-slow opacity-30" style="clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);"></div>
+    <div class="absolute w-16 h-16 border-4 border-mustard-400 bottom-36 left-28 animate-float opacity-35" style="border-radius: 50% 50% 0 0;"></div>
+    <div class="absolute p-3 bg-white border-2 border-gray-900 shadow-lg rounded-full top-1/2 right-20 animate-float-circle">
+      <svg class="w-6 h-6 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+      </svg>
+    </div>
+    <div class="absolute w-12 h-12 bg-mustard-200 bottom-48 right-1/4 animate-wiggle opacity-35" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);"></div>
+    <div class="absolute w-14 h-14 border-3 border-brand-400 top-64 left-1/4 animate-float-circle opacity-25"></div>
+
+    <div class="container mx-auto max-w-7xl">
+      <div class="mb-16 text-center scroll-hidden">
+        <div class="inline-flex items-center gap-2 mb-6">
+          <div class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></div>
+          <span class="text-xs font-semibold tracking-wider text-brand-500 uppercase">TESTIMONIALS</span>
+        </div>
+        <h2 class="mb-4 text-4xl font-bold text-gray-900 lg:text-5xl dark:text-white">
+          Loved by developers<br>
+          around the world
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400">
+          See what our customers have to say about DevFlowFix
         </p>
       </div>
 
       <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <div class="p-6 transition-all border border-gray-200 rounded-2xl dark:border-gray-800 hover:shadow-xl hover:shadow-brand-500/10 hover:border-brand-500/50">
-          <div class="flex items-center justify-center w-14 h-14 mb-4 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        <!-- Testimonial 1 -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-800 dark:border-gray-700" style="transform: rotate(-1.5deg);">
+          <!-- Stars -->
+          <div class="flex gap-1 mb-4">
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
             </svg>
           </div>
-          <h4 class="mb-3 text-xl font-semibold text-gray-900 dark:text-white">Lightning Fast</h4>
-          <p class="text-gray-600 dark:text-gray-400">AI-powered analysis detects and resolves issues in minutes, not hours.</p>
-        </div>
 
-        <div class="p-6 transition-all border border-gray-200 rounded-2xl dark:border-gray-800 hover:shadow-xl hover:shadow-brand-500/10 hover:border-brand-500/50">
-          <div class="flex items-center justify-center w-14 h-14 mb-4 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-            </svg>
-          </div>
-          <h4 class="mb-3 text-xl font-semibold text-gray-900 dark:text-white">Safe Remediation</h4>
-          <p class="text-gray-600 dark:text-gray-400">Confidence scoring ensures only safe, validated fixes are applied automatically.</p>
-        </div>
-
-        <div class="p-6 transition-all border border-gray-200 rounded-2xl dark:border-gray-800 hover:shadow-xl hover:shadow-brand-500/10 hover:border-brand-500/50">
-          <div class="flex items-center justify-center w-14 h-14 mb-4 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
-            </svg>
-          </div>
-          <h4 class="mb-3 text-xl font-semibold text-gray-900 dark:text-white">Seamless Integration</h4>
-          <p class="text-gray-600 dark:text-gray-400">Works with your existing tools: GitHub Actions, ArgoCD, and Kubernetes.</p>
-        </div>
-
-        <div class="p-6 transition-all border border-gray-200 rounded-2xl dark:border-gray-800 hover:shadow-xl hover:shadow-brand-500/10 hover:border-brand-500/50">
-          <div class="flex items-center justify-center w-14 h-14 mb-4 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-            </svg>
-          </div>
-          <h4 class="mb-3 text-xl font-semibold text-gray-900 dark:text-white">Continuous Learning</h4>
-          <p class="text-gray-600 dark:text-gray-400">Learns from every resolution to improve future predictions and outcomes.</p>
-        </div>
-
-        <div class="p-6 transition-all border border-gray-200 rounded-2xl dark:border-gray-800 hover:shadow-xl hover:shadow-brand-500/10 hover:border-brand-500/50">
-          <div class="flex items-center justify-center w-14 h-14 mb-4 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
-            </svg>
-          </div>
-          <h4 class="mb-3 text-xl font-semibold text-gray-900 dark:text-white">Real-time Webhooks</h4>
-          <p class="text-gray-600 dark:text-gray-400">Instant notifications and automated responses via webhook integrations.</p>
-        </div>
-
-        <div class="p-6 transition-all border border-gray-200 rounded-2xl dark:border-gray-800 hover:shadow-xl hover:shadow-brand-500/10 hover:border-brand-500/50">
-          <div class="flex items-center justify-center w-14 h-14 mb-4 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-            </svg>
-          </div>
-          <h4 class="mb-3 text-xl font-semibold text-gray-900 dark:text-white">Smart Retry Logic</h4>
-          <p class="text-gray-600 dark:text-gray-400">Intelligent workflow reruns, pod restarts, and sync operations when needed.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works Section -->
-  <section class="px-4 py-16 bg-gradient-to-b from-brand-50/50 to-white dark:from-gray-800 dark:to-gray-900 sm:px-6 lg:px-8 sm:py-24">
-    <div class="container mx-auto">
-      <div class="grid items-center gap-12 lg:grid-cols-2">
-        <!-- Process Lottie -->
-        <div class="order-2 lg:order-1">
-          <div class="relative">
-            <div class="absolute inset-0 bg-gradient-to-br from-brand-400 to-brand-600 rounded-3xl opacity-10 blur-2xl"></div>
-            <ng-lottie
-              [options]="processOptions"
-              class="relative w-full h-auto"
-            ></ng-lottie>
-          </div>
-        </div>
-
-        <!-- How It Works Content -->
-        <div class="order-1 lg:order-2">
-          <h3 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white lg:text-4xl">
-            How DevFlowFix Works
-          </h3>
-          <p class="mb-8 text-lg text-gray-600 dark:text-gray-400">
-            A fully automated pipeline that monitors, analyzes, and fixes deployment failures in real-time.
+          <!-- Testimonial Text -->
+          <p class="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+            "DevFlowFix has completely transformed our deployment workflow. We went from spending hours debugging failed deployments to having most issues resolved automatically in minutes."
           </p>
 
-          <div class="space-y-6">
-            <div class="flex gap-4">
-              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-brand-100 text-brand-600 dark:bg-brand-500/20 dark:text-brand-400">
-                <span class="text-xl font-bold">1</span>
-              </div>
-              <div>
-                <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Receive Webhooks</h4>
-                <p class="text-gray-600 dark:text-gray-400">
-                  Automatically receives failure notifications from GitHub Actions, ArgoCD, and Kubernetes.
-                </p>
-              </div>
+          <!-- User Info -->
+          <div class="flex items-center gap-3">
+            <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 font-bold text-white rounded-full bg-brand-500">
+              SK
             </div>
-
-            <div class="flex gap-4">
-              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-brand-100 text-brand-600 dark:bg-brand-500/20 dark:text-brand-400">
-                <span class="text-xl font-bold">2</span>
-              </div>
-              <div>
-                <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">AI Analysis</h4>
-                <p class="text-gray-600 dark:text-gray-400">
-                  NVIDIA NIM and RAG technology analyze logs, configs, and historical data to identify root causes.
-                </p>
-              </div>
-            </div>
-
-            <div class="flex gap-4">
-              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-brand-100 text-brand-600 dark:bg-brand-500/20 dark:text-brand-400">
-                <span class="text-xl font-bold">3</span>
-              </div>
-              <div>
-                <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Execute Remediation</h4>
-                <p class="text-gray-600 dark:text-gray-400">
-                  Performs safe actions like workflow reruns, pod restarts, and ArgoCD sync operations.
-                </p>
-              </div>
-            </div>
-
-            <div class="flex gap-4">
-              <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-xl bg-brand-100 text-brand-600 dark:bg-brand-500/20 dark:text-brand-400">
-                <span class="text-xl font-bold">4</span>
-              </div>
-              <div>
-                <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Learn & Improve</h4>
-                <p class="text-gray-600 dark:text-gray-400">
-                  Continuously learns from outcomes to improve confidence scoring and future predictions.
-                </p>
-              </div>
+            <div>
+              <div class="font-semibold text-gray-900 dark:text-white">Sarah Kim</div>
+              <div class="text-sm text-gray-500 dark:text-gray-400">DevOps Lead at TechCorp</div>
             </div>
           </div>
+        </div>
 
-          <div class="mt-8">
-            <a
-              routerLink="/signup"
-              class="inline-flex items-center px-6 py-3 text-base font-medium text-white transition-all rounded-lg bg-brand-500 hover:bg-brand-600 hover:shadow-lg hover:shadow-brand-500/30"
-            >
-              Get Started Today
-              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-              </svg>
-            </a>
+        <!-- Testimonial 2 -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-800 dark:border-gray-700" style="transition-delay: 0.1s; transform: rotate(1deg);">
+          <!-- Stars -->
+          <div class="flex gap-1 mb-4">
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+          </div>
+
+          <!-- Testimonial Text -->
+          <p class="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+            "The AI-powered auto-fix capability is incredible. It's like having a senior DevOps engineer on call 24/7. Our team's productivity has increased significantly."
+          </p>
+
+          <!-- User Info -->
+          <div class="flex items-center gap-3">
+            <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 font-bold text-white rounded-full bg-brand-500">
+              MR
+            </div>
+            <div>
+              <div class="font-semibold text-gray-900 dark:text-white">Michael Rodriguez</div>
+              <div class="text-sm text-gray-500 dark:text-gray-400">CTO at StartupX</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="p-8 transition-all transform bg-white border-2 border-gray-900 hover-lift rounded-3xl hover:border-brand-500 scroll-scale-hidden dark:bg-gray-800 dark:border-gray-700" style="transition-delay: 0.2s; transform: rotate(-0.8deg);">
+          <!-- Stars -->
+          <div class="flex gap-1 mb-4">
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-mustard-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+          </div>
+
+          <!-- Testimonial Text -->
+          <p class="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+            "Integration was seamless with our existing GitHub Actions workflow. Within a week, we saw a dramatic reduction in deployment failures and faster recovery times."
+          </p>
+
+          <!-- User Info -->
+          <div class="flex items-center gap-3">
+            <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 font-bold text-white rounded-full bg-brand-500">
+              EP
+            </div>
+            <div>
+              <div class="font-semibold text-gray-900 dark:text-white">Emily Patel</div>
+              <div class="text-sm text-gray-500 dark:text-gray-400">Engineering Manager at DataFlow</div>
+            </div>
           </div>
         </div>
       </div>
@@ -280,200 +983,111 @@
   </section>
 
   <!-- CTA Section -->
-  <section class="px-4 py-16 bg-gradient-to-r from-brand-500 to-brand-600 sm:px-6 lg:px-8">
-    <div class="container mx-auto text-center">
-      <h3 class="mb-4 text-3xl font-bold text-white lg:text-4xl">
-        Ready to Transform Your Deployments?
-      </h3>
-      <p class="max-w-2xl mx-auto mb-8 text-lg text-brand-100">
-        Join teams already using DevFlowFix to eliminate deployment headaches and ship faster with confidence.
-      </p>
-      <div class="flex flex-col justify-center gap-4 sm:flex-row">
-        <a
-          routerLink="/signup"
-          class="inline-flex items-center justify-center px-8 py-4 text-base font-medium transition-all bg-white rounded-lg shadow-xl text-brand-600 hover:bg-gray-50 hover:scale-105"
-        >
-          Start Free Trial
-          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-          </svg>
-        </a>
-        <a
-          routerLink="/signin"
-          class="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white transition-all border-2 border-white rounded-lg hover:bg-white/10"
-        >
-          Contact Sales
-        </a>
+  <section class="relative px-6 py-24 overflow-hidden bg-[#f5f3f0] dark:bg-gray-900">
+    <!-- Large Background Text with Scroll Animation -->
+    <div class="scroll-text" data-direction="right" data-speed="0.3" style="top: 25%; right: 0;">GET STARTED NOW</div>
+
+    <div class="absolute inset-0 bg-gradient-to-br from-brand-50 to-mustard-50 opacity-50"></div>
+
+    <!-- Funky Floating Shapes -->
+    <div class="absolute w-24 h-24 border-4 border-brand-400 top-28 left-20 animate-rotate-slow opacity-25" style="clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);"></div>
+    <div class="absolute w-18 h-18 bg-mustard-200 bottom-32 right-32 animate-float opacity-35" style="border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;"></div>
+    <div class="absolute p-5 bg-white border-2 border-gray-900 shadow-xl rounded-3xl top-36 right-24 animate-float-circle" style="transform: rotate(18deg);">
+      <svg class="w-8 h-8 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+    <div class="absolute p-4 bg-white border-2 border-gray-900 rounded-full shadow-lg bottom-36 left-24 animate-wiggle">
+      <svg class="w-7 h-7 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+    <div class="absolute w-16 h-16 bg-brand-200 top-52 left-1/3 animate-float-circle opacity-30" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);"></div>
+    <div class="container relative mx-auto text-center max-w-4xl">
+      <div class="scroll-hidden">
+        <h2 class="mb-6 text-4xl font-bold text-gray-900 lg:text-5xl dark:text-white">
+          Ready to transform your<br>
+          deployment workflow?
+        </h2>
+        <p class="mb-10 text-lg text-gray-600 dark:text-gray-400">
+          Join thousands of teams already using DevFlowFix to ship faster and more reliably
+        </p>
+        <div class="flex flex-col justify-center gap-4 sm:flex-row">
+          <a routerLink="/signup" class="px-8 py-4 text-base font-semibold text-white transition-all rounded-full bg-brand-500 hover:bg-brand-600 hover:shadow-xl hover:scale-105">
+            Start Free Trial
+          </a>
+          <a href="#pricing" class="px-8 py-4 text-base font-semibold text-gray-900 transition-all bg-white border-2 border-gray-300 rounded-full hover:border-brand-500 hover:scale-105 dark:bg-gray-800 dark:text-white">
+            View Pricing
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800">
-    <div class="container px-4 py-12 mx-auto sm:px-6 lg:px-8">
-      <!-- Main Footer Content -->
-      <div class="grid gap-8 mb-8 md:grid-cols-2 lg:grid-cols-4">
+  <footer class="px-6 py-16 bg-white border-t border-gray-200 dark:bg-gray-900 dark:border-gray-800">
+    <div class="container mx-auto max-w-7xl">
+      <div class="grid gap-12 mb-12 md:grid-cols-2 lg:grid-cols-4">
+
         <!-- Company Info -->
-        <div class="lg:col-span-1">
-          <div class="flex items-center gap-2 mb-4">
-            <svg class="w-8 h-8 text-brand-500" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-            </svg>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white">DevFlowFix</h3>
+        <div class="animate-fade-in-up">
+          <div class="flex items-center gap-2 mb-6">
+            <div class="flex items-center justify-center w-6 h-6 transition-transform rounded hover:scale-110 bg-brand-500">
+              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+              </svg>
+            </div>
+            <span class="text-xl font-bold text-gray-900 dark:text-white">DevFlowFix</span>
           </div>
-          <p class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+          <p class="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
             AI-powered deployment automation that fixes 75% of failures in under 8 minutes.
           </p>
-          <!-- Social Media Links -->
-          <div class="flex gap-3">
-            <a href="#" class="flex items-center justify-center w-9 h-9 text-gray-600 transition-colors rounded-lg hover:text-brand-500 hover:bg-brand-50 dark:text-gray-400 dark:hover:text-brand-400 dark:hover:bg-brand-500/10">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-            </a>
-            <a href="#" class="flex items-center justify-center w-9 h-9 text-gray-600 transition-colors rounded-lg hover:text-brand-500 hover:bg-brand-50 dark:text-gray-400 dark:hover:text-brand-400 dark:hover:bg-brand-500/10">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-              </svg>
-            </a>
-            <a href="#" class="flex items-center justify-center w-9 h-9 text-gray-600 transition-colors rounded-lg hover:text-brand-500 hover:bg-brand-50 dark:text-gray-400 dark:hover:text-brand-400 dark:hover:bg-brand-500/10">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            </a>
-            <a href="#" class="flex items-center justify-center w-9 h-9 text-gray-600 transition-colors rounded-lg hover:text-brand-500 hover:bg-brand-50 dark:text-gray-400 dark:hover:text-brand-400 dark:hover:bg-brand-500/10">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"/>
-              </svg>
-            </a>
-          </div>
         </div>
 
-        <!-- Product Links -->
-        <div>
-          <h4 class="mb-4 text-sm font-semibold tracking-wider text-gray-900 uppercase dark:text-white">
-            Product
-          </h4>
+        <!-- Product -->
+        <div class="animate-fade-in-up delay-100">
+          <h4 class="mb-4 text-sm font-bold text-gray-900 uppercase dark:text-white">Product</h4>
           <ul class="space-y-3">
-            <li>
-              <a routerLink="/dashboard" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                Dashboard
-              </a>
-            </li>
-            <li>
-              <a href="#features" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                Features
-              </a>
-            </li>
-            <li>
-              <a href="#integrations" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                Integrations
-              </a>
-            </li>
-            <li>
-              <a href="#pricing" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                Pricing
-              </a>
-            </li>
-            <li>
-              <a href="#updates" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                What's New
-              </a>
-            </li>
+            <li><a routerLink="/dashboard" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Dashboard</a></li>
+            <li><a href="#features" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Features</a></li>
+            <li><a href="#pricing" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Pricing</a></li>
           </ul>
         </div>
 
-        <!-- Resources Links -->
-        <div>
-          <h4 class="mb-4 text-sm font-semibold tracking-wider text-gray-900 uppercase dark:text-white">
-            Resources
-          </h4>
+        <!-- Company -->
+        <div class="animate-fade-in-up delay-200">
+          <h4 class="mb-4 text-sm font-bold text-gray-900 uppercase dark:text-white">Company</h4>
           <ul class="space-y-3">
-            <li>
-              <a href="#docs" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                Documentation
-              </a>
-            </li>
-            <li>
-              <a href="#api" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                API Reference
-              </a>
-            </li>
-            <li>
-              <a href="#guides" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                Guides & Tutorials
-              </a>
-            </li>
-            <li>
-              <a href="#blog" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                Blog
-              </a>
-            </li>
-            <li>
-              <a href="#support" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                Support Center
-              </a>
-            </li>
+            <li><a href="#about" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">About</a></li>
+            <li><a href="#blog" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Blog</a></li>
+            <li><a href="#careers" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Careers</a></li>
           </ul>
         </div>
 
-        <!-- Company Links -->
-        <div>
-          <h4 class="mb-4 text-sm font-semibold tracking-wider text-gray-900 uppercase dark:text-white">
-            Company
-          </h4>
+        <!-- Support -->
+        <div class="animate-fade-in-up delay-300">
+          <h4 class="mb-4 text-sm font-bold text-gray-900 uppercase dark:text-white">Support</h4>
           <ul class="space-y-3">
-            <li>
-              <a href="#about" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                About Us
-              </a>
-            </li>
-            <li>
-              <a href="#careers" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                Careers
-              </a>
-            </li>
-            <li>
-              <a href="#contact" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                Contact
-              </a>
-            </li>
-            <li>
-              <a href="#partners" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                Partners
-              </a>
-            </li>
-            <li>
-              <a href="#press" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-                Press Kit
-              </a>
-            </li>
+            <li><a href="#help" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Help Center</a></li>
+            <li><a href="#contact" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Contact</a></li>
+            <li><a href="#status" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Status</a></li>
           </ul>
         </div>
+
       </div>
 
-      <!-- Bottom Footer -->
-      <div class="pt-8 mt-8 border-t border-gray-200 dark:border-gray-800">
+      <!-- Bottom -->
+      <div class="pt-8 border-t border-gray-200 animate-fade-in-up delay-400 dark:border-gray-800">
         <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p class="text-sm text-gray-600 dark:text-gray-400">
-            &copy; 2025 DevFlowFix. All rights reserved.
-          </p>
-          <div class="flex flex-wrap justify-center gap-6">
-            <a href="#privacy" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-              Privacy Policy
-            </a>
-            <a href="#terms" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-              Terms of Service
-            </a>
-            <a href="#cookies" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-              Cookie Policy
-            </a>
-            <a href="#security" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400 dark:hover:text-brand-400">
-              Security
-            </a>
+          <p class="text-sm text-gray-600 dark:text-gray-400">&copy; 2025 DevFlowFix. All rights reserved.</p>
+          <div class="flex flex-wrap gap-6">
+            <a href="#privacy" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400">Privacy</a>
+            <a href="#terms" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400">Terms</a>
+            <a href="#cookies" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400">Cookies</a>
           </div>
         </div>
       </div>
     </div>
   </footer>
+
 </div>
