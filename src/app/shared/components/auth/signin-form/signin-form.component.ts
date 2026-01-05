@@ -8,6 +8,7 @@ import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService, LoginRequest } from '../auth.service';
 import { SanitizationService } from '../../../services/sanitization.service';
+import { DevflowfixService } from '../../../services/devflowfix.service';
 
 @Component({
   selector: 'app-signin-form',
@@ -39,7 +40,8 @@ export class SigninFormComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private sanitizationService: SanitizationService
+    private sanitizationService: SanitizationService,
+    private devflowfixService: DevflowfixService
   ) {}
 
   togglePasswordVisibility() {
@@ -113,5 +115,25 @@ export class SigninFormComponent {
   clearError() {
     this.errorMessage = '';
     this.emailError = '';
+  }
+
+  /**
+   * Sign in with GitHub OAuth
+   */
+  signInWithGitHub() {
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.devflowfixService.authorizeGitHub().subscribe({
+      next: (response) => {
+        // Redirect to GitHub authorization URL
+        window.location.href = response.authorization_url;
+      },
+      error: (error) => {
+        console.error('GitHub OAuth error:', error);
+        this.errorMessage = 'Failed to start GitHub sign in. Please try again.';
+        this.isLoading = false;
+      }
+    });
   }
 }
