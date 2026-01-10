@@ -317,6 +317,48 @@ export class SeoService {
   }
 
   /**
+   * Add SiteNavigationElement schema for Google sitelinks
+   */
+  addSiteNavigationSchema(): void {
+    const siteNavData = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      'itemListElement': [
+        {
+          '@type': 'SiteNavigationElement',
+          'position': 1,
+          'name': 'Home',
+          'description': 'DevFlowFix Homepage - AI-powered deployment failure resolution',
+          'url': this.baseUrl
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          'position': 2,
+          'name': 'Sign In',
+          'description': 'Sign in to your DevFlowFix dashboard',
+          'url': `${this.baseUrl}/signin`
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          'position': 3,
+          'name': 'Sign Up',
+          'description': 'Create a free DevFlowFix account',
+          'url': `${this.baseUrl}/signup`
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          'position': 4,
+          'name': 'Dashboard',
+          'description': 'Access your DevFlowFix dashboard',
+          'url': `${this.baseUrl}/dashboard`
+        }
+      ]
+    };
+
+    this.addStructuredData(siteNavData);
+  }
+
+  /**
    * Set comprehensive home page SEO with all schemas
    */
   setHomeSEO(): void {
@@ -371,6 +413,41 @@ export class SeoService {
           'price': '0',
           'priceCurrency': 'USD'
         }
+      },
+      // SiteNavigationElement for Google Sitelinks
+      {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        'itemListElement': [
+          {
+            '@type': 'SiteNavigationElement',
+            'position': 1,
+            'name': 'Home',
+            'description': 'DevFlowFix Homepage - AI-powered deployment failure resolution',
+            'url': this.baseUrl
+          },
+          {
+            '@type': 'SiteNavigationElement',
+            'position': 2,
+            'name': 'Sign In',
+            'description': 'Sign in to your DevFlowFix dashboard',
+            'url': `${this.baseUrl}/signin`
+          },
+          {
+            '@type': 'SiteNavigationElement',
+            'position': 3,
+            'name': 'Sign Up',
+            'description': 'Create a free DevFlowFix account',
+            'url': `${this.baseUrl}/signup`
+          },
+          {
+            '@type': 'SiteNavigationElement',
+            'position': 4,
+            'name': 'Dashboard',
+            'description': 'Access your DevFlowFix dashboard',
+            'url': `${this.baseUrl}/dashboard`
+          }
+        ]
       }
     ];
 

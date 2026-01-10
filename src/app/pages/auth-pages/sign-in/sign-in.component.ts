@@ -17,12 +17,27 @@ export class SignInComponent implements OnInit {
   constructor(private seoService: SeoService) {}
 
   ngOnInit(): void {
+    // Update meta tags for sign in page
     this.seoService.updateSEO({
       title: 'Sign In | DevFlowFix - Access Your Dashboard',
-      description: 'Sign in to your DevFlowFix account to access your dashboard, manage projects, and collaborate with your team.',
-      keywords: 'sign in, login, devflowfix login, access dashboard, user authentication',
+      description: 'Sign in to your DevFlowFix account to access the AI-powered deployment failure resolution dashboard. Manage incidents, track deployments, and automate fixes.',
+      keywords: 'sign in, login, devflowfix login, deployment dashboard, CI/CD login, kubernetes dashboard login',
       url: '/signin',
-      robots: 'noindex, nofollow' // Auth pages should not be indexed
+      type: 'website',
+      robots: 'index, follow'
+    });
+
+    // Add breadcrumb for sign in page
+    this.seoService.addBreadcrumb([
+      { name: 'Home', url: '/' },
+      { name: 'Sign In', url: '/signin' }
+    ]);
+
+    // Add WebPage schema
+    this.seoService.addWebPageSchema({
+      name: 'Sign In to DevFlowFix',
+      description: 'Access your DevFlowFix dashboard to manage deployment failures and incidents',
+      url: '/signin'
     });
   }
 }
