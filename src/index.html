@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TVCL3PN6');</script>
+  <!-- End Google Tag Manager -->
+
   <meta charset="utf-8">
   <title>DevFlowFix - Dashboard for AI agent for CI/CD pipelines</title>
   <base href="/">
@@ -17,10 +25,10 @@
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://devflowfix-dashboard.vercel.app">
+  <meta property="og:url" content="https://devflowfix.astrareconslabs.com">
   <meta property="og:title" content="DevFlowFix - Modern Project Management Dashboard">
   <meta property="og:description" content="DevFlowFix is a modern, feature-rich dashboard for project management, team collaboration, and workflow optimization.">
-  <meta property="og:image" content="https://devflowfix-dashboard.vercel.app/images/devflowfix_og_img.png">
+  <meta property="og:image" content="https://devflowfix.astrareconslabs.com/images/devflowfix_og_img.png">
   <meta property="og:site_name" content="DevFlowFix">
 
   <!-- Twitter -->
@@ -28,11 +36,11 @@
   <meta name="twitter:url" content="https://x.com/devflowfix">
   <meta name="twitter:title" content="DevFlowFix - Modern Project Management Dashboard">
   <meta name="twitter:description" content="DevFlowFix is a modern, feature-rich dashboard for project management, team collaboration, and workflow optimization.">
-  <meta name="twitter:image" content="https://devflowfix-dashboard.vercel.app/images/devflowfix_og_img.png">
+  <meta name="twitter:image" content="https://devflowfix.astrareconslabs.com/images/devflowfix_og_img.png">
   <meta name="twitter:site" content="@devflowfix">
 
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://devflowfix-dashboard.vercel.app">
+  <link rel="canonical" href="https://devflowfix.astrareconslabs.com">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -56,9 +64,77 @@
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 
   <!-- Content Security Policy (Note: frame-ancestors directive is ignored in meta tags) -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://devflowfix-new-production.up.railway.app; base-uri 'self'; form-action 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob: https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://devflowfix-new-production.up.railway.app https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com; base-uri 'self'; form-action 'self'">
+
+  <!-- Structured Data - Organization (for initial load before Angular) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "DevFlowFix",
+    "url": "https://devflowfix.astrareconslabs.com",
+    "logo": "https://devflowfix.astrareconslabs.com/images/logo/logo.svg",
+    "description": "AI-powered platform that automatically fixes 75% of deployment failures in under 8 minutes",
+    "sameAs": [
+      "https://twitter.com/devflowfix",
+      "https://github.com/devflowfix",
+      "https://linkedin.com/company/devflowfix"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "availableLanguage": "English"
+    }
+  }
+  </script>
+
+  <!-- Structured Data - WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "DevFlowFix",
+    "url": "https://devflowfix.astrareconslabs.com",
+    "description": "Automated Deployment Failure Resolution Platform",
+    "publisher": {
+      "@type": "Organization",
+      "name": "DevFlowFix"
+    }
+  }
+  </script>
+
+  <!-- Structured Data - SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "DevFlowFix",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "description": "AI-powered platform that automatically fixes deployment failures. Integrates with GitHub Actions, ArgoCD, and Kubernetes.",
+    "url": "https://devflowfix.astrareconslabs.com",
+    "image": "https://devflowfix.astrareconslabs.com/images/devflowfix_og_img.png",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Automated deployment failure resolution",
+      "GitHub Actions integration",
+      "ArgoCD integration",
+      "Kubernetes support",
+      "NVIDIA NIM AI-powered analysis"
+    ]
+  }
+  </script>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVCL3PN6"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
   <app-root></app-root>
 </body>
 </html>

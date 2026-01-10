@@ -338,13 +338,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.isLoggedIn = !!user;
     });
 
-    this.seoService.updateSEO({
-      title: 'DevFlowFix - Automated Deployment Failure Resolution',
-      description: 'DevFlowFix automatically fixes 75% of deployment failures in under 8 minutes using AI-powered analysis and remediation. Integrates with GitHub Actions, ArgoCD, and Kubernetes.',
-      keywords: 'devflowfix, deployment automation, kubernetes, github actions, argocd, AI remediation, deployment failures, NVIDIA NIM, CI/CD automation',
-      url: '/',
-      type: 'website'
-    });
+    // Use comprehensive home SEO with all structured data schemas
+    this.seoService.setHomeSEO();
 
     // Add breadcrumb for home page
     this.seoService.addBreadcrumb([

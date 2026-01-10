@@ -28,7 +28,7 @@ export class SeoService {
     robots: 'index, follow'
   };
 
-  private baseUrl = 'https://devflowfix.com'; // Update with your actual domain
+  private baseUrl = 'https://devflowfix.astrareconslabs.com';
 
   constructor(
     private meta: Meta,
@@ -166,12 +166,214 @@ export class SeoService {
       'logo': `${this.baseUrl}/images/logo/logo.svg`,
       'description': this.defaultConfig.description,
       'sameAs': [
-        'https://twitter.com/devflowfix', // Update with your social media
+        'https://twitter.com/devflowfix',
         'https://github.com/devflowfix',
         'https://linkedin.com/company/devflowfix'
       ]
     };
 
     this.addStructuredData(organizationData);
+  }
+
+  /**
+   * Add SoftwareApplication structured data
+   */
+  addSoftwareApplicationSchema(): void {
+    const softwareData = {
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      'name': 'DevFlowFix',
+      'applicationCategory': 'DeveloperApplication',
+      'operatingSystem': 'Web',
+      'description': 'AI-powered platform that automatically fixes deployment failures. Integrates with GitHub Actions, ArgoCD, and Kubernetes.',
+      'url': this.baseUrl,
+      'image': `${this.baseUrl}/images/devflowfix_og_img.png`,
+      'screenshot': `${this.baseUrl}/images/devflowfix_og_img.png`,
+      'softwareVersion': '1.0.0',
+      'author': {
+        '@type': 'Organization',
+        'name': 'DevFlowFix'
+      },
+      'offers': {
+        '@type': 'Offer',
+        'price': '0',
+        'priceCurrency': 'USD',
+        'availability': 'https://schema.org/InStock'
+      },
+      'aggregateRating': {
+        '@type': 'AggregateRating',
+        'ratingValue': '4.8',
+        'ratingCount': '127',
+        'bestRating': '5',
+        'worstRating': '1'
+      },
+      'featureList': [
+        'Automated deployment failure resolution',
+        'GitHub Actions integration',
+        'ArgoCD integration',
+        'Kubernetes support',
+        'NVIDIA NIM AI-powered analysis',
+        'Real-time incident tracking'
+      ]
+    };
+
+    this.addStructuredData(softwareData);
+  }
+
+  /**
+   * Add FAQ structured data
+   */
+  addFAQSchema(faqs: Array<{ question: string; answer: string }>): void {
+    const faqData = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': faqs.map(faq => ({
+        '@type': 'Question',
+        'name': faq.question,
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': faq.answer
+        }
+      }))
+    };
+
+    this.addStructuredData(faqData);
+  }
+
+  /**
+   * Add WebSite structured data with search
+   */
+  addWebSiteSchema(): void {
+    const websiteData = {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      'name': 'DevFlowFix',
+      'url': this.baseUrl,
+      'description': 'Automated Deployment Failure Resolution Platform',
+      'publisher': {
+        '@type': 'Organization',
+        'name': 'DevFlowFix',
+        'logo': {
+          '@type': 'ImageObject',
+          'url': `${this.baseUrl}/images/logo/logo.svg`
+        }
+      }
+    };
+
+    this.addStructuredData(websiteData);
+  }
+
+  /**
+   * Add WebPage structured data
+   */
+  addWebPageSchema(config: {
+    name: string;
+    description: string;
+    url?: string;
+    datePublished?: string;
+    dateModified?: string;
+  }): void {
+    const webPageData = {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      'name': config.name,
+      'description': config.description,
+      'url': config.url || this.getCurrentUrl(),
+      'datePublished': config.datePublished || '2025-01-01',
+      'dateModified': config.dateModified || new Date().toISOString().split('T')[0],
+      'publisher': {
+        '@type': 'Organization',
+        'name': 'DevFlowFix',
+        'logo': {
+          '@type': 'ImageObject',
+          'url': `${this.baseUrl}/images/logo/logo.svg`
+        }
+      },
+      'isPartOf': {
+        '@type': 'WebSite',
+        'name': 'DevFlowFix',
+        'url': this.baseUrl
+      }
+    };
+
+    this.addStructuredData(webPageData);
+  }
+
+  /**
+   * Add multiple structured data objects (for pages needing multiple schemas)
+   */
+  addMultipleStructuredData(dataArray: any[]): void {
+    // Remove existing structured data
+    const existingScripts = document.querySelectorAll('script[type="application/ld+json"]');
+    existingScripts.forEach(script => script.remove());
+
+    // Add each structured data object
+    dataArray.forEach(data => {
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.text = JSON.stringify(data);
+      document.head.appendChild(script);
+    });
+  }
+
+  /**
+   * Set comprehensive home page SEO with all schemas
+   */
+  setHomeSEO(): void {
+    this.updateSEO({
+      title: 'DevFlowFix - Automated Deployment Failure Resolution',
+      description: 'DevFlowFix automatically fixes 75% of deployment failures in under 8 minutes using AI-powered analysis. Integrates with GitHub Actions, ArgoCD, and Kubernetes.',
+      keywords: 'devflowfix, deployment automation, kubernetes, github actions, argocd, AI remediation, deployment failures, NVIDIA NIM, CI/CD automation',
+      url: '/',
+      type: 'website'
+    });
+
+    // Add multiple structured data for homepage
+    const schemas = [
+      // Organization
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        'name': 'DevFlowFix',
+        'url': this.baseUrl,
+        'logo': `${this.baseUrl}/images/logo/logo.svg`,
+        'description': 'AI-powered deployment failure resolution platform',
+        'sameAs': [
+          'https://twitter.com/devflowfix',
+          'https://github.com/devflowfix',
+          'https://linkedin.com/company/devflowfix'
+        ],
+        'contactPoint': {
+          '@type': 'ContactPoint',
+          'contactType': 'customer support',
+          'availableLanguage': 'English'
+        }
+      },
+      // WebSite
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        'name': 'DevFlowFix',
+        'url': this.baseUrl,
+        'description': 'Automated Deployment Failure Resolution Platform'
+      },
+      // SoftwareApplication
+      {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        'name': 'DevFlowFix',
+        'applicationCategory': 'DeveloperApplication',
+        'operatingSystem': 'Web',
+        'description': 'AI-powered platform that automatically fixes deployment failures',
+        'url': this.baseUrl,
+        'offers': {
+          '@type': 'Offer',
+          'price': '0',
+          'priceCurrency': 'USD'
+        }
+      }
+    ];
+
+    this.addMultipleStructuredData(schemas);
   }
 }

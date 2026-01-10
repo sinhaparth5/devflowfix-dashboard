@@ -1,10 +1,49 @@
 # https://www.robotstxt.org/robotstxt.html
+# DevFlowFix - Automated Deployment Failure Resolution
+
+# Allow all crawlers
 User-agent: *
 Allow: /
 
-# Disallow admin or private pages if any
-# Disallow: /admin/
-# Disallow: /private/
+# Public pages - explicitly allow
+Allow: /signin
+Allow: /signup
+
+# Disallow protected dashboard routes
+Disallow: /dashboard/
+Disallow: /dashboard/calendar
+Disallow: /dashboard/profile
+Disallow: /dashboard/webhooks
+Disallow: /dashboard/pr-management
+Disallow: /dashboard/incidents
+Disallow: /dashboard/admin/
+
+# Disallow common unnecessary paths
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /*?*
+
+# Allow important static assets
+Allow: /images/
+Allow: /assets/
+Allow: /*.css$
+Allow: /*.js$
+
+# Crawl-delay for politeness (seconds)
+Crawl-delay: 1
+
+# Google specific
+User-agent: Googlebot
+Allow: /
+Disallow: /dashboard/
+
+# Bing specific
+User-agent: Bingbot
+Allow: /
+Disallow: /dashboard/
 
 # Sitemap location
-Sitemap: https://devflowfix-dashboard.vercel.app/sitemap.xml
+Sitemap: https://devflowfix.astrareconslabs.com/sitemap.xml
+
+# Host directive (for Yandex)
+Host: https://devflowfix.astrareconslabs.com
