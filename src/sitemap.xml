@@ -5,7 +5,6 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-  <!-- Homepage - Main landing page -->
   <url>
     <loc>https://devflowfix.astrareconslabs.com/</loc>
     <lastmod>2026-01-10</lastmod>
@@ -18,7 +17,6 @@
     </image:image>
   </url>
 
-  <!-- Sign In Page -->
   <url>
     <loc>https://devflowfix.astrareconslabs.com/signin</loc>
     <lastmod>2026-01-10</lastmod>
@@ -26,7 +24,6 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Sign Up Page -->
   <url>
     <loc>https://devflowfix.astrareconslabs.com/signup</loc>
     <lastmod>2026-01-10</lastmod>
@@ -34,7 +31,6 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Dashboard (requires authentication) -->
   <url>
     <loc>https://devflowfix.astrareconslabs.com/dashboard</loc>
     <lastmod>2026-01-10</lastmod>
