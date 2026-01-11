@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { SeoService } from '../../../shared/services/seo.service';
 import { TokenRegistrationFormComponent } from '../../../shared/components/pr-management/token-registration-form/token-registration-form.component';
 import { TokenListTableComponent } from '../../../shared/components/pr-management/token-list-table/token-list-table.component';
@@ -11,13 +11,12 @@ import { PRStatsDashboardComponent } from '../../../shared/components/pr-managem
   selector: 'app-pr-management',
   standalone: true,
   imports: [
-    CommonModule,
     TokenRegistrationFormComponent,
     TokenListTableComponent,
     PRListTableComponent,
     PRDetailsModalComponent,
     PRStatsDashboardComponent
-  ],
+],
   templateUrl: './pr-management.component.html'
 })
 export class PrManagementComponent implements OnInit {

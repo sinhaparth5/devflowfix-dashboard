@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import flatpickr from 'flatpickr';
 import { LabelComponent } from '../label/label.component';
@@ -6,7 +6,7 @@ import "flatpickr/dist/flatpickr.css";
 
 @Component({
   selector: 'app-date-picker',
-  imports: [CommonModule,LabelComponent],
+  imports: [LabelComponent],
   templateUrl: './date-picker.component.html',
   styles: ``
 })

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import flatpickr from 'flatpickr';
 

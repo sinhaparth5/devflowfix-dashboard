@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { SeoService } from '../../../../shared/services/seo.service';
 import { IncidentsService, IncidentStatsResponse } from '../../../../shared/services/incidents.service';
@@ -9,7 +9,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 @Component({
   selector: 'app-incidents-stats',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgApexchartsModule],
+  imports: [RouterModule, NgApexchartsModule],
   templateUrl: './incidents-stats.component.html',
   styles: []
 })

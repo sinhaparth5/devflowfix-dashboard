@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SeoService } from '../../../shared/services/seo.service';
@@ -9,7 +9,7 @@ import { PublicFooterComponent } from '../../../shared/components/public-layout/
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, PublicNavbarComponent, PublicFooterComponent],
+  imports: [RouterModule, FormsModule, PublicNavbarComponent, PublicFooterComponent],
   templateUrl: './contact.component.html',
   styles: ``
 })

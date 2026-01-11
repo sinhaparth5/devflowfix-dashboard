@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-public-footer',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   template: `
     <footer class="bg-gray-900 text-white">
       <div class="max-w-7xl mx-auto px-6 py-16">

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { MultiSelectComponent } from '../../multi-select/multi-select.component';
 import { ComponentCardComponent } from '../../../common/component-card/component-card.component';
@@ -19,12 +19,11 @@ interface MultiOption {
 @Component({
   selector: 'app-select-inputs',
   imports: [
-    CommonModule,
     MultiSelectComponent,
     ComponentCardComponent,
     SelectComponent,
-    LabelComponent,
-  ],
+    LabelComponent
+],
   templateUrl: './select-inputs.component.html',
   styles: ``
 })

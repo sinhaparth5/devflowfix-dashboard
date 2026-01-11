@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { InputFieldComponent } from '../../form/input/input-field.component';
 import { BadgeComponent } from '../../ui/badge/badge.component';
@@ -10,11 +10,10 @@ import { Subscription } from 'rxjs';
   selector: 'app-token-list-table',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     InputFieldComponent,
     BadgeComponent
-  ],
+],
   templateUrl: './token-list-table.component.html'
 })
 export class TokenListTableComponent implements OnInit, OnDestroy {

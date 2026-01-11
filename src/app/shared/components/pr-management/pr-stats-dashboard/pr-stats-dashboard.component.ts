@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ApexOptions } from 'ng-apexcharts';
 import { PrManagementService, PRStatistics } from '../../../services/pr-management.service';
@@ -8,9 +8,8 @@ import { PrManagementService, PRStatistics } from '../../../services/pr-manageme
   selector: 'app-pr-stats-dashboard',
   standalone: true,
   imports: [
-    CommonModule,
     NgApexchartsModule
-  ],
+],
   templateUrl: './pr-stats-dashboard.component.html'
 })
 export class PRStatsDashboardComponent implements OnInit {

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { InputFieldComponent } from '../../form/input/input-field.component';
 import { TextAreaComponent } from '../../form/input/text-area.component';
 import { LabelComponent } from '../../form/label/label.component';
@@ -9,11 +9,10 @@ import { PrManagementService, TokenRegistration } from '../../../services/pr-man
   selector: 'app-token-registration-form',
   standalone: true,
   imports: [
-    CommonModule,
     InputFieldComponent,
     TextAreaComponent,
     LabelComponent
-  ],
+],
   templateUrl: './token-registration-form.component.html'
 })
 export class TokenRegistrationFormComponent {

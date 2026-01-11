@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SeoService } from '../../../../shared/services/seo.service';
 import { IncidentsService, IncidentDetail } from '../../../../shared/services/incidents.service';
@@ -10,11 +10,10 @@ import { IncidentSeverityIconComponent } from '../../../../shared/components/inc
   selector: 'app-incident-details',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     IncidentStatusBadgeComponent,
     IncidentSeverityIconComponent
-  ],
+],
   templateUrl: './incident-details.component.html',
   styles: []
 })

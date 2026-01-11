@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { LabelComponent } from '../../label/label.component';
 import { InputFieldComponent } from '../../input/input-field.component';
@@ -8,12 +8,11 @@ import { ComponentCardComponent } from '../../../common/component-card/component
 @Component({
   selector: 'app-input-group',
   imports: [
-    CommonModule,
     LabelComponent,
     InputFieldComponent,
     PhoneInputComponent,
-    ComponentCardComponent,
-  ],
+    ComponentCardComponent
+],
   templateUrl: './input-group.component.html',
   styles: ``
 })

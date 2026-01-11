@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router, RouterModule } from '@angular/router';
 import { SeoService } from '../../../../shared/services/seo.service';
 import { IncidentsService, Incident, IncidentFilters, IncidentsListResponse } from '../../../../shared/services/incidents.service';
@@ -11,12 +11,11 @@ import { IncidentFilterComponent } from '../../../../shared/components/incidents
   selector: 'app-incidents-list',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     IncidentStatusBadgeComponent,
     IncidentSeverityIconComponent,
     IncidentFilterComponent
-  ],
+],
   templateUrl: './incidents-list.component.html',
   styles: []
 })

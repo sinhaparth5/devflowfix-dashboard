@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ComponentCardComponent } from '../../../common/component-card/component-card.component';
 import { InputFieldComponent } from '../../input/input-field.component';
@@ -7,11 +7,10 @@ import { LabelComponent } from '../../label/label.component';
 @Component({
   selector: 'app-input-states',
   imports: [
-    CommonModule,
     ComponentCardComponent,
     InputFieldComponent,
     LabelComponent
-  ],
+],
   templateUrl: './input-states.component.html',
   styles: ``
 })
