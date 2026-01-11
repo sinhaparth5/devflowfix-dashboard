@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { InputFieldComponent } from '../../form/input/input-field.component';
 import { SelectComponent } from '../../form/select/select.component';
 import { BadgeComponent } from '../../ui/badge/badge.component';
@@ -9,11 +9,10 @@ import { PrManagementService, PullRequest, PRListParams } from '../../../service
   selector: 'app-pr-list-table',
   standalone: true,
   imports: [
-    CommonModule,
     InputFieldComponent,
     SelectComponent,
     BadgeComponent
-  ],
+],
   templateUrl: './pr-list-table.component.html'
 })
 export class PRListTableComponent implements OnInit {

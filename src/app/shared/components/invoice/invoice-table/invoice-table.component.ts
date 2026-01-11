@@ -1,11 +1,9 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-invoice-table',
-  imports: [
-    CommonModule
-  ],
+  imports: [],
   templateUrl: './invoice-table.component.html',
   styles: ``
 })

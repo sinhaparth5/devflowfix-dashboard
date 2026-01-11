@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SeoService } from '../../../../shared/services/seo.service';
@@ -12,13 +12,12 @@ import { IncidentFilterComponent } from '../../../../shared/components/incidents
   selector: 'app-admin-incidents',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     FormsModule,
     IncidentStatusBadgeComponent,
     IncidentSeverityIconComponent,
     IncidentFilterComponent
-  ],
+],
   templateUrl: './admin-incidents.component.html',
   styles: []
 })

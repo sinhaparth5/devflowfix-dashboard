@@ -12,13 +12,11 @@ import {
 
 @Component({
   selector: 'app-modal',
-  imports: [
-    CommonModule,
-  ],
+  imports: [CommonModule],
   templateUrl: './modal.component.html',
   styles: ``
 })
-export class ModalComponent {
+export class ModalComponent implements OnInit, OnDestroy {
 
   @Input() isOpen = false;
   @Output() close = new EventEmitter<void>();
@@ -29,17 +27,19 @@ export class ModalComponent {
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
-    if (this.isOpen) {
-      document.body.style.overflow = 'hidden';
-    }
+    this.updateBodyOverflow();
   }
 
   ngOnDestroy() {
-    document.body.style.overflow = 'unset';
+    document.body.style.overflow = '';
+  }
+
+  private updateBodyOverflow() {
+    document.body.style.overflow = this.isOpen ? 'hidden' : '';
   }
 
   ngOnChanges() {
-    document.body.style.overflow = this.isOpen ? 'hidden' : 'unset';
+    this.updateBodyOverflow();
   }
 
   onBackdropClick(event: MouseEvent) {
@@ -52,9 +52,9 @@ export class ModalComponent {
     event.stopPropagation();
   }
 
-  @HostListener('document:keydown.escape', ['$event'])
+  @HostListener('document:keydown', ['$event'])
   onEscape(event: KeyboardEvent) {
-    if (this.isOpen) {
+    if (this.isOpen && event.key === 'Escape') {
       this.close.emit();
     }
   }

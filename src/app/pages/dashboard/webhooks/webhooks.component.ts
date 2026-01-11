@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { SeoService } from '../../../shared/services/seo.service';
 import { WebhookService, WebhookGenerateResponse, WebhookInfoResponse } from '../../../shared/services/webhook.service';
 
 @Component({
   selector: 'app-webhooks',
   standalone: true,
-  imports: [
-    CommonModule
-  ],
+  imports: [],
   templateUrl: './webhooks.component.html',
   styles: ``
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { SeoService } from '../../../shared/services/seo.service';
 import { PublicNavbarComponent } from '../../../shared/components/public-layout/public-navbar.component';
@@ -8,7 +8,7 @@ import { PublicFooterComponent } from '../../../shared/components/public-layout/
 @Component({
   selector: 'app-help-center',
   standalone: true,
-  imports: [CommonModule, RouterModule, PublicNavbarComponent, PublicFooterComponent],
+  imports: [RouterModule, PublicNavbarComponent, PublicFooterComponent],
   templateUrl: './help-center.component.html',
   styles: ``
 })

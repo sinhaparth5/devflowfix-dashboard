@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { PageBreadcrumbComponent } from '../../shared/components/common/page-breadcrumb/page-breadcrumb.component';
 import { UserMetaCardComponent } from '../../shared/components/user-profile/user-meta-card/user-meta-card.component';
@@ -9,12 +9,11 @@ import { SeoService } from '../../shared/services/seo.service';
 @Component({
   selector: 'app-profile',
   imports: [
-    CommonModule,
     PageBreadcrumbComponent,
     UserMetaCardComponent,
     UserInfoCardComponent,
-    UserAddressCardComponent,
-  ],
+    UserAddressCardComponent
+],
   templateUrl: './profile.component.html',
   styles: ``
 })

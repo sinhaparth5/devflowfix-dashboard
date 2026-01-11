@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { SeoService } from '../../../shared/services/seo.service';
 import { AnalyticsService, IncidentStats, TrendDataPoint, BreakdownData, MTTRData, TopRepository } from '../../../shared/services/analytics.service';
 import { ApexOptions } from 'ng-apexcharts';
@@ -7,7 +7,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 
 @Component({
   selector: 'app-analytics',
-  imports: [CommonModule, NgApexchartsModule],
+  imports: [NgApexchartsModule],
   templateUrl: './analytics.component.html',
   styles: ``
 })

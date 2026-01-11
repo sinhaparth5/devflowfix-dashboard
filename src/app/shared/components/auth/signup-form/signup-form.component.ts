@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { LabelComponent } from '../../form/label/label.component';
 import { CheckboxComponent } from '../../form/input/checkbox.component';
@@ -11,13 +11,12 @@ import { SanitizationService } from '../../../services/sanitization.service';
 @Component({
   selector: 'app-signup-form',
   imports: [
-    CommonModule,
     LabelComponent,
     CheckboxComponent,
     InputFieldComponent,
     RouterModule,
-    FormsModule,
-  ],
+    FormsModule
+],
   templateUrl: './signup-form.component.html',
   styles: ``
 })

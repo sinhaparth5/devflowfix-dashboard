@@ -1,11 +1,9 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-basic-table-five',
-  imports: [
-    CommonModule,
-  ],
+  imports: [],
   templateUrl: './basic-table-five.component.html',
   styles: ``
 })
