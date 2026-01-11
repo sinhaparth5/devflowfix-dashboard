@@ -8,6 +8,12 @@ Allow: /
 # Public pages - explicitly allow
 Allow: /signin
 Allow: /signup
+Allow: /about
+Allow: /product
+Allow: /pricing
+Allow: /contact
+Allow: /help-center
+Allow: /blog
 
 # Disallow protected dashboard routes
 Disallow: /dashboard/

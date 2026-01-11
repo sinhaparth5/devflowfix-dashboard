@@ -3,10 +3,12 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SeoService } from '../../shared/services/seo.service';
 import { AuthService, UserResponse } from '../../shared/components/auth/auth.service';
+import { PublicNavbarComponent } from '../../shared/components/public-layout/public-navbar.component';
+import { PublicFooterComponent } from '../../shared/components/public-layout/public-footer.component';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, PublicNavbarComponent, PublicFooterComponent],
   templateUrl: './home.component.html',
   styles: `
     @keyframes float {

@@ -1,0 +1,106 @@
+<div class="min-h-screen bg-[#f5f3f0] dark:bg-gray-900">
+  <!-- Shared Navbar -->
+  <app-public-navbar activePage="pricing"></app-public-navbar>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-12 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="inline-block px-4 py-2 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-full text-sm font-medium mb-6">
+        Simple Pricing
+      </span>
+      <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+        Choose Your<br>
+        <span class="text-brand-500">Perfect Plan</span>
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        Start free, upgrade as you grow. No hidden fees, no surprises.
+      </p>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section class="py-12 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-8">
+        @for (plan of plans; track plan.name) {
+          <div class="relative bg-white dark:bg-gray-800 rounded-2xl p-8 border-4 transition-all"
+               [class.border-brand-500]="plan.highlighted"
+               [class.border-black]="!plan.highlighted"
+               [class.dark:border-gray-700]="!plan.highlighted"
+               [class.shadow-[8px_8px_0px_0px_rgba(255,136,0,1)]]="plan.highlighted"
+               [class.shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]]="!plan.highlighted"
+               [class.scale-105]="plan.highlighted"
+               [class.z-10]="plan.highlighted">
+            @if (plan.highlighted) {
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-500 text-white text-sm font-semibold rounded-full">
+                Most Popular
+              </div>
+            }
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ plan.name }}</h3>
+            <div class="flex items-baseline gap-1 mb-4">
+              <span class="text-4xl font-bold text-gray-900 dark:text-white">{{ plan.price }}</span>
+              <span class="text-gray-500 dark:text-gray-400">{{ plan.period }}</span>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">{{ plan.description }}</p>
+            <ul class="space-y-3 mb-8">
+              @for (feature of plan.features; track feature) {
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span class="text-gray-700 dark:text-gray-300">{{ feature }}</span>
+                </li>
+              }
+            </ul>
+            <a [routerLink]="plan.name === 'Enterprise' ? '/contact' : '/signup'"
+               class="block w-full py-3 text-center rounded-xl font-semibold transition-colors"
+               [class.bg-brand-500]="plan.highlighted"
+               [class.text-white]="plan.highlighted"
+               [class.hover:bg-brand-600]="plan.highlighted"
+               [class.bg-gray-100]="!plan.highlighted"
+               [class.dark:bg-gray-700]="!plan.highlighted"
+               [class.text-gray-900]="!plan.highlighted"
+               [class.dark:text-white]="!plan.highlighted"
+               [class.hover:bg-gray-200]="!plan.highlighted"
+               [class.dark:hover:bg-gray-600]="!plan.highlighted">
+              {{ plan.cta }}
+            </a>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-white dark:bg-gray-800">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-12">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        @for (faq of faqs; track faq.question) {
+          <div class="bg-[#f5f3f0] dark:bg-gray-900 rounded-xl p-6">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ faq.question }}</h3>
+            <p class="text-gray-600 dark:text-gray-400">{{ faq.answer }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+        Still Have Questions?
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-400 mb-8">
+        Our team is here to help you find the right plan for your needs.
+      </p>
+      <a routerLink="/contact" class="inline-block px-8 py-4 bg-brand-500 text-white rounded-xl font-semibold hover:bg-brand-600 transition-colors shadow-lg">
+        Contact Sales
+      </a>
+    </div>
+  </section>
+
+  <!-- Shared Footer -->
+  <app-public-footer></app-public-footer>
+</div>

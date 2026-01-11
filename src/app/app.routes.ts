@@ -9,7 +9,44 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/home/home.component').then(m => m.HomeComponent),
     pathMatch: 'full',
-    title: 'DevFlowFix - Modern Dashboard Template'
+    title: 'DevFlowFix - Automated Deployment Failure Resolution'
+  },
+  // Public pages
+  {
+    path: 'about',
+    loadComponent: () =>
+      import('./pages/public/about/about.component').then(m => m.AboutComponent),
+    title: 'About Us | DevFlowFix'
+  },
+  {
+    path: 'product',
+    loadComponent: () =>
+      import('./pages/public/product/product.component').then(m => m.ProductComponent),
+    title: 'Product Features | DevFlowFix'
+  },
+  {
+    path: 'pricing',
+    loadComponent: () =>
+      import('./pages/public/pricing/pricing.component').then(m => m.PricingComponent),
+    title: 'Pricing | DevFlowFix'
+  },
+  {
+    path: 'contact',
+    loadComponent: () =>
+      import('./pages/public/contact/contact.component').then(m => m.ContactComponent),
+    title: 'Contact Us | DevFlowFix'
+  },
+  {
+    path: 'help-center',
+    loadComponent: () =>
+      import('./pages/public/help-center/help-center.component').then(m => m.HelpCenterComponent),
+    title: 'Help Center | DevFlowFix'
+  },
+  {
+    path: 'blog',
+    loadComponent: () =>
+      import('./pages/public/blog/blog.component').then(m => m.BlogComponent),
+    title: 'Blog | DevFlowFix'
   },
   // Protected dashboard routes
   {

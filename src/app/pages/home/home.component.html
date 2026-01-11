@@ -1,41 +1,7 @@
 <div class="flex flex-col min-h-screen overflow-hidden bg-[#f5f3f0] dark:bg-gray-900">
 
-  <!-- Header -->
-  <header class="sticky top-0 z-50 bg-white border-b border-gray-100 backdrop-blur-md bg-opacity-90 dark:bg-gray-900 dark:bg-opacity-90 dark:border-gray-800">
-    <div class="container px-6 py-4 mx-auto max-w-7xl">
-      <div class="flex items-center justify-between animate-fade-in-up">
-        <!-- Logo -->
-        <div class="flex items-center gap-2">
-          <div class="flex items-center justify-center w-6 h-6 transition-transform rounded hover:scale-110 bg-brand-500">
-            <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-            </svg>
-          </div>
-          <span class="text-xl font-bold text-gray-900 dark:text-white">DevFlowFix</span>
-        </div>
-
-        <!-- Navigation -->
-        <nav class="hidden gap-8 md:flex">
-          <a href="#" class="text-sm font-medium text-gray-900 transition-all hover:text-brand-500 hover:scale-105 dark:text-white dark:hover:text-brand-400">Home</a>
-          <a href="#about" class="text-sm font-medium text-gray-600 transition-all hover:text-brand-500 hover:scale-105 dark:text-gray-400 dark:hover:text-brand-400">About</a>
-          <a href="#product" class="text-sm font-medium text-gray-600 transition-all hover:text-brand-500 hover:scale-105 dark:text-gray-400 dark:hover:text-brand-400">Product</a>
-          <a href="#blog" class="text-sm font-medium text-gray-600 transition-all hover:text-brand-500 hover:scale-105 dark:text-gray-400 dark:hover:text-brand-400">Blog</a>
-          <a href="#pricing" class="text-sm font-medium text-gray-600 transition-all hover:text-brand-500 hover:scale-105 dark:text-gray-400 dark:hover:text-brand-400">Pricing</a>
-        </nav>
-
-        <!-- CTA Button -->
-        @if (isLoggedIn && currentUser) {
-          <a routerLink="/dashboard" class="px-6 py-2.5 text-sm font-semibold text-white transition-all rounded-full bg-brand-500 hover:bg-brand-600 hover:shadow-lg hover:scale-105">
-            Go to Dashboard
-          </a>
-        } @else {
-          <a routerLink="/signup" class="px-6 py-2.5 text-sm font-semibold text-white transition-all rounded-full bg-brand-500 hover:bg-brand-600 hover:shadow-lg hover:scale-105">
-            Sign up for free
-          </a>
-        }
-      </div>
-    </div>
-  </header>
+  <!-- Shared Navbar -->
+  <app-public-navbar activePage="home"></app-public-navbar>
 
   <!-- Hero Section -->
   <section class="relative px-6 py-20 overflow-hidden bg-[#f5f3f0] dark:bg-gray-900">
@@ -1024,70 +990,7 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="px-6 py-16 bg-white border-t border-gray-200 dark:bg-gray-900 dark:border-gray-800">
-    <div class="container mx-auto max-w-7xl">
-      <div class="grid gap-12 mb-12 md:grid-cols-2 lg:grid-cols-4">
-
-        <!-- Company Info -->
-        <div class="animate-fade-in-up">
-          <div class="flex items-center gap-2 mb-6">
-            <div class="flex items-center justify-center w-6 h-6 transition-transform rounded hover:scale-110 bg-brand-500">
-              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-              </svg>
-            </div>
-            <span class="text-xl font-bold text-gray-900 dark:text-white">DevFlowFix</span>
-          </div>
-          <p class="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-            AI-powered deployment automation that fixes 75% of failures in under 8 minutes.
-          </p>
-        </div>
-
-        <!-- Product -->
-        <div class="animate-fade-in-up delay-100">
-          <h4 class="mb-4 text-sm font-bold text-gray-900 uppercase dark:text-white">Product</h4>
-          <ul class="space-y-3">
-            <li><a routerLink="/dashboard" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Dashboard</a></li>
-            <li><a href="#features" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Features</a></li>
-            <li><a href="#pricing" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Pricing</a></li>
-          </ul>
-        </div>
-
-        <!-- Company -->
-        <div class="animate-fade-in-up delay-200">
-          <h4 class="mb-4 text-sm font-bold text-gray-900 uppercase dark:text-white">Company</h4>
-          <ul class="space-y-3">
-            <li><a href="#about" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">About</a></li>
-            <li><a href="#blog" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Blog</a></li>
-            <li><a href="#careers" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Careers</a></li>
-          </ul>
-        </div>
-
-        <!-- Support -->
-        <div class="animate-fade-in-up delay-300">
-          <h4 class="mb-4 text-sm font-bold text-gray-900 uppercase dark:text-white">Support</h4>
-          <ul class="space-y-3">
-            <li><a href="#help" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Help Center</a></li>
-            <li><a href="#contact" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Contact</a></li>
-            <li><a href="#status" class="text-sm text-gray-600 transition-all hover:text-brand-500 hover:translate-x-1 dark:text-gray-400">Status</a></li>
-          </ul>
-        </div>
-
-      </div>
-
-      <!-- Bottom -->
-      <div class="pt-8 border-t border-gray-200 animate-fade-in-up delay-400 dark:border-gray-800">
-        <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p class="text-sm text-gray-600 dark:text-gray-400">&copy; 2025 DevFlowFix. All rights reserved.</p>
-          <div class="flex flex-wrap gap-6">
-            <a href="#privacy" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400">Privacy</a>
-            <a href="#terms" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400">Terms</a>
-            <a href="#cookies" class="text-sm text-gray-600 transition-colors hover:text-brand-500 dark:text-gray-400">Cookies</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <!-- Shared Footer -->
+  <app-public-footer></app-public-footer>
 
 </div>

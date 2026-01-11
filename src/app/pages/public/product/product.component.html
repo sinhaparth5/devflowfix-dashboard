@@ -1,0 +1,120 @@
+<div class="min-h-screen bg-[#f5f3f0] dark:bg-gray-900">
+  <!-- Shared Navbar -->
+  <app-public-navbar activePage="product"></app-public-navbar>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="inline-block px-4 py-2 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-full text-sm font-medium mb-6">
+        Product Features
+      </span>
+      <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+        Everything You Need to<br>
+        <span class="text-brand-500">Fix Deployments Fast</span>
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
+        DevFlowFix combines AI-powered analysis with deep CI/CD integrations to automatically resolve deployment failures before they impact your users.
+      </p>
+      <a routerLink="/signup" class="inline-block px-8 py-4 bg-brand-500 text-white rounded-xl font-semibold hover:bg-brand-600 transition-colors shadow-lg">
+        Start Free Trial
+      </a>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="py-20 px-6 bg-white dark:bg-gray-800">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-4">Powerful Features</h2>
+      <p class="text-xl text-gray-600 dark:text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+        Built for modern DevOps teams who demand speed, reliability, and automation.
+      </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @for (feature of features; track feature.title) {
+          <div class="bg-[#f5f3f0] dark:bg-gray-900 rounded-2xl p-8 border-4 border-black dark:border-gray-700 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,136,0,0.3)] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all">
+            <div class="w-14 h-14 bg-brand-100 dark:bg-brand-900/30 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-7 h-7 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="feature.icon"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">{{ feature.title }}</h3>
+            <p class="text-gray-600 dark:text-gray-400">{{ feature.description }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-4">How It Works</h2>
+      <p class="text-xl text-gray-600 dark:text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+        Get started in minutes with our simple three-step process.
+      </p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-brand-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">1</div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Connect Your Repos</h3>
+          <p class="text-gray-600 dark:text-gray-400">Link your GitHub repositories and CI/CD pipelines in just a few clicks.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-brand-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">2</div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">AI Monitors & Analyzes</h3>
+          <p class="text-gray-600 dark:text-gray-400">Our AI watches your deployments and instantly identifies failure patterns.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-brand-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">3</div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Auto-Fix & Notify</h3>
+          <p class="text-gray-600 dark:text-gray-400">Issues are resolved automatically or you're notified with actionable fixes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-20 px-6 bg-gradient-to-br from-brand-500 to-brand-600 text-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-5xl font-bold mb-2">75%</div>
+          <div class="text-white/80">Auto-Resolution Rate</div>
+        </div>
+        <div>
+          <div class="text-5xl font-bold mb-2">&lt;8min</div>
+          <div class="text-white/80">Average Fix Time</div>
+        </div>
+        <div>
+          <div class="text-5xl font-bold mb-2">99.9%</div>
+          <div class="text-white/80">Platform Uptime</div>
+        </div>
+        <div>
+          <div class="text-5xl font-bold mb-2">10K+</div>
+          <div class="text-white/80">Deployments Fixed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+        Ready to Experience DevFlowFix?
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-400 mb-8">
+        Start your free trial today. No credit card required.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a routerLink="/signup" class="px-8 py-4 bg-brand-500 text-white rounded-xl font-semibold hover:bg-brand-600 transition-colors shadow-lg">
+          Start Free Trial
+        </a>
+        <a routerLink="/pricing" class="px-8 py-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl font-semibold border-2 border-gray-200 dark:border-gray-700 hover:border-brand-500 transition-colors">
+          View Pricing
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shared Footer -->
+  <app-public-footer></app-public-footer>
+</div>
