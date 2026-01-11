@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, AfterViewInit, OnDestroy, PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SeoService } from '../../../shared/services/seo.service';
 import { PublicNavbarComponent } from '../../../shared/components/public-layout/public-navbar.component';
 import { PublicFooterComponent } from '../../../shared/components/public-layout/public-footer.component';
+import { ScrollAnimateDirective } from '../../../shared/directives/scroll-animate.directive';
+import { CounterAnimateDirective } from '../../../shared/directives/counter-animate.directive';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [RouterModule, PublicNavbarComponent, PublicFooterComponent],
+  imports: [RouterModule, PublicNavbarComponent, PublicFooterComponent, ScrollAnimateDirective, CounterAnimateDirective],
   templateUrl: './product.component.html',
   styles: ``
 })

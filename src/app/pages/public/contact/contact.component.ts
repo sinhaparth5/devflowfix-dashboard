@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SeoService } from '../../../shared/services/seo.service';
 import { PublicNavbarComponent } from '../../../shared/components/public-layout/public-navbar.component';
 import { PublicFooterComponent } from '../../../shared/components/public-layout/public-footer.component';
+import { ScrollAnimateDirective } from '../../../shared/directives/scroll-animate.directive';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [RouterModule, FormsModule, PublicNavbarComponent, PublicFooterComponent],
+  imports: [RouterModule, FormsModule, PublicNavbarComponent, PublicFooterComponent, ScrollAnimateDirective],
   templateUrl: './contact.component.html',
   styles: ``
 })

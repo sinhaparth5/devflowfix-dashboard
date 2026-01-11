@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-
 import { RouterModule } from '@angular/router';
 import { SeoService } from '../../../shared/services/seo.service';
 import { PublicNavbarComponent } from '../../../shared/components/public-layout/public-navbar.component';
 import { PublicFooterComponent } from '../../../shared/components/public-layout/public-footer.component';
+import { ScrollAnimateDirective } from '../../../shared/directives/scroll-animate.directive';
 
 @Component({
   selector: 'app-pricing',
   standalone: true,
-  imports: [RouterModule, PublicNavbarComponent, PublicFooterComponent],
+  imports: [RouterModule, PublicNavbarComponent, PublicFooterComponent, ScrollAnimateDirective],
   templateUrl: './pricing.component.html',
   styles: ``
 })
