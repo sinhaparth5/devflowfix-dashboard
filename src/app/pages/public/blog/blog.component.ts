@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { NgOptimizedImage } from '@angular/common';
 import { SeoService } from '../../../shared/services/seo.service';
 import { PublicNavbarComponent } from '../../../shared/components/public-layout/public-navbar.component';
 import { PublicFooterComponent } from '../../../shared/components/public-layout/public-footer.component';
@@ -8,7 +9,7 @@ import { ScrollAnimateDirective } from '../../../shared/directives/scroll-animat
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [RouterModule, PublicNavbarComponent, PublicFooterComponent, ScrollAnimateDirective],
+  imports: [RouterModule, PublicNavbarComponent, PublicFooterComponent, ScrollAnimateDirective, NgOptimizedImage],
   templateUrl: './blog.component.html',
   styles: ``
 })
