@@ -161,6 +161,8 @@ export class CookieConsentComponent implements OnInit {
   showBanner = false;
   showPreferences = false;
   private isBrowser: boolean;
+  private readonly COOKIE_NAME = 'cookie_consent';
+  private readonly COOKIE_EXPIRY_DAYS = 180; // 6 months
 
   preferences: CookiePreferences = {
     necessary: true,
@@ -176,19 +178,19 @@ export class CookieConsentComponent implements OnInit {
   ngOnInit(): void {
     if (!this.isBrowser) return;
 
-    // Check for existing consent
-    const savedConsent = localStorage.getItem('cookie_consent');
+    // Check for existing consent in cookie
+    const savedConsent = this.getCookie(this.COOKIE_NAME);
 
     if (savedConsent) {
       try {
-        const parsed = JSON.parse(savedConsent) as CookiePreferences;
+        const parsed = JSON.parse(decodeURIComponent(savedConsent)) as CookiePreferences;
         this.preferences = parsed;
 
         // Apply saved preferences
         this.updateGTMConsent();
 
         // Check if consent is older than 6 months (180 days)
-        const sixMonthsAgo = Date.now() - (180 * 24 * 60 * 60 * 1000);
+        const sixMonthsAgo = Date.now() - (this.COOKIE_EXPIRY_DAYS * 24 * 60 * 60 * 1000);
         if (parsed.timestamp < sixMonthsAgo) {
           this.showBanner = true;
         }
@@ -200,6 +202,32 @@ export class CookieConsentComponent implements OnInit {
       this.showBanner = true;
       this.initializeGTMConsent();
     }
+  }
+
+  private getCookie(name: string): string | null {
+    if (!this.isBrowser) return null;
+
+    const nameEQ = name + '=';
+    const cookies = document.cookie.split(';');
+
+    for (let cookie of cookies) {
+      cookie = cookie.trim();
+      if (cookie.indexOf(nameEQ) === 0) {
+        return cookie.substring(nameEQ.length);
+      }
+    }
+    return null;
+  }
+
+  private setCookie(name: string, value: string, days: number): void {
+    if (!this.isBrowser) return;
+
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = 'expires=' + date.toUTCString();
+
+    // Set cookie with secure attributes
+    document.cookie = `${name}=${encodeURIComponent(value)}; ${expires}; path=/; SameSite=Lax`;
   }
 
   private initializeGTMConsent(): void {
@@ -286,8 +314,8 @@ export class CookieConsentComponent implements OnInit {
   private saveAndClose(): void {
     if (!this.isBrowser) return;
 
-    // Save to localStorage
-    localStorage.setItem('cookie_consent', JSON.stringify(this.preferences));
+    // Save to cookie
+    this.setCookie(this.COOKIE_NAME, JSON.stringify(this.preferences), this.COOKIE_EXPIRY_DAYS);
 
     // Update GTM consent
     this.updateGTMConsent();

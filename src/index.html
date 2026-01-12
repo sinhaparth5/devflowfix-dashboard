@@ -18,10 +18,23 @@
       'wait_for_update': 500
     });
 
-    // Check for existing consent and apply it immediately
+    // Check for existing consent in cookie and apply it immediately
     (function() {
       try {
-        var savedConsent = localStorage.getItem('cookie_consent');
+        // Helper function to get cookie by name
+        function getCookie(name) {
+          var nameEQ = name + '=';
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.indexOf(nameEQ) === 0) {
+              return decodeURIComponent(cookie.substring(nameEQ.length));
+            }
+          }
+          return null;
+        }
+
+        var savedConsent = getCookie('cookie_consent');
         if (savedConsent) {
           var preferences = JSON.parse(savedConsent);
           gtag('consent', 'update', {
