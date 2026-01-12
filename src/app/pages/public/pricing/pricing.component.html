@@ -2,6 +2,9 @@
   <!-- Shared Navbar -->
   <app-public-navbar activePage="pricing"></app-public-navbar>
 
+  <!-- Main Content -->
+  <main id="main-content" role="main">
+
   <!-- Hero Section -->
   <section class="pt-12 pb-12 px-6 relative">
     <!-- Floating Background Elements -->
@@ -13,8 +16,8 @@
     <div class="absolute bottom-20 left-20 w-12 h-12 border-2 border-brand-200 opacity-30 hidden lg:block" style="transform: rotate(45deg);"></div>
 
     <!-- Floating Particles -->
-    <div class="particle particle-1 hidden lg:block" style="top: 15%; left: 10%;"></div>
-    <div class="particle particle-2 hidden lg:block" style="top: 60%; right: 15%;"></div>
+    <div class="particle particle-1 hidden lg:block" aria-hidden="true" style="top: 15%; left: 10%;"></div>
+    <div class="particle particle-2 hidden lg:block" aria-hidden="true" style="top: 60%; right: 15%;"></div>
 
     <div class="max-w-4xl mx-auto text-center relative z-10">
       <span appScrollAnimate animationType="fade-down" [animationDelay]="0" class="inline-block px-4 py-2 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-full text-sm font-medium mb-6">
@@ -24,7 +27,7 @@
         Choose Your<br>
         <span class="text-gradient-animate">Perfect Plan</span>
       </h1>
-      <p appScrollAnimate animationType="fade-up" [animationDelay]="200" class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+      <p appScrollAnimate animationType="fade-up" [animationDelay]="200" class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
         Start free, upgrade as you grow. No hidden fees, no surprises.
       </p>
     </div>
@@ -53,9 +56,9 @@
             <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">{{ plan.name }}</h3>
             <div class="flex items-baseline gap-1 mb-4">
               <span class="text-4xl font-bold text-gray-900 dark:text-white">{{ plan.price }}</span>
-              <span class="text-gray-500 dark:text-gray-400">{{ plan.period }}</span>
+              <span class="text-gray-600 dark:text-gray-300">{{ plan.period }}</span>
             </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-6">{{ plan.description }}</p>
+            <p class="text-gray-600 dark:text-gray-300 mb-6">{{ plan.description }}</p>
             <ul class="space-y-3 mb-8">
               @for (feature of plan.features; track feature) {
                 <li class="flex items-start gap-3 group/item">
@@ -89,7 +92,7 @@
   <!-- FAQ Section -->
   <section class="py-20 px-6 bg-white dark:bg-gray-800 relative overflow-hidden">
     <!-- Background decorations -->
-    <div class="absolute -top-20 -right-20 w-80 h-80 bg-brand-100/20 rounded-full blur-3xl"></div>
+    <div class="absolute -top-20 -right-20 w-80 h-80 bg-brand-100/20 rounded-full blur-3xl" aria-hidden="true"></div>
 
     <div class="max-w-3xl mx-auto relative z-10">
       <h2 appScrollAnimate animationType="fade-up" class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-12">Frequently Asked Questions</h2>
@@ -97,7 +100,7 @@
         @for (faq of faqs; track faq.question; let i = $index) {
           <div appScrollAnimate animationType="fade-up" [animationDelay]="i * 100" class="bg-[#f5f3f0] dark:bg-gray-900 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300 group">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">{{ faq.question }}</h3>
-            <p class="text-gray-600 dark:text-gray-400">{{ faq.answer }}</p>
+            <p class="text-gray-600 dark:text-gray-300">{{ faq.answer }}</p>
           </div>
         }
       </div>
@@ -114,7 +117,7 @@
       <h2 appScrollAnimate animationType="fade-up" class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
         Still Have Questions?
       </h2>
-      <p appScrollAnimate animationType="fade-up" [animationDelay]="100" class="text-xl text-gray-600 dark:text-gray-400 mb-8">
+      <p appScrollAnimate animationType="fade-up" [animationDelay]="100" class="text-xl text-gray-600 dark:text-gray-300 mb-8">
         Our team is here to help you find the right plan for your needs.
       </p>
       <a appScrollAnimate animationType="scale" [animationDelay]="200" routerLink="/contact" class="inline-block px-8 py-4 bg-brand-500 text-white rounded-xl font-semibold hover:bg-brand-600 transition-all shadow-lg btn-shine btn-glow hover:scale-105 hover:-translate-y-1">
@@ -122,6 +125,9 @@
       </a>
     </div>
   </section>
+
+  </main>
+  <!-- End Main Content -->
 
   <!-- Shared Footer -->
   <app-public-footer></app-public-footer>

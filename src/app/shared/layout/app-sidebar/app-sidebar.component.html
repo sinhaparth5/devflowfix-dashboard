@@ -80,7 +80,7 @@
           </h2>
           <ul class="flex flex-col gap-1">
             @for (nav of navItems; track $index;let i = $index) {
-            <li>
+            <li [attr.data-tour]="nav.name === 'Incidents' ? 'sidebar-incidents' : nav.name === 'Webhooks' ? 'sidebar-webhooks' : nav.name === 'PR Management' ? 'sidebar-pr' : null">
               @if (nav.subItems) {
                 <button
                   (click)="toggleSubmenu('main',i)"

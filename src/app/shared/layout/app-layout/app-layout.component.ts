@@ -5,6 +5,8 @@ import { AppSidebarComponent } from '../app-sidebar/app-sidebar.component';
 import { BackdropComponent } from '../backdrop/backdrop.component';
 import { RouterModule } from '@angular/router';
 import { AppHeaderComponent } from '../app-header/app-header.component';
+import { ProductTourComponent } from '../../components/onboarding/product-tour.component';
+import { OnboardingProgressComponent } from '../../components/onboarding/onboarding-progress.component';
 
 @Component({
   selector: 'app-layout',
@@ -13,7 +15,9 @@ import { AppHeaderComponent } from '../app-header/app-header.component';
     RouterModule,
     AppHeaderComponent,
     AppSidebarComponent,
-    BackdropComponent
+    BackdropComponent,
+    ProductTourComponent,
+    OnboardingProgressComponent
   ],
   templateUrl: './app-layout.component.html',
 })

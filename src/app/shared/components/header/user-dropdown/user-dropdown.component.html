@@ -47,6 +47,15 @@
           Support
         </app-dropdown-item-two>
       </li>
+      <li>
+        <button (click)="restartTour()"
+          class="flex items-center w-full gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300">
+          <svg class="fill-gray-500 group-hover:fill-gray-700 dark:fill-gray-400 dark:group-hover:fill-gray-300" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 4.5C7.85786 4.5 4.5 7.85786 4.5 12C4.5 16.1421 7.85786 19.5 12 19.5C16.1421 19.5 19.5 16.1421 19.5 12C19.5 10.4784 19.0596 9.05546 18.2989 7.85624L19.566 6.58917C20.6189 8.09243 21.25 9.93137 21.25 12C21.25 17.3848 16.8848 21.75 11.5 21.75C6.11522 21.75 1.75 17.3848 1.75 12C1.75 6.61522 6.11522 2.25 11.5 2.25C13.5686 2.25 15.4076 2.88107 16.9108 3.93398L15.6438 5.20105C14.4445 4.44043 13.0216 4 11.5 4H12V4.5ZM17.5303 4.46967L12.5303 9.46967C12.2374 9.76256 11.7626 9.76256 11.4697 9.46967C11.1768 9.17678 11.1768 8.70191 11.4697 8.40901L16.4697 3.40901C16.7626 3.11612 17.2374 3.11612 17.5303 3.40901C17.8232 3.70191 17.8232 4.17678 17.5303 4.46967Z" fill=""></path>
+          </svg>
+          Restart Tour
+        </button>
+      </li>
     </ul>
       <button
         (click)="handleSignout()"

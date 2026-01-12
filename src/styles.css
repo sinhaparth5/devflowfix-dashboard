@@ -1934,3 +1934,292 @@ pre[class*="language-"].line-numbers {
   opacity: 1;
   transform: translate(0) scale(1);
 }
+
+/* ============================================
+   WCAG 2.1 AA ACCESSIBILITY UTILITIES
+   ============================================ */
+
+/* Skip to Main Content Link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 1rem 2rem;
+  background-color: #101828;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 0.5rem 0.5rem;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #ff8800;
+  outline-offset: 2px;
+}
+
+/* Screen Reader Only (Visually Hidden but Accessible) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only-focusable:focus,
+.sr-only-focusable:active {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Enhanced Focus Indicators (WCAG 2.4.7) */
+:focus-visible {
+  outline: 3px solid #ff8800 !important;
+  outline-offset: 2px !important;
+}
+
+/* Focus styles for dark mode */
+.dark :focus-visible {
+  outline-color: #ffa333 !important;
+}
+
+/* Remove default focus outline and replace with custom */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #ff8800;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* High Contrast Text Classes (WCAG 1.4.3 - 4.5:1 minimum) */
+/* Use these instead of text-gray-400 for better contrast */
+.text-accessible {
+  color: #475467; /* gray-600 - 7.5:1 on white */
+}
+
+.text-accessible-muted {
+  color: #667085; /* gray-500 - 5.4:1 on white */
+}
+
+.dark .text-accessible {
+  color: #d0d5dd; /* gray-300 - 10:1 on gray-900 */
+}
+
+.dark .text-accessible-muted {
+  color: #98a2b3; /* gray-400 - 7:1 on gray-900 */
+}
+
+/* High Contrast on Light Backgrounds (bg-[#f5f3f0]) */
+.text-on-cream {
+  color: #344054; /* gray-700 - 8.5:1 on #f5f3f0 */
+}
+
+.text-on-cream-muted {
+  color: #475467; /* gray-600 - 6.2:1 on #f5f3f0 */
+}
+
+/* Reduced Motion Support (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-float,
+  .animate-float-slow,
+  .animate-wiggle,
+  .animate-pulse,
+  .animate-bounce,
+  .animate-spin {
+    animation: none !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-gray-400: #475467;
+    --color-gray-500: #344054;
+  }
+
+  a, button {
+    text-decoration: underline;
+  }
+
+  button {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Minimum Touch Target Size (WCAG 2.5.5 - 44x44px) */
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure links in body text are distinguishable */
+article a,
+.prose a,
+p a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+article a:hover,
+.prose a:hover,
+p a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Focus trap utility for modals */
+.focus-trap {
+  contain: layout;
+}
+
+/* Visible focus for custom checkboxes/radios */
+input[type="checkbox"]:focus-visible + label,
+input[type="radio"]:focus-visible + label {
+  outline: 3px solid #ff8800;
+  outline-offset: 2px;
+}
+
+/* Button minimum height for touch */
+button,
+.btn,
+[role="button"] {
+  min-height: 44px;
+  padding-inline: 1rem;
+}
+
+/* Small buttons exception (must have touch-target wrapper) */
+button.btn-sm,
+.btn-sm {
+  min-height: 36px;
+}
+
+/* Text resize support - ensure text scales properly */
+html {
+  font-size: 100%; /* Respect user's browser font size setting */
+}
+
+/* Ensure adequate line height for readability */
+body {
+  line-height: 1.5;
+}
+
+p, li, dd {
+  line-height: 1.6;
+}
+
+/* Heading hierarchy visual styles */
+h1 { font-size: 2.5rem; line-height: 1.2; font-weight: 700; }
+h2 { font-size: 2rem; line-height: 1.25; font-weight: 700; }
+h3 { font-size: 1.5rem; line-height: 1.3; font-weight: 600; }
+h4 { font-size: 1.25rem; line-height: 1.35; font-weight: 600; }
+h5 { font-size: 1.125rem; line-height: 1.4; font-weight: 600; }
+h6 { font-size: 1rem; line-height: 1.5; font-weight: 600; }
+
+@media (min-width: 768px) {
+  h1 { font-size: 3rem; }
+  h2 { font-size: 2.25rem; }
+  h3 { font-size: 1.75rem; }
+}
+
+@media (min-width: 1024px) {
+  h1 { font-size: 3.5rem; }
+  h2 { font-size: 2.5rem; }
+}
+
+/* Error state styling for form validation */
+.error-message {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.dark .error-message {
+  color: #f87171;
+}
+
+/* Invalid form field styling */
+input:invalid:not(:placeholder-shown),
+select:invalid:not(:placeholder-shown),
+textarea:invalid:not(:placeholder-shown) {
+  border-color: #dc2626;
+}
+
+/* Required field indicator */
+.required::after {
+  content: " *";
+  color: #dc2626;
+}
+
+/* Link visited state (WCAG 1.4.1) */
+a:visited {
+  color: #6d28d9; /* purple-700 - distinguishable from unvisited */
+}
+
+.dark a:visited {
+  color: #a78bfa; /* purple-400 */
+}
+
+/* Ensure adequate spacing between interactive elements */
+nav a,
+nav button,
+.nav-item {
+  padding: 0.5rem 1rem;
+}
+
+/* Table accessibility */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+}
+
+th, td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e4e7ec;
+}
+
+.dark th,
+.dark td {
+  border-bottom-color: #344054;
+}
+
+/* Caption for tables */
+caption {
+  padding: 0.75rem;
+  font-weight: 600;
+  text-align: left;
+  caption-side: top;
+}

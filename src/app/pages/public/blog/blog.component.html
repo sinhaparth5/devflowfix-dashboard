@@ -2,6 +2,9 @@
   <!-- Shared Navbar -->
   <app-public-navbar activePage="blog"></app-public-navbar>
 
+  <!-- Main Content -->
+  <main id="main-content" role="main">
+
   <!-- Hero Section -->
   <section class="pt-12 pb-12 px-6 relative">
     <!-- Floating Background Elements -->
@@ -12,8 +15,8 @@
     <div class="absolute top-32 right-20 w-16 h-16 border-2 border-dashed border-brand-300 rounded-full deco-circle opacity-40 hidden lg:block"></div>
 
     <!-- Floating Particles -->
-    <div class="particle particle-1 hidden lg:block" style="top: 15%; right: 10%;"></div>
-    <div class="particle particle-2 hidden lg:block" style="top: 50%; left: 12%;"></div>
+    <div class="particle particle-1 hidden lg:block" aria-hidden="true" style="top: 15%; right: 10%;"></div>
+    <div class="particle particle-2 hidden lg:block" aria-hidden="true" style="top: 50%; left: 12%;"></div>
 
     <div class="max-w-4xl mx-auto text-center relative z-10">
       <span appScrollAnimate animationType="fade-down" [animationDelay]="0" class="inline-block px-4 py-2 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-full text-sm font-medium mb-6">
@@ -22,7 +25,7 @@
       <h1 appScrollAnimate animationType="fade-up" [animationDelay]="100" class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
         DevOps Insights & Tutorials
       </h1>
-      <p appScrollAnimate animationType="fade-up" [animationDelay]="200" class="text-xl text-gray-600 dark:text-gray-400">
+      <p appScrollAnimate animationType="fade-up" [animationDelay]="200" class="text-xl text-gray-600 dark:text-gray-300">
         Learn about deployment automation, CI/CD best practices, and AI-powered DevOps
       </p>
     </div>
@@ -107,10 +110,10 @@
               <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">
                 {{ post.title }}
               </h3>
-              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">
+              <p class="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
                 {{ post.excerpt }}
               </p>
-              <div class="flex items-center gap-4 text-gray-500 dark:text-gray-400 text-xs">
+              <div class="flex items-center gap-4 text-gray-600 dark:text-gray-300 text-xs">
                 <span>{{ post.date }}</span>
                 <span>•</span>
                 <span>{{ post.readTime }}</span>
@@ -126,7 +129,7 @@
   <section class="py-16 px-6 bg-white dark:bg-gray-800">
     <div class="max-w-2xl mx-auto text-center">
       <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Stay Updated</h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-8">
+      <p class="text-gray-600 dark:text-gray-300 mb-8">
         Subscribe to our newsletter for the latest DevOps insights and tutorials
       </p>
       <form class="flex flex-col sm:flex-row gap-4">
@@ -138,6 +141,9 @@
       </form>
     </div>
   </section>
+
+  </main>
+  <!-- End Main Content -->
 
   <!-- Shared Footer -->
   <app-public-footer></app-public-footer>

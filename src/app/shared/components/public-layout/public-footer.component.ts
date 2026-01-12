@@ -55,32 +55,32 @@ import { RouterModule } from '@angular/router';
 
           <!-- Product -->
           <nav aria-label="Product links">
-            <h4 class="font-semibold mb-4 text-white text-sm uppercase tracking-wider">Product</h4>
+            <h2 class="font-semibold mb-4 text-white text-sm uppercase tracking-wider">Product</h2>
             <ul class="space-y-3" role="list">
-              <li><a routerLink="/product" class="text-gray-300 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Features</a></li>
-              <li><a routerLink="/pricing" class="text-gray-300 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Pricing</a></li>
-              <li><a routerLink="/dashboard" class="text-gray-300 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Dashboard</a></li>
-              <li><a routerLink="/signup" class="text-gray-300 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Get Started</a></li>
+              <li><a routerLink="/product" class="text-gray-200 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Features</a></li>
+              <li><a routerLink="/pricing" class="text-gray-200 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Pricing</a></li>
+              <li><a routerLink="/dashboard" class="text-gray-200 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Dashboard</a></li>
+              <li><a routerLink="/signup" class="text-gray-200 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Get Started</a></li>
             </ul>
           </nav>
 
           <!-- Company -->
           <nav aria-label="Company links">
-            <h4 class="font-semibold mb-4 text-white text-sm uppercase tracking-wider">Company</h4>
+            <h2 class="font-semibold mb-4 text-white text-sm uppercase tracking-wider">Company</h2>
             <ul class="space-y-3" role="list">
-              <li><a routerLink="/about" class="text-gray-300 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">About</a></li>
-              <li><a routerLink="/blog" class="text-gray-300 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Blog</a></li>
-              <li><a routerLink="/contact" class="text-gray-300 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Contact</a></li>
+              <li><a routerLink="/about" class="text-gray-200 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">About</a></li>
+              <li><a routerLink="/blog" class="text-gray-200 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Blog</a></li>
+              <li><a routerLink="/contact" class="text-gray-200 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Contact</a></li>
             </ul>
           </nav>
 
           <!-- Support -->
           <nav aria-label="Support links">
-            <h4 class="font-semibold mb-4 text-white text-sm uppercase tracking-wider">Support</h4>
+            <h2 class="font-semibold mb-4 text-white text-sm uppercase tracking-wider">Support</h2>
             <ul class="space-y-3" role="list">
-              <li><a routerLink="/help-center" class="text-gray-300 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Help Center</a></li>
-              <li><a href="mailto:support&#64;devflowfix.com" class="text-gray-300 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Email Support</a></li>
-              <li><a routerLink="/contact" class="text-gray-300 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Contact Sales</a></li>
+              <li><a routerLink="/help-center" class="text-gray-200 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Help Center</a></li>
+              <li><a href="mailto:support&#64;devflowfix.com" class="text-gray-200 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200" aria-label="Email support at support@devflowfix.com">Email Support</a></li>
+              <li><a routerLink="/contact" class="text-gray-200 hover:text-brand-400 hover:translate-x-1 inline-block transition-all duration-200">Contact Sales</a></li>
             </ul>
           </nav>
         </div>
@@ -88,14 +88,14 @@ import { RouterModule } from '@angular/router';
         <!-- Bottom Bar -->
         <div class="pt-8 border-t border-gray-800">
           <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p class="text-gray-400 text-sm">
+            <p class="text-gray-300 text-sm">
               &copy; {{ currentYear }} DevFlowFix. All rights reserved.
             </p>
             <nav aria-label="Legal links">
               <div class="flex flex-wrap gap-6 text-sm">
-                <a routerLink="/privacy-policy" class="text-gray-400 hover:text-white transition-colors duration-200">Privacy Policy</a>
-                <a routerLink="/terms-of-service" class="text-gray-400 hover:text-white transition-colors duration-200">Terms of Service</a>
-                <a routerLink="/cookie-policy" class="text-gray-400 hover:text-white transition-colors duration-200">Cookie Policy</a>
+                <a routerLink="/privacy-policy" class="text-gray-300 hover:text-white transition-colors duration-200">Privacy Policy</a>
+                <a routerLink="/terms-of-service" class="text-gray-300 hover:text-white transition-colors duration-200">Terms of Service</a>
+                <a routerLink="/cookie-policy" class="text-gray-300 hover:text-white transition-colors duration-200">Cookie Policy</a>
               </div>
             </nav>
           </div>

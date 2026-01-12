@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DropdownItemTwoComponent } from '../../ui/dropdown/dropdown-item/dropdown-item.component-two';
 import { AuthService, UserResponse } from '../../auth/auth.service';
+import { OnboardingService } from '../../../services/onboarding.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,7 +16,10 @@ export class UserDropdownComponent {
   isOpen = false;
   currentUser$: Observable<UserResponse | null>;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private onboardingService: OnboardingService
+  ) {
     this.currentUser$ = this.authService.currentUser$;
   }
 
@@ -48,5 +52,10 @@ export class UserDropdownComponent {
 
   getUserEmail(user: UserResponse | null): string {
     return user?.email || '';
+  }
+
+  restartTour(): void {
+    this.closeDropdown();
+    this.onboardingService.restartTour();
   }
 }
