@@ -93,9 +93,9 @@ import { RouterModule } from '@angular/router';
             </p>
             <nav aria-label="Legal links">
               <div class="flex flex-wrap gap-6 text-sm">
-                <a routerLink="/privacy" class="text-gray-400 hover:text-white transition-colors duration-200">Privacy Policy</a>
-                <a routerLink="/terms" class="text-gray-400 hover:text-white transition-colors duration-200">Terms of Service</a>
-                <a routerLink="/cookies" class="text-gray-400 hover:text-white transition-colors duration-200">Cookie Policy</a>
+                <a routerLink="/privacy-policy" class="text-gray-400 hover:text-white transition-colors duration-200">Privacy Policy</a>
+                <a routerLink="/terms-of-service" class="text-gray-400 hover:text-white transition-colors duration-200">Terms of Service</a>
+                <a routerLink="/cookie-policy" class="text-gray-400 hover:text-white transition-colors duration-200">Cookie Policy</a>
               </div>
             </nav>
           </div>

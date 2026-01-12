@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { CookieConsentComponent } from './shared/components/cookie-consent/cookie-consent.component';
 
 declare let gtag: Function;
 
@@ -9,6 +10,7 @@ declare let gtag: Function;
   standalone: true,
   imports: [
     RouterModule,
+    CookieConsentComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

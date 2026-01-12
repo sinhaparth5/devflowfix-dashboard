@@ -31,8 +31,74 @@
     </div>
   </section>
 
+  <!-- Video Section -->
+  <section class="py-16 px-6 bg-white dark:bg-gray-800 relative overflow-hidden">
+    <!-- Background decorations -->
+    <div class="absolute top-10 left-10 w-64 h-64 bg-brand-100/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-10 right-10 w-48 h-48 bg-mustard-100/20 rounded-full blur-3xl"></div>
+
+    <div class="max-w-5xl mx-auto relative z-10">
+      <div appScrollAnimate animationType="fade-up" class="text-center mb-10">
+        <span class="inline-block px-4 py-2 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-full text-sm font-medium mb-4">
+          See It In Action
+        </span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          Watch How DevFlowFix Works
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          See how our AI-powered platform automatically detects, analyzes, and resolves deployment failures in real-time.
+        </p>
+      </div>
+
+      <!-- Video Container -->
+      <div appScrollAnimate animationType="fade-up" [animationDelay]="200" class="relative group">
+        <!-- Decorative frame -->
+        <div class="absolute -inset-4 bg-gradient-to-r from-brand-500 via-mustard-500 to-brand-500 rounded-3xl opacity-20 blur-xl group-hover:opacity-30 transition-opacity duration-500"></div>
+
+        <!-- Video wrapper with aspect ratio -->
+        <div class="relative bg-gray-900 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-200 dark:ring-gray-700">
+          <!-- Play button overlay gradient -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+          <!-- Responsive iframe container -->
+          <div class="relative w-full" style="padding-bottom: 56.25%;">
+            <iframe
+              class="absolute top-0 left-0 w-full h-full"
+              src="https://www.youtube.com/embed/0bt74zKvBio?si=mGyW4TWRW5Eqy01t&rel=0&modestbranding=1"
+              title="DevFlowFix Demo - See How It Works"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+        <!-- Decorative elements -->
+        <div class="absolute -bottom-3 -right-3 w-24 h-24 border-2 border-brand-300/30 rounded-xl rotate-12 hidden md:block"></div>
+        <div class="absolute -top-3 -left-3 w-16 h-16 border-2 border-mustard-300/30 rounded-full hidden md:block"></div>
+      </div>
+
+      <!-- Video stats/highlights -->
+      <div appScrollAnimate animationType="fade-up" [animationDelay]="400" class="grid grid-cols-3 gap-6 mt-10">
+        <div class="text-center">
+          <div class="text-2xl md:text-3xl font-bold text-brand-500 mb-1">2 min</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400">Quick Overview</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl md:text-3xl font-bold text-mustard-500 mb-1">Live Demo</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400">Real Platform</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl md:text-3xl font-bold text-green-500 mb-1">Free</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400">No Sign-up Required</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Mission Section -->
-  <section class="py-20 px-6 bg-white dark:bg-gray-800 relative overflow-hidden">
+  <section class="py-20 px-6 relative overflow-hidden">
     <!-- Background decorations -->
     <div class="absolute -top-20 -right-20 w-80 h-80 bg-brand-100/30 rounded-full blur-3xl"></div>
 

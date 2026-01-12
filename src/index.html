@@ -1,6 +1,42 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Google Consent Mode - Set defaults BEFORE loading any tracking scripts -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // Set default consent to denied - GDPR compliant
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'functionality_storage': 'granted',
+      'personalization_storage': 'denied',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+
+    // Check for existing consent and apply it immediately
+    (function() {
+      try {
+        var savedConsent = localStorage.getItem('cookie_consent');
+        if (savedConsent) {
+          var preferences = JSON.parse(savedConsent);
+          gtag('consent', 'update', {
+            'analytics_storage': preferences.analytics ? 'granted' : 'denied',
+            'ad_storage': preferences.marketing ? 'granted' : 'denied',
+            'ad_user_data': preferences.marketing ? 'granted' : 'denied',
+            'ad_personalization': preferences.marketing ? 'granted' : 'denied'
+          });
+        }
+      } catch (e) {
+        // If there's an error reading consent, defaults remain (denied)
+      }
+    })();
+  </script>
+
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -12,10 +48,7 @@
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-LPNVX4RD1L"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-LPNVX4RD1L');
   </script>
 

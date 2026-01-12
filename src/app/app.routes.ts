@@ -48,6 +48,25 @@ export const routes: Routes = [
       import('./pages/public/blog/blog.component').then(m => m.BlogComponent),
     title: 'Blog | DevFlowFix'
   },
+  // Legal pages
+  {
+    path: 'privacy-policy',
+    loadComponent: () =>
+      import('./pages/public/privacy-policy/privacy-policy.component').then(m => m.PrivacyPolicyComponent),
+    title: 'Privacy Policy | DevFlowFix'
+  },
+  {
+    path: 'terms-of-service',
+    loadComponent: () =>
+      import('./pages/public/terms-of-service/terms-of-service.component').then(m => m.TermsOfServiceComponent),
+    title: 'Terms of Service | DevFlowFix'
+  },
+  {
+    path: 'cookie-policy',
+    loadComponent: () =>
+      import('./pages/public/cookie-policy/cookie-policy.component').then(m => m.CookiePolicyComponent),
+    title: 'Cookie Policy | DevFlowFix'
+  },
   // Protected dashboard routes
   {
     path: 'dashboard',

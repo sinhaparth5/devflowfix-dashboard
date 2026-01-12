@@ -1,0 +1,276 @@
+<div class="min-h-screen bg-[#f5f3f0] dark:bg-gray-900">
+  <!-- Shared Navbar -->
+  <app-public-navbar></app-public-navbar>
+
+  <!-- Hero Section -->
+  <section class="pt-12 pb-12 px-6 relative">
+    <div class="absolute top-20 right-10 w-72 h-72 bg-brand-200/30 rounded-full blur-3xl animate-float-slow"></div>
+    <div class="absolute bottom-10 left-10 w-64 h-64 bg-mustard-200/20 rounded-full blur-3xl animate-float delay-500"></div>
+
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      <span appScrollAnimate animationType="fade-down" [animationDelay]="0" class="inline-block px-4 py-2 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-full text-sm font-medium mb-6">
+        Legal
+      </span>
+      <h1 appScrollAnimate animationType="fade-up" [animationDelay]="100" class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+        Cookie Policy
+      </h1>
+      <p appScrollAnimate animationType="fade-up" [animationDelay]="200" class="text-lg text-gray-600 dark:text-gray-400">
+        Last updated: {{ lastUpdated }}
+      </p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="py-12 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 md:p-12 space-y-8">
+
+        <!-- Introduction -->
+        <div appScrollAnimate animationType="fade-up">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">1. What Are Cookies?</h2>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            Cookies are small text files that are stored on your device (computer, tablet, or mobile) when you visit a website. They are widely used to make websites work more efficiently, provide a better user experience, and give website owners information about how visitors use their site.
+          </p>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mt-4">
+            This Cookie Policy explains how DevFlowFix ("we," "our," or "us") uses cookies and similar technologies on our website and services.
+          </p>
+        </div>
+
+        <!-- Types of Cookies -->
+        <div appScrollAnimate animationType="fade-up" [animationDelay]="100">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">2. Types of Cookies We Use</h2>
+
+          <!-- Necessary Cookies -->
+          <div class="mt-6 p-6 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-green-100 dark:bg-green-900/40 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Necessary Cookies</h3>
+                <span class="text-xs font-medium text-green-600 dark:text-green-400">Always Active</span>
+              </div>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              These cookies are essential for the website to function properly. They enable core functionality such as security, authentication, and session management. Without these cookies, the service cannot be provided.
+            </p>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="text-left text-gray-500 dark:text-gray-400">
+                    <th class="pb-2 font-medium">Cookie Name</th>
+                    <th class="pb-2 font-medium">Purpose</th>
+                    <th class="pb-2 font-medium">Duration</th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-600 dark:text-gray-400">
+                  <tr>
+                    <td class="py-2 font-mono text-xs">session_token</td>
+                    <td class="py-2">User authentication</td>
+                    <td class="py-2">Session</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 font-mono text-xs">csrf_token</td>
+                    <td class="py-2">Security protection</td>
+                    <td class="py-2">Session</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 font-mono text-xs">cookie_consent</td>
+                    <td class="py-2">Stores your cookie preferences</td>
+                    <td class="py-2">6 months</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Analytics Cookies -->
+          <div class="mt-6 p-6 bg-brand-50 dark:bg-brand-900/20 rounded-xl border border-brand-200 dark:border-brand-800">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-brand-100 dark:bg-brand-900/40 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-brand-600 dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Analytics Cookies</h3>
+                <span class="text-xs font-medium text-brand-600 dark:text-brand-400">Optional</span>
+              </div>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously. This helps us improve our website and services.
+            </p>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="text-left text-gray-500 dark:text-gray-400">
+                    <th class="pb-2 font-medium">Cookie Name</th>
+                    <th class="pb-2 font-medium">Purpose</th>
+                    <th class="pb-2 font-medium">Duration</th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-600 dark:text-gray-400">
+                  <tr>
+                    <td class="py-2 font-mono text-xs">_ga</td>
+                    <td class="py-2">Google Analytics - distinguishes users</td>
+                    <td class="py-2">2 years</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 font-mono text-xs">_ga_*</td>
+                    <td class="py-2">Google Analytics 4 - session data</td>
+                    <td class="py-2">2 years</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 font-mono text-xs">_gid</td>
+                    <td class="py-2">Google Analytics - distinguishes users</td>
+                    <td class="py-2">24 hours</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Marketing Cookies -->
+          <div class="mt-6 p-6 bg-mustard-50 dark:bg-mustard-900/20 rounded-xl border border-mustard-200 dark:border-mustard-800">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-mustard-100 dark:bg-mustard-900/40 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-mustard-600 dark:text-mustard-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Marketing Cookies</h3>
+                <span class="text-xs font-medium text-mustard-600 dark:text-mustard-400">Optional</span>
+              </div>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              These cookies are used to track visitors across websites. The intention is to display ads that are relevant and engaging for the individual user.
+            </p>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="text-left text-gray-500 dark:text-gray-400">
+                    <th class="pb-2 font-medium">Cookie Name</th>
+                    <th class="pb-2 font-medium">Purpose</th>
+                    <th class="pb-2 font-medium">Duration</th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-600 dark:text-gray-400">
+                  <tr>
+                    <td class="py-2 font-mono text-xs">_gcl_au</td>
+                    <td class="py-2">Google Ads conversion tracking</td>
+                    <td class="py-2">3 months</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 font-mono text-xs">_fbp</td>
+                    <td class="py-2">Facebook Pixel - ad delivery</td>
+                    <td class="py-2">3 months</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- How We Use Cookies -->
+        <div appScrollAnimate animationType="fade-up" [animationDelay]="200">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">3. How We Use Cookies</h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">We use cookies to:</p>
+          <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2">
+            <li>Authenticate users and maintain secure sessions</li>
+            <li>Remember your preferences and settings</li>
+            <li>Understand how you use our website and services</li>
+            <li>Measure the effectiveness of our marketing campaigns</li>
+            <li>Improve our website performance and user experience</li>
+            <li>Provide personalized content and recommendations</li>
+          </ul>
+        </div>
+
+        <!-- Third-Party Cookies -->
+        <div appScrollAnimate animationType="fade-up" [animationDelay]="300">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">4. Third-Party Cookies</h2>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            Some cookies are placed by third-party services that appear on our pages. We use the following third-party services:
+          </p>
+          <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 mt-4">
+            <li><strong>Google Analytics:</strong> Web analytics service that tracks and reports website traffic</li>
+            <li><strong>Google Tag Manager:</strong> Tag management system for tracking and analytics</li>
+            <li><strong>GitHub:</strong> Authentication and OAuth integration</li>
+          </ul>
+          <p class="text-gray-600 dark:text-gray-400 mt-4">
+            These third parties may use cookies in accordance with their own privacy policies, which we encourage you to review.
+          </p>
+        </div>
+
+        <!-- Managing Cookies -->
+        <div appScrollAnimate animationType="fade-up" [animationDelay]="400">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">5. Managing Your Cookie Preferences</h2>
+
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mt-6 mb-3">5.1 Our Cookie Consent Tool</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            When you first visit our website, you will see a cookie consent banner that allows you to accept or reject optional cookies. You can change your preferences at any time by clicking the "Cookie Settings" link in the footer.
+          </p>
+
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mt-6 mb-3">5.2 Browser Settings</h3>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            Most web browsers allow you to control cookies through their settings. You can:
+          </p>
+          <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 mt-4">
+            <li>View cookies stored on your device</li>
+            <li>Delete all or specific cookies</li>
+            <li>Block third-party cookies</li>
+            <li>Block cookies from specific sites</li>
+            <li>Block all cookies</li>
+            <li>Delete all cookies when you close your browser</li>
+          </ul>
+          <p class="text-gray-600 dark:text-gray-400 mt-4">
+            Note: Blocking or deleting cookies may affect your experience on our website and some features may not work properly.
+          </p>
+
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mt-6 mb-3">5.3 Browser-Specific Instructions</h3>
+          <ul class="text-gray-600 dark:text-gray-400 space-y-2 mt-4">
+            <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" class="text-brand-500 hover:underline">Google Chrome</a></li>
+            <li><a href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer" target="_blank" rel="noopener noreferrer" class="text-brand-500 hover:underline">Mozilla Firefox</a></li>
+            <li><a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" target="_blank" rel="noopener noreferrer" class="text-brand-500 hover:underline">Apple Safari</a></li>
+            <li><a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer" class="text-brand-500 hover:underline">Microsoft Edge</a></li>
+          </ul>
+        </div>
+
+        <!-- Do Not Track -->
+        <div appScrollAnimate animationType="fade-up" [animationDelay]="500">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">6. Do Not Track</h2>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            Some browsers include a "Do Not Track" (DNT) feature that signals to websites that you do not want to be tracked. Currently, there is no industry standard for how websites should respond to DNT signals, so we do not currently respond to DNT browser signals.
+          </p>
+        </div>
+
+        <!-- Updates to Policy -->
+        <div appScrollAnimate animationType="fade-up" [animationDelay]="600">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">7. Updates to This Policy</h2>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            We may update this Cookie Policy from time to time to reflect changes in our practices or for legal, operational, or regulatory reasons. We will post any changes on this page and update the "Last updated" date. We encourage you to review this policy periodically.
+          </p>
+        </div>
+
+        <!-- Contact -->
+        <div appScrollAnimate animationType="fade-up" [animationDelay]="700">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">8. Contact Us</h2>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            If you have questions about our use of cookies, please contact us:
+          </p>
+          <div class="mt-4 p-6 bg-gray-50 dark:bg-gray-900 rounded-xl">
+            <p class="text-gray-700 dark:text-gray-300"><strong>DevFlowFix</strong></p>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">Email: <a href="mailto:privacy@devflowfix.com" class="text-brand-500 hover:underline">privacy&#64;devflowfix.com</a></p>
+            <p class="text-gray-600 dark:text-gray-400">Privacy Policy: <a routerLink="/privacy-policy" class="text-brand-500 hover:underline">Read our Privacy Policy</a></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Shared Footer -->
+  <app-public-footer></app-public-footer>
+</div>
