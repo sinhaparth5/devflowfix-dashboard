@@ -2179,23 +2179,12 @@ textarea:invalid:not(:placeholder-shown) {
   color: #dc2626;
 }
 
-/* Link visited state (WCAG 1.4.1) */
-a:visited {
-  color: #6d28d9; /* purple-700 - distinguishable from unvisited */
-}
-
-.dark a:visited {
-  color: #a78bfa; /* purple-400 */
-}
-
-/* Ensure adequate spacing between interactive elements */
 nav a,
 nav button,
 .nav-item {
   padding: 0.5rem 1rem;
 }
 
-/* Table accessibility */
 table {
   border-collapse: collapse;
   width: 100%;
