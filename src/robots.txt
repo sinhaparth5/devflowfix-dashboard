@@ -49,7 +49,7 @@ Allow: /
 Disallow: /dashboard/
 
 # Sitemap location
-Sitemap: https://devflowfix.astrareconslabs.com/sitemap.xml
+Sitemap: https://devflowfix.com/sitemap.xml
 
 # Host directive (for Yandex)
-Host: https://devflowfix.astrareconslabs.com
+Host: https://devflowfix.com
