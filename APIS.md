@@ -4,7 +4,7 @@ This document outlines all the APIs implemented and used in the DevFlowFix Dashb
 
 ## Base Configuration
 
-- **Base URL**: `https://devflowfix-new-production.up.railway.app/api/v1`
+- **Base URL**: `https://api.devflowfix.com/api/v1`
 - **Authentication**: Bearer token-based (JWT) via Authorization header
 - **HTTP Client**: Angular HttpClient
 - **Security**: Auth interceptor for token management, XSS sanitization interceptor
@@ -632,7 +632,7 @@ POST /incidents/{incident_id}/assign
 ### Base URL
 All backend APIs are served from:
 ```
-https://devflowfix-new-production.up.railway.app/api/v1
+https://api.devflowfix.com/api/v1
 ```
 
 ### Authentication Requirements
@@ -834,7 +834,7 @@ export class WebhookSetupComponent {
 
 - **Total API Services**: 6
 - **Total Endpoints**: 60+
-- **Base URL**: `https://devflowfix-new-production.up.railway.app/api/v1`
+- **Base URL**: `https://api.devflowfix.com/api/v1`
 - **Authentication**: JWT Bearer tokens with auto-refresh
 - **Primary Features**:
   - Authentication & User Management

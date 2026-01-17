@@ -70,7 +70,7 @@ export interface WebhookInfoResponse {
   providedIn: 'root'
 })
 export class WebhookService {
-  private apiUrl = 'https://devflowfix-new-production.up.railway.app/api/v1/webhook';
+  private apiUrl = 'https://api.devflowfix.com/api/v1/webhook';
 
   constructor(
     private http: HttpClient,

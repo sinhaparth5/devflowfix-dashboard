@@ -75,7 +75,7 @@ export interface AssignIncidentRequest {
   providedIn: 'root'
 })
 export class IncidentsService {
-  private apiUrl = 'https://devflowfix-new-production.up.railway.app/api/v1/incidents';
+  private apiUrl = 'https://api.devflowfix.com/api/v1/incidents';
 
   constructor(
     private http: HttpClient,

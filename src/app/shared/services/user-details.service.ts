@@ -21,7 +21,7 @@ export interface UserDetails {
   providedIn: 'root'
 })
 export class UserDetailsService {
-  private apiUrl = 'https://devflowfix-new-production.up.railway.app/api/v1/user-details/me';
+  private apiUrl = 'https://api.devflowfix.com/api/v1/user-details/me';
 
   constructor(
     private http: HttpClient,

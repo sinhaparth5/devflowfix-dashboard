@@ -98,7 +98,7 @@ export interface AnalyticsOverview {
   providedIn: 'root'
 })
 export class AnalyticsService {
-  private apiUrl = 'https://devflowfix-new-production.up.railway.app/api/v1/analytics';
+  private apiUrl = 'https://api.devflowfix.com/api/v1/analytics';
 
   constructor(
     private http: HttpClient,

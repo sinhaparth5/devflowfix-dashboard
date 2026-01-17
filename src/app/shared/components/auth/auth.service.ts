@@ -54,7 +54,7 @@ export interface UpdateUserRequest {
     providedIn: 'root'
 })
 export class AuthService {
-    private apiUrl = 'https://devflowfix-new-production.up.railway.app/api/v1/auth';
+    private apiUrl = 'https://api.devflowfix.com/api/v1/auth';
     private currentUserSubject = new BehaviorSubject<UserResponse | null>(null);
     public currentUser$ = this.currentUserSubject.asObservable();
     private refreshingToken = false;

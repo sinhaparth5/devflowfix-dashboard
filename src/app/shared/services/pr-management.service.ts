@@ -129,7 +129,7 @@ export interface PRListParams {
   providedIn: 'root'
 })
 export class PrManagementService {
-  private apiUrl = 'https://devflowfix-new-production.up.railway.app/api/v1/pr-management';
+  private apiUrl = 'https://api.devflowfix.com/api/v1/pr-management';
 
   constructor(
     private http: HttpClient,
