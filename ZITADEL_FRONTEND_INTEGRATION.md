@@ -99,6 +99,54 @@ src/app/auth/
 **Why PKCE?**
 PKCE adds security for browser-based apps. Instead of a static secret (which could be stolen from browser code), PKCE generates a unique random code for each login attempt.
 
+**Implementation:**
+
+```typescript
+import { AuthConfig } from 'angular-oauth2-oidc';
+
+export const authConfig: AuthConfig = {
+  // Zitadel instance URL
+  issuer: 'https://devflowfix.us1.zitadel.cloud',
+
+  // Client ID from Zitadel Console
+  clientId: '356071917330913824',
+
+  // Where Zitadel redirects after login
+  redirectUri: typeof window !== 'undefined' ? `${window.location.origin}/auth/callback` : '',
+
+  // Where to go after logout
+  postLogoutRedirectUri: typeof window !== 'undefined' ? window.location.origin : '',
+
+  // Use PKCE (required for SPAs)
+  responseType: 'code',
+
+  // Scopes to request
+  scope: 'openid profile email offline_access',
+
+  // Show debug info in console (disable in production)
+  showDebugInformation: false,
+
+  // Use silent refresh for token renewal
+  useSilentRefresh: true,
+  silentRefreshRedirectUri: typeof window !== 'undefined' ? `${window.location.origin}/silent-refresh.html` : '',
+
+  // Session checks
+  sessionChecksEnabled: true,
+
+  // Strict discovery document validation
+  strictDiscoveryDocumentValidation: true,
+
+  // Don't require HTTPS in development
+  requireHttps: true,
+};
+
+// Environment-specific configurations
+export const environment = {
+  production: typeof window !== 'undefined' && window.location.hostname !== 'localhost',
+  apiUrl: 'https://api.devflowfix.com/api/v1',
+};
+```
+
 ---
 
 ### 2. Auth Service (`auth.service.ts`)

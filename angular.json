@@ -43,6 +43,11 @@
                 "glob": "sitemap.xml",
                 "input": "src",
                 "output": "/"
+              },
+              {
+                "glob": "silent-refresh.html",
+                "input": "src",
+                "output": "/"
               }
             ],
             "styles": [

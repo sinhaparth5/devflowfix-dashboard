@@ -123,6 +123,21 @@ export class AuthService {
   }
 
   /**
+   * Initiate registration flow - redirects to Zitadel registration page
+   */
+  register(returnUrl?: string): void {
+    // Store the return URL to redirect after registration
+    if (returnUrl) {
+      sessionStorage.setItem('returnUrl', returnUrl);
+    } else {
+      sessionStorage.setItem('returnUrl', this.router.url);
+    }
+
+    // Redirect to Zitadel with prompt=create to show registration
+    this.oauthService.initCodeFlow('', { prompt: 'create' });
+  }
+
+  /**
    * Handle the callback from Zitadel after login
    */
   async handleCallback(): Promise<void> {

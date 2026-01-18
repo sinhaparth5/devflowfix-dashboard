@@ -2,7 +2,7 @@ import { AuthConfig } from 'angular-oauth2-oidc';
 
 export const authConfig: AuthConfig = {
   // Zitadel instance URL
-  issuer: 'https://devflowfix.us1.zitadel.cloud',
+  issuer: 'https://devflowfix-app-chto42.us1.zitadel.cloud',
 
   // Client ID from Zitadel Console
   clientId: '356071917330913824',
@@ -20,20 +20,26 @@ export const authConfig: AuthConfig = {
   scope: 'openid profile email offline_access',
 
   // Show debug info in console (disable in production)
-  showDebugInformation: false,
+  showDebugInformation: true,
 
   // Use silent refresh for token renewal
   useSilentRefresh: true,
   silentRefreshRedirectUri: typeof window !== 'undefined' ? `${window.location.origin}/silent-refresh.html` : '',
 
-  // Session checks
-  sessionChecksEnabled: true,
+  // Session checks - disabled as Zitadel doesn't support check_session_iframe
+  sessionChecksEnabled: false,
 
-  // Strict discovery document validation
-  strictDiscoveryDocumentValidation: true,
+  // Relaxed validation for Zitadel compatibility
+  strictDiscoveryDocumentValidation: false,
+
+  // OIDC standard
+  oidc: true,
+
+  // Required for public clients (SPAs) - empty string means no secret
+  dummyClientSecret: '',
 
   // Don't require HTTPS in development
-  requireHttps: true,
+  requireHttps: false,
 };
 
 // Environment-specific configurations

@@ -1,8 +1,8 @@
-import { Component, OnInit, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, QueryList, ViewChildren, inject, effect } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { SeoService } from '../../shared/services/seo.service';
-import { AuthService, UserResponse } from '../../shared/components/auth/auth.service';
+import { AuthService, ZitadelUser } from '../../auth';
 import { PublicNavbarComponent } from '../../shared/components/public-layout/public-navbar.component';
 import { PublicFooterComponent } from '../../shared/components/public-layout/public-footer.component';
 
@@ -317,29 +317,23 @@ import { PublicFooterComponent } from '../../shared/components/public-layout/pub
     }
   `
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('scrollAnimate', { read: ElementRef }) scrollElements!: QueryList<ElementRef>;
 
-  isLoggedIn = false;
-  currentUser: UserResponse | null = null;
+  private seoService = inject(SeoService);
+  authService = inject(AuthService);
   private observer!: IntersectionObserver;
 
-  constructor(
-    private seoService: SeoService,
-    public authService: AuthService
-  ) {}
+  // Reactive auth state from Zitadel service
+  get isLoggedIn(): boolean {
+    return this.authService.isAuthenticated();
+  }
+
+  get currentUser(): ZitadelUser | null {
+    return this.authService.user();
+  }
 
   ngOnInit(): void {
-    // Check authentication status
-    this.isLoggedIn = this.authService.isLoggedIn();
-    this.currentUser = this.authService.getCurrentUser();
-
-    // Subscribe to auth changes
-    this.authService.currentUser$.subscribe(user => {
-      this.currentUser = user;
-      this.isLoggedIn = !!user;
-    });
-
     // Use comprehensive home SEO with all structured data schemas
     this.seoService.setHomeSEO();
 

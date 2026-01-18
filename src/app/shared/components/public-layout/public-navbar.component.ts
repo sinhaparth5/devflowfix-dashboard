@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
-
+import { Component, Input, HostListener, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthService, UserResponse } from '../auth/auth.service';
+import { AuthService, ZitadelUser } from '../../../auth';
 
 @Component({
   selector: 'app-public-navbar',
@@ -102,7 +101,7 @@ import { AuthService, UserResponse } from '../auth/auth.service';
           <div class="flex items-center gap-3">
             @if (isLoggedIn && currentUser) {
               <span class="hidden sm:block text-sm text-gray-700 dark:text-gray-300">
-                Hi, {{ currentUser.full_name || currentUser.email }}
+                Hi, {{ currentUser.name || currentUser.email }}
               </span>
               <a routerLink="/dashboard"
                  class="px-5 py-2.5 text-sm font-semibold text-white bg-brand-500 rounded-lg hover:bg-brand-600 hover:scale-105 hover:shadow-lg hover:shadow-brand-500/25 transition-all duration-300 active:scale-95">
@@ -202,26 +201,25 @@ import { AuthService, UserResponse } from '../auth/auth.service';
     }
   `]
 })
-export class PublicNavbarComponent implements OnInit {
+export class PublicNavbarComponent {
   @Input() activePage: string = '';
 
-  isLoggedIn = false;
-  currentUser: UserResponse | null = null;
+  private authService = inject(AuthService);
   isMobileMenuOpen = false;
   isScrolled = false;
 
-  constructor(private authService: AuthService) {}
+  // Reactive auth state from Zitadel service
+  get isLoggedIn(): boolean {
+    return this.authService.isAuthenticated();
+  }
+
+  get currentUser(): ZitadelUser | null {
+    return this.authService.user();
+  }
 
   @HostListener('window:scroll')
   onWindowScroll() {
     this.isScrolled = window.scrollY > 20;
-  }
-
-  ngOnInit(): void {
-    this.authService.currentUser$.subscribe(user => {
-      this.currentUser = user;
-      this.isLoggedIn = !!user;
-    });
   }
 
   toggleMobileMenu(): void {

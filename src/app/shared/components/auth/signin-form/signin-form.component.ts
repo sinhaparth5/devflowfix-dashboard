@@ -1,116 +1,45 @@
-
-import { Component } from '@angular/core';
-import { LabelComponent } from '../../form/label/label.component';
-import { CheckboxComponent } from '../../form/input/checkbox.component';
+import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '../../ui/button/button.component';
-import { InputFieldComponent } from '../../form/input/input-field.component';
-import { Router, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { AuthService, LoginRequest } from '../auth.service';
-import { SanitizationService } from '../../../services/sanitization.service';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../../auth';
 
 @Component({
   selector: 'app-signin-form',
   imports: [
-    LabelComponent,
-    CheckboxComponent,
     ButtonComponent,
-    InputFieldComponent,
     RouterModule,
-    FormsModule
-],
+  ],
   templateUrl: './signin-form.component.html',
   styles: ``
 })
 export class SigninFormComponent {
+  private authService = inject(AuthService);
 
-  showPassword = false;
-  isChecked = false;
   isLoading = false;
-  errorMessage = '';
-  emailError = '';
 
-  email = '';
-  password = '';
-  mfaCode = '';
-  showMfaInput = false;
-
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private sanitizationService: SanitizationService
-  ) {}
-
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
-
-  validateEmail() {
-    if (this.email && this.email.trim()) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(this.email)) {
-        this.emailError = 'Please enter a valid email address';
-      } else {
-        this.emailError = '';
-      }
-    }
-  }
-
+  /**
+   * Redirect to Zitadel for authentication
+   */
   onSignIn() {
-    this.errorMessage = '';
-
-    // Sanitize inputs
-    this.email = this.sanitizationService.sanitizeEmail(this.email);
-    this.password = this.sanitizationService.sanitizeText(this.password);
-
-    if (!this.email || !this.password) {
-      this.errorMessage = 'Please enter both email and password';
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(this.email)) {
-      this.errorMessage = 'Please enter a valid email address';
-      return;
-    }
-
     this.isLoading = true;
-
-    const loginData: LoginRequest = {
-      email: this.email,
-      password: this.password,
-      remember_me: this.isChecked
-    }
-
-    if (this.mfaCode) {
-      loginData.mfa_code = this.mfaCode;
-    }
-
-    this.authService.login(loginData).subscribe({
-      next: (response) => {
-        this.isLoading = false;
-        this.router.navigate(['/dashboard']);
-      },
-      error: (error) => {
-        this.isLoading = false;
-
-        // Handle different error scenarios
-        if (error.status === 401) {
-          this.errorMessage = error.error?.detail || 'Invalid email or password';
-        } else if (error.status === 423) {
-          this.errorMessage = error.error?.detail || 'Account is locked';
-        } else if (error.status === 400 && error.error?.detail?.includes('MFA')) {
-          this.showMfaInput = true;
-          this.errorMessage = 'Please enter your MFA code';
-        } else {
-          this.errorMessage = 'An error occurred. Please try again later.';
-        }
-      }
-    });
+    this.authService.login('/dashboard');
   }
 
-  clearError() {
-    this.errorMessage = '';
-    this.emailError = '';
+  /**
+   * Sign in with Google via Zitadel
+   */
+  onGoogleSignIn() {
+    this.isLoading = true;
+    // Zitadel handles social login - just redirect to Zitadel
+    this.authService.login('/dashboard');
+  }
+
+  /**
+   * Sign in with X/Twitter via Zitadel
+   */
+  onXSignIn() {
+    this.isLoading = true;
+    // Zitadel handles social login - just redirect to Zitadel
+    this.authService.login('/dashboard');
   }
 }
