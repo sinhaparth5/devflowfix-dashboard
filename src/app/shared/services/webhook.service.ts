@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from '../components/auth/auth.service';
 
 export interface WebhookGenerateResponse {
   success: boolean;
@@ -72,18 +71,7 @@ export interface WebhookInfoResponse {
 export class WebhookService {
   private apiUrl = 'https://api.devflowfix.com/api/v1/webhook';
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService
-  ) {}
-
-  private getHeaders(): HttpHeaders {
-    const token = this.authService.getAccessToken();
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
-  }
+  constructor(private http: HttpClient) {}
 
   /**
    * Generate webhook secret
@@ -91,8 +79,7 @@ export class WebhookService {
   generateWebhookSecret(): Observable<WebhookGenerateResponse> {
     return this.http.post<WebhookGenerateResponse>(
       `${this.apiUrl}/secret/generate/me`,
-      {},
-      { headers: this.getHeaders() }
+      {}
     );
   }
 
@@ -101,8 +88,7 @@ export class WebhookService {
    */
   getWebhookInfo(): Observable<WebhookInfoResponse> {
     return this.http.get<WebhookInfoResponse>(
-      `${this.apiUrl}/secret/info/me`,
-      { headers: this.getHeaders() }
+      `${this.apiUrl}/secret/info/me`
     );
   }
 }

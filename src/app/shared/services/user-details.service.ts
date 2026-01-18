@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from '../components/auth/auth.service';
 
 export interface UserDetails {
   country: string;
@@ -23,33 +22,19 @@ export interface UserDetails {
 export class UserDetailsService {
   private apiUrl = 'https://api.devflowfix.com/api/v1/user-details/me';
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   /**
    * Get user details
    */
   getUserDetails(): Observable<UserDetails> {
-    const token = this.authService.getAccessToken();
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    return this.http.get<UserDetails>(this.apiUrl, { headers });
+    return this.http.get<UserDetails>(this.apiUrl);
   }
 
   /**
    * Update user details
    */
   updateUserDetails(details: Partial<UserDetails>): Observable<UserDetails> {
-    const token = this.authService.getAccessToken();
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
-
-    return this.http.put<UserDetails>(this.apiUrl, details, { headers });
+    return this.http.put<UserDetails>(this.apiUrl, details);
   }
 }

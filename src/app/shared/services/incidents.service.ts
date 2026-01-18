@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from '../components/auth/auth.service';
 
 // Incident Interfaces
 export interface Incident {
@@ -77,17 +76,7 @@ export interface AssignIncidentRequest {
 export class IncidentsService {
   private apiUrl = 'https://api.devflowfix.com/api/v1/incidents';
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService
-  ) {}
-
-  private getHeaders(): HttpHeaders {
-    const token = this.authService.getAccessToken();
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-  }
+  constructor(private http: HttpClient) {}
 
   private buildParams(filters?: IncidentFilters): HttpParams {
     let params = new HttpParams();
@@ -114,19 +103,14 @@ export class IncidentsService {
   listIncidents(filters?: IncidentFilters): Observable<IncidentsListResponse> {
     const params = this.buildParams(filters);
 
-    return this.http.get<IncidentsListResponse>(`${this.apiUrl}`, {
-      headers: this.getHeaders(),
-      params
-    });
+    return this.http.get<IncidentsListResponse>(`${this.apiUrl}`, { params });
   }
 
   /**
    * Get detailed information about a specific incident
    */
   getIncident(incidentId: string): Observable<IncidentDetail> {
-    return this.http.get<IncidentDetail>(`${this.apiUrl}/${incidentId}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<IncidentDetail>(`${this.apiUrl}/${incidentId}`);
   }
 
   /**
@@ -137,10 +121,7 @@ export class IncidentsService {
     if (startDate) params = params.set('start_date', startDate);
     if (endDate) params = params.set('end_date', endDate);
 
-    return this.http.get<IncidentStatsResponse>(`${this.apiUrl}/stats`, {
-      headers: this.getHeaders(),
-      params
-    });
+    return this.http.get<IncidentStatsResponse>(`${this.apiUrl}/stats`, { params });
   }
 
   // ================== ADMIN ENDPOINTS ==================
@@ -151,10 +132,7 @@ export class IncidentsService {
   adminListAllIncidents(filters?: IncidentFilters): Observable<IncidentsListResponse> {
     const params = this.buildParams(filters);
 
-    return this.http.get<IncidentsListResponse>(`${this.apiUrl}/admin/all`, {
-      headers: this.getHeaders(),
-      params
-    });
+    return this.http.get<IncidentsListResponse>(`${this.apiUrl}/admin/all`, { params });
   }
 
   /**
@@ -165,10 +143,7 @@ export class IncidentsService {
     if (startDate) params = params.set('start_date', startDate);
     if (endDate) params = params.set('end_date', endDate);
 
-    return this.http.get<IncidentStatsResponse>(`${this.apiUrl}/admin/stats`, {
-      headers: this.getHeaders(),
-      params
-    });
+    return this.http.get<IncidentStatsResponse>(`${this.apiUrl}/admin/stats`, { params });
   }
 
   /**
@@ -177,8 +152,6 @@ export class IncidentsService {
   adminAssignIncident(incidentId: string, userId: string): Observable<any> {
     const body: AssignIncidentRequest = { user_id: userId };
 
-    return this.http.post(`${this.apiUrl}/${incidentId}/assign`, body, {
-      headers: this.getHeaders()
-    });
+    return this.http.post(`${this.apiUrl}/${incidentId}/assign`, body);
   }
 }

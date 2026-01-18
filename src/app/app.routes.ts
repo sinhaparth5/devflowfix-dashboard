@@ -1,8 +1,14 @@
 import { Routes } from '@angular/router';
-import { authGaurd } from './shared/components/auth/auth.gaurd';
-import { guestGuard } from './shared/components/auth/guest.guard';
+import { authGuard, noAuthGuard } from './auth';
 
 export const routes: Routes = [
+  // Zitadel OAuth callback
+  {
+    path: 'auth/callback',
+    loadComponent: () =>
+      import('./auth/callback/callback.component').then(m => m.CallbackComponent),
+    title: 'Signing In... | DevFlowFix'
+  },
   // Public home page
   {
     path: '',
@@ -72,7 +78,7 @@ export const routes: Routes = [
     path: 'dashboard',
     loadComponent: () =>
       import('./shared/layout/app-layout/app-layout.component').then(m => m.AppLayoutComponent),
-    canActivate: [authGaurd],
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -214,14 +220,14 @@ export const routes: Routes = [
     path: 'signin',
     loadComponent: () =>
       import('./pages/auth-pages/sign-in/sign-in.component').then(m => m.SignInComponent),
-    canActivate: [guestGuard],
+    canActivate: [noAuthGuard],
     title: 'Sign In | DevFlowFix'
   },
   {
     path: 'signup',
     loadComponent: () =>
       import('./pages/auth-pages/sign-up/sign-up.component').then(m => m.SignUpComponent),
-    canActivate: [guestGuard],
+    canActivate: [noAuthGuard],
     title: 'Sign Up | DevFlowFix'
   },
   // Error pages

@@ -1,9 +1,10 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withPreloading, PreloadAllModules, withViewTransitions, withInMemoryScrolling } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
 
 import { routes } from './app.routes';
-import { authInterceptor } from './shared/components/auth/auth.interceptor';
+import { authInterceptor } from './auth';
 import { sanitizationInterceptor } from './shared/interceptors/sanitization.interceptor';
 
 export const appConfig: ApplicationConfig = {
@@ -21,5 +22,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([sanitizationInterceptor, authInterceptor])
     ),
+    provideOAuthClient(),
   ]
 };
