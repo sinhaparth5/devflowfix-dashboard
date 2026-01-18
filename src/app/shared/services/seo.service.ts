@@ -28,7 +28,7 @@ export class SeoService {
     robots: 'index, follow'
   };
 
-  private baseUrl = 'https://devflowfix.astrareconslabs.com';
+  private baseUrl = 'https://devflowfix.com';
 
   constructor(
     private meta: Meta,
