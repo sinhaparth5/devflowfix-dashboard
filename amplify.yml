@@ -10,7 +10,7 @@ frontend:
         - npm run build
 
   artifacts:
-    baseDirectory: dist/devflowfix 
+    baseDirectory: dist/devflowfix/broswer
     files:
       - '**/*'
 
