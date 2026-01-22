@@ -70,7 +70,7 @@
           Update your address details to keep your profile up-to-date.
         </p>
       </div>
-      <form class="flex flex-col" (ngSubmit)="handleSave()">
+      <form class="flex flex-col" (ngSubmit)="handleSave($event)">
         <div class="px-2 overflow-y-auto custom-scrollbar">
           <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
             <div>
@@ -80,6 +80,7 @@
                 [(value)]="userDetails.country"
                 name="country"
                 placeholder="Enter your country"
+                [maxlength]="100"
               />
             </div>
             <div>
@@ -89,6 +90,7 @@
                 [(value)]="userDetails.city"
                 name="city"
                 placeholder="Enter your city"
+                [maxlength]="100"
               />
             </div>
             <div>
@@ -98,6 +100,7 @@
                 [(value)]="userDetails.postal_code"
                 name="postal_code"
                 placeholder="Enter postal code"
+                [maxlength]="20"
               />
             </div>
           </div>

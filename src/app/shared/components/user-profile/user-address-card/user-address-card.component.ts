@@ -68,7 +68,8 @@ export class UserAddressCardComponent implements OnInit {
     this.isOpen = false;
   }
 
-  handleSave() {
+  handleSave(event?: Event) {
+    event?.preventDefault();
     this.isSaving = true;
 
     // Only send address fields

@@ -169,7 +169,9 @@ export class UserMetaCardComponent implements OnInit {
     });
   }
 
-  handleSave() {
+  handleSave(event?: Event) {
+    event?.preventDefault();
+
     if (this.userForm.invalid) {
       return;
     }

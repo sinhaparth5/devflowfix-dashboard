@@ -1,9 +1,12 @@
-@if (currentUser$ | async; as currentUser) {
 <div class="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
   <div class="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
     <div class="flex flex-col items-center w-full gap-6 xl:flex-row">
       <div class="relative w-20 h-20 overflow-hidden border border-gray-200 rounded-full dark:border-gray-800 group">
+        @if (currentUser$ | async; as currentUser) {
         <img [src]="getAvatarUrl(currentUser)" alt="user" class="w-full h-full object-cover" />
+        } @else {
+        <img src="/images/user/owner.jpg" alt="user" class="w-full h-full object-cover" />
+        }
         <button
           (click)="triggerFileInput()"
           [disabled]="isUploading"
@@ -31,6 +34,7 @@
         <div class="text-sm text-red-500">{{ uploadError }}</div>
       }
       <div class="order-3 xl:order-2">
+        @if (currentUser$ | async; as currentUser) {
         <h4 class="mb-2 text-lg font-semibold text-center text-gray-800 dark:text-white/90 xl:text-left">
           {{ getUserName(currentUser) }}
         </h4>
@@ -43,6 +47,20 @@
             {{ user.location }}
           </p>
         </div>
+        } @else {
+        <h4 class="mb-2 text-lg font-semibold text-center text-gray-800 dark:text-white/90 xl:text-left">
+          User
+        </h4>
+        <div class="flex flex-col items-center gap-1 text-center xl:flex-row xl:gap-3 xl:text-left">
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            No role set
+          </p>
+          <div class="hidden h-3.5 w-px bg-gray-300 dark:bg-gray-700 xl:block"></div>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            No location set
+          </p>
+        </div>
+        }
       </div>
       <div class="flex items-center order-2 gap-2 grow xl:order-3 xl:justify-end">
         @if (userDetails.facebook_link) {
@@ -203,7 +221,7 @@
         Update your details to keep your profile up-to-date.
       </p>
     </div>
-    <form [formGroup]="userForm" class="flex flex-col" (ngSubmit)="handleSave()">
+    <form [formGroup]="userForm" class="flex flex-col" (ngSubmit)="handleSave($event)">
       <div class="custom-scrollbar h-[450px] overflow-y-auto px-2 pb-3">
         <div class="mb-8">
           <h5 class="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
@@ -220,6 +238,7 @@
               <input
                 type="text"
                 formControlName="full_name"
+                maxlength="100"
                 class="w-full px-4 py-2.5 text-sm text-gray-800 bg-white border border-gray-200 rounded-lg focus:border-brand-300 focus:outline-none focus:ring-3 focus:ring-brand-500/10 dark:bg-gray-900 dark:border-gray-800 dark:text-white/90 dark:focus:border-brand-800"
                 placeholder="Enter your full name" />
             </div>
@@ -237,6 +256,7 @@
               <input
                 type="text"
                 formControlName="github_username"
+                maxlength="100"
                 class="w-full px-4 py-2.5 text-sm text-gray-800 bg-white border border-gray-200 rounded-lg focus:border-brand-300 focus:outline-none focus:ring-3 focus:ring-brand-500/10 dark:bg-gray-900 dark:border-gray-800 dark:text-white/90 dark:focus:border-brand-800"
                 placeholder="Enter your GitHub username" />
             </div>
@@ -254,6 +274,7 @@
               <input
                 type="url"
                 formControlName="facebook_link"
+                maxlength="500"
                 class="w-full px-4 py-2.5 text-sm text-gray-800 bg-white border border-gray-200 rounded-lg focus:border-brand-300 focus:outline-none focus:ring-3 focus:ring-brand-500/10 dark:bg-gray-900 dark:border-gray-800 dark:text-white/90 dark:focus:border-brand-800"
                 placeholder="https://facebook.com/username" />
             </div>
@@ -262,6 +283,7 @@
               <input
                 type="url"
                 formControlName="twitter_link"
+                maxlength="500"
                 class="w-full px-4 py-2.5 text-sm text-gray-800 bg-white border border-gray-200 rounded-lg focus:border-brand-300 focus:outline-none focus:ring-3 focus:ring-brand-500/10 dark:bg-gray-900 dark:border-gray-800 dark:text-white/90 dark:focus:border-brand-800"
                 placeholder="https://twitter.com/username" />
             </div>
@@ -270,6 +292,7 @@
               <input
                 type="url"
                 formControlName="linkedin_link"
+                maxlength="500"
                 class="w-full px-4 py-2.5 text-sm text-gray-800 bg-white border border-gray-200 rounded-lg focus:border-brand-300 focus:outline-none focus:ring-3 focus:ring-brand-500/10 dark:bg-gray-900 dark:border-gray-800 dark:text-white/90 dark:focus:border-brand-800"
                 placeholder="https://linkedin.com/in/username" />
             </div>
@@ -278,6 +301,7 @@
               <input
                 type="url"
                 formControlName="instagram_link"
+                maxlength="500"
                 class="w-full px-4 py-2.5 text-sm text-gray-800 bg-white border border-gray-200 rounded-lg focus:border-brand-300 focus:outline-none focus:ring-3 focus:ring-brand-500/10 dark:bg-gray-900 dark:border-gray-800 dark:text-white/90 dark:focus:border-brand-800"
                 placeholder="https://instagram.com/username" />
             </div>
@@ -286,6 +310,7 @@
               <input
                 type="url"
                 formControlName="github_link"
+                maxlength="500"
                 class="w-full px-4 py-2.5 text-sm text-gray-800 bg-white border border-gray-200 rounded-lg focus:border-brand-300 focus:outline-none focus:ring-3 focus:ring-brand-500/10 dark:bg-gray-900 dark:border-gray-800 dark:text-white/90 dark:focus:border-brand-800"
                 placeholder="https://github.com/username" />
             </div>
@@ -303,7 +328,7 @@
         <button
           type="submit"
           [disabled]="isSaving"
-          class="inline-flex items-center justify-center gap-2 rounded-lg border border-transparent bg-brand-600 px-4 py-2 text-sm font-medium text-white shadow-theme-xs hover:bg-brand-700 focus:outline-none focus:ring-3 focus:ring-brand-500/10 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-brand-700 dark:hover:bg-brand-800"
+          class="inline-flex items-center justify-center gap-2 rounded-lg border border-transparent bg-brand-500 px-4 py-2.5 text-sm font-medium text-white shadow-theme-xs hover:bg-brand-600 focus:outline-none focus:ring-3 focus:ring-brand-500/10 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-brand-500 dark:hover:bg-brand-600"
         >
           {{ isSaving ? 'Saving...' : 'Save Changes' }}
         </button>
@@ -311,4 +336,3 @@
     </form>
   </div>
 </app-modal>
-}
