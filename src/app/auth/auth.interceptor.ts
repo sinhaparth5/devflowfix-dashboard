@@ -5,11 +5,27 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { catchError, throwError } from 'rxjs';
 
 /**
+ * Get access token from cookie (for custom login flow)
+ */
+function getAccessTokenFromCookie(): string | null {
+  const nameEQ = 'access_token=';
+  const ca = document.cookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) {
+      return decodeURIComponent(c.substring(nameEQ.length, c.length));
+    }
+  }
+  return null;
+}
+
+/**
  * HTTP Interceptor that attaches the access token to API requests
  * and handles authentication errors.
  *
- * Note: We inject OAuthService directly instead of AuthService to avoid
- * circular dependency issues during OAuth initialization.
+ * Checks both OAuth token (from OAuthService) and cookie-based token
+ * (from custom login flow) to support both authentication methods.
  */
 export const authInterceptor: HttpInterceptorFn = (
   request: HttpRequest<unknown>,
@@ -27,7 +43,8 @@ export const authInterceptor: HttpInterceptorFn = (
   const apiUrl = 'https://api.devflowfix.com';
 
   if (request.url.startsWith(apiUrl)) {
-    const token = oauthService.getAccessToken();
+    // Try OAuth token first, then fall back to cookie-based token
+    const token = oauthService.getAccessToken() || getAccessTokenFromCookie();
 
     if (token) {
       request = request.clone({
