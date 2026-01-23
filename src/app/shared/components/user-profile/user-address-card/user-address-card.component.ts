@@ -85,7 +85,6 @@ export class UserAddressCardComponent implements OnInit {
         this.userDetails = { ...this.userDetails, ...updatedDetails };
         this.isSaving = false;
         this.closeModal();
-        console.log('Address updated successfully');
       },
       error: (error) => {
         console.error('Error updating address:', error);

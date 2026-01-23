@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalService } from '../../../services/modal.service';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService, UserResponse } from '../../auth/auth.service';
-import { Observable } from 'rxjs';
+import { AuthService, ZitadelUser } from '../../../../auth';
 
 @Component({
   selector: 'app-user-info-card',
@@ -12,46 +10,24 @@ import { Observable } from 'rxjs';
   templateUrl: './user-info-card.component.html',
   styles: ``
 })
-export class UserInfoCardComponent implements OnInit {
-  currentUser$: Observable<UserResponse | null>;
-  isLoading = false;
+export class UserInfoCardComponent {
+  private authService = inject(AuthService);
 
-  constructor(
-    public modal: ModalService,
-    private authService: AuthService
-  ) {
-    this.currentUser$ = this.authService.currentUser$;
+  // Get current user from Zitadel
+  get currentUser(): ZitadelUser | null {
+    return this.authService.user();
   }
 
-  ngOnInit() {
-    // If no current user, try to fetch from API
-    if (!this.authService.getCurrentUser()) {
-      this.isLoading = true;
-      this.authService.getCurrentUserProfile().subscribe({
-        next: () => {
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Error fetching user profile:', error);
-          this.isLoading = false;
-        }
-      });
-    }
+  getFullName(): string {
+    const user = this.currentUser;
+    return user?.name || user?.preferred_username || 'Not set';
   }
 
-  getFullName(user: UserResponse | null): string {
-    return user?.full_name || 'Not set';
+  getEmail(): string {
+    return this.currentUser?.email || 'Not set';
   }
 
-  getEmail(user: UserResponse | null): string {
-    return user?.email || 'Not set';
-  }
-
-  getGithubUsername(user: UserResponse | null): string {
-    return user?.github_username || 'Not set';
-  }
-
-  getRole(user: UserResponse | null): string {
-    return user?.role || 'Not set';
+  getRole(): string {
+    return 'User';
   }
 }

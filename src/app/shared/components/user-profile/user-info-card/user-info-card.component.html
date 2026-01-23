@@ -4,14 +4,13 @@
       <h4 class="text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-6">
         Personal Information
       </h4>
-      @if (currentUser$ | async; as currentUser) {
       <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
         <div>
           <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
             Full Name
           </p>
           <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-            {{ getFullName(currentUser) }}
+            {{ getFullName() }}
           </p>
         </div>
         <div>
@@ -19,15 +18,7 @@
             Email address
           </p>
           <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-            {{ getEmail(currentUser) }}
-          </p>
-        </div>
-        <div>
-          <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-            GitHub Username
-          </p>
-          <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-            {{ getGithubUsername(currentUser) }}
+            {{ getEmail() }}
           </p>
         </div>
         <div>
@@ -35,46 +26,10 @@
             Role
           </p>
           <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-            {{ currentUser.role || 'N/A' }}
+            {{ getRole() }}
           </p>
         </div>
       </div>
-      } @else {
-      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
-        <div>
-          <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-            Full Name
-          </p>
-          <p class="text-sm font-medium text-gray-400 dark:text-gray-500">
-            Not set
-          </p>
-        </div>
-        <div>
-          <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-            Email address
-          </p>
-          <p class="text-sm font-medium text-gray-400 dark:text-gray-500">
-            Not set
-          </p>
-        </div>
-        <div>
-          <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-            GitHub Username
-          </p>
-          <p class="text-sm font-medium text-gray-400 dark:text-gray-500">
-            Not set
-          </p>
-        </div>
-        <div>
-          <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-            Role
-          </p>
-          <p class="text-sm font-medium text-gray-400 dark:text-gray-500">
-            Not set
-          </p>
-        </div>
-      </div>
-      }
     </div>
   </div>
 

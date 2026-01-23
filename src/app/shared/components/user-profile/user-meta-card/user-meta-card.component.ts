@@ -1,10 +1,9 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, inject } from '@angular/core';
 import { ModalService } from '../../../services/modal.service';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../../ui/modal/modal.component';
 import { ButtonComponent } from '../../ui/button/button.component';
-import { AuthService, UserResponse } from '../../auth/auth.service';
-import { Observable } from 'rxjs';
+import { AuthService, ZitadelUser } from '../../../../auth';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SanitizationService } from '../../../services/sanitization.service';
 import { UserDetailsService, UserDetails } from '../../../services/user-details.service';
@@ -23,7 +22,12 @@ import { UserDetailsService, UserDetails } from '../../../services/user-details.
 export class UserMetaCardComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-  currentUser$: Observable<UserResponse | null>;
+  private authService = inject(AuthService);
+  private fb = inject(FormBuilder);
+  private sanitizationService = inject(SanitizationService);
+  private userDetailsService = inject(UserDetailsService);
+  public modal = inject(ModalService);
+
   isOpen = false;
   isUploading = false;
   isSaving = false;
@@ -43,27 +47,12 @@ export class UserMetaCardComponent implements OnInit {
     github_link: '',
   };
 
-  // Example user data (could be made dynamic)
-  user = {
-    firstName: 'Musharof',
-    lastName: 'Chowdhury',
-    role: 'Team Manager',
-    location: 'Arizona, United States',
-    avatar: '/images/user/owner.jpg',
-    email: 'randomuser@pimjo.com',
-    phone: '+09 363 398 46',
-    bio: 'Team Manager',
-  };
+  // Get current user from Zitadel
+  get currentUser(): ZitadelUser | null {
+    return this.authService.user();
+  }
 
-  constructor(
-    public modal: ModalService,
-    private authService: AuthService,
-    private fb: FormBuilder,
-    private sanitizationService: SanitizationService,
-    private userDetailsService: UserDetailsService
-  ) {
-    this.currentUser$ = this.authService.currentUser$;
-
+  constructor() {
     // Form only contains fields that can be updated via user-details API
     this.userForm = this.fb.group({
       facebook_link: [''],
@@ -103,16 +92,22 @@ export class UserMetaCardComponent implements OnInit {
   openModal() { this.isOpen = true; }
   closeModal() { this.isOpen = false; }
 
-  getAvatarUrl(user: UserResponse | null): string {
-    return user?.avatar_url || '/images/user/owner.jpg';
+  getAvatarUrl(): string {
+    return this.currentUser?.picture || '/images/user/owner.jpg';
   }
 
-  getUserName(user: UserResponse | null): string {
-    return user?.full_name || 'User';
+  getUserName(): string {
+    const user = this.currentUser;
+    return user?.name || user?.preferred_username || 'User';
   }
 
-  getUserRole(user: UserResponse | null): string {
-    return user?.role || 'User';
+  getUserEmail(): string {
+    return this.currentUser?.email || '';
+  }
+
+  getUserRole(): string {
+    // Role is not available in Zitadel claims by default, return a default value
+    return 'User';
   }
 
   triggerFileInput() {
@@ -140,20 +135,8 @@ export class UserMetaCardComponent implements OnInit {
   }
 
   uploadAvatar(file: File) {
-    this.isUploading = true;
-    this.uploadError = null;
-
-    this.authService.updateAvatar(file).subscribe({
-      next: () => {
-        this.isUploading = false;
-        console.log('Avatar updated successfully');
-      },
-      error: (error) => {
-        this.isUploading = false;
-        this.uploadError = error.error?.message || 'Failed to upload avatar';
-        console.error('Avatar upload failed:', error);
-      }
-    });
+    // Avatar is managed by Zitadel identity provider
+    this.uploadError = 'Avatar is managed by your identity provider (Zitadel). Please update it there.';
   }
 
   handleSave(event?: Event) {
@@ -192,7 +175,6 @@ export class UserMetaCardComponent implements OnInit {
         this.userDetails = { ...this.userDetails, ...details };
         this.isSaving = false;
         this.closeModal();
-        console.log('User details updated successfully');
       },
       error: (error) => {
         this.isSaving = false;
