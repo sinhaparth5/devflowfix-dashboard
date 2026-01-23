@@ -174,14 +174,14 @@ export class BillingInvoiceTableComponent {
   }
 
   onDownloadAll(): void {
-    console.log('Download All clicked');
+    // Download All function 
   }
 
   onDownloadInvoice(id: number): void {
-    console.log(`Download invoice ${id}`);
+    //Download Invoice function
   }
 
   onViewInvoice(id: number): void {
-    console.log(`View invoice ${id}`);
+    //View invoices
   }
 }

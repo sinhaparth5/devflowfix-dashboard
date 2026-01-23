@@ -172,12 +172,10 @@ export class BasicTableThreeComponent {
 
   handleViewMore(item: Transaction) {
     // logic here
-    console.log('View More:', item);
   }
 
   handleDelete(item: Transaction) {
     // logic here
-    console.log('Delete:', item);
   }
 
   getBadgeColor(status: string): 'success' | 'warning' | 'error' {

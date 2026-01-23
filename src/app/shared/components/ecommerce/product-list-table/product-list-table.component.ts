@@ -324,12 +324,10 @@ export class ProductListTableComponent {
   }
 
    handleViewMore() {
-    console.log('View More clicked');
     // Add your view more logic here
   }
 
   handleDelete() {
-    console.log('Delete clicked');
     // Add your delete logic here
   }
 }
