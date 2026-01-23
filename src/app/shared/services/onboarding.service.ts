@@ -25,6 +25,7 @@ export interface OnboardingTask {
 export interface OnboardingState {
   tourCompleted: boolean;
   tourDismissed: boolean;
+  neverShowAgain: boolean;
   currentStep: number;
   completedTasks: string[];
   lastSeenAt: number;
@@ -121,6 +122,7 @@ export class OnboardingService {
   private stateSubject = new BehaviorSubject<OnboardingState>({
     tourCompleted: false,
     tourDismissed: false,
+    neverShowAgain: false,
     currentStep: 0,
     completedTasks: [],
     lastSeenAt: 0
@@ -150,7 +152,8 @@ export class OnboardingService {
         this.stateSubject.next(parsed);
 
         // Show tour for new users or if they haven't completed/dismissed it
-        if (!parsed.tourCompleted && !parsed.tourDismissed) {
+        // Never show if user selected "don't show again"
+        if (!parsed.tourCompleted && !parsed.tourDismissed && !parsed.neverShowAgain) {
           // Delay showing the tour slightly for better UX
           setTimeout(() => this.startTour(), 1500);
         }
@@ -200,17 +203,21 @@ export class OnboardingService {
     }
   }
 
-  completeTour(): void {
+  completeTour(neverShowAgain: boolean = false): void {
     this.tourActiveSubject.next(false);
     this.updateState({
       tourCompleted: true,
-      currentStep: 0
+      currentStep: 0,
+      neverShowAgain
     });
   }
 
-  dismissTour(): void {
+  dismissTour(neverShowAgain: boolean = false): void {
     this.tourActiveSubject.next(false);
-    this.updateState({ tourDismissed: true });
+    this.updateState({
+      tourDismissed: true,
+      neverShowAgain
+    });
   }
 
   restartTour(): void {
@@ -280,7 +287,7 @@ export class OnboardingService {
   // Check if user should see onboarding
   shouldShowOnboarding(): boolean {
     const state = this.stateSubject.value;
-    return !state.tourCompleted && !state.tourDismissed;
+    return !state.tourCompleted && !state.tourDismissed && !state.neverShowAgain;
   }
 
   // Check if all tasks are complete
@@ -296,11 +303,17 @@ export class OnboardingService {
     this.stateSubject.next({
       tourCompleted: false,
       tourDismissed: false,
+      neverShowAgain: false,
       currentStep: 0,
       completedTasks: [],
       lastSeenAt: 0
     });
     this.tourActiveSubject.next(false);
     this.showProgressSubject.next(true);
+  }
+
+  // Check if tour is permanently disabled
+  isTourPermanentlyDisabled(): boolean {
+    return this.stateSubject.value.neverShowAgain;
   }
 }

@@ -2113,13 +2113,18 @@ button,
 .btn,
 [role="button"] {
   min-height: 44px;
-  padding-inline: 1rem;
 }
 
 /* Small buttons exception (must have touch-target wrapper) */
 button.btn-sm,
 .btn-sm {
   min-height: 36px;
+}
+
+/* Icon-only buttons - reset min-height since they have explicit dimensions */
+button.btn-icon,
+.btn-icon {
+  min-height: auto;
 }
 
 /* Text resize support - ensure text scales properly */
