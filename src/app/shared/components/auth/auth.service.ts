@@ -40,6 +40,15 @@ export interface UserResponse {
     preferences?: any;
     created_at: string;
     updated_at: string;
+    // User details fields from /api/v1/user-details/me
+    country?: string;
+    city?: string;
+    postal_code?: string;
+    facebook_link?: string;
+    twitter_link?: string;
+    linkedin_link?: string;
+    instagram_link?: string;
+    github_link?: string;
 }
 
 export interface UpdateUserRequest {
@@ -55,6 +64,7 @@ export interface UpdateUserRequest {
 })
 export class AuthService {
     private apiUrl = 'https://api.devflowfix.com/api/v1/auth';
+    private userDetailsApiUrl = 'https://api.devflowfix.com/api/v1/user-details';
     private currentUserSubject = new BehaviorSubject<UserResponse | null>(null);
     public currentUser$ = this.currentUserSubject.asObservable();
     private refreshingToken = false;
@@ -154,7 +164,7 @@ export class AuthService {
             'Authorization': `Bearer ${token}`
         });
 
-        return this.http.get<UserResponse>(`${this.apiUrl}/me`, { headers })
+        return this.http.get<UserResponse>(`${this.userDetailsApiUrl}/me`, { headers })
             .pipe(
                 tap(user => {
                     this.currentUserSubject.next(user);
@@ -238,7 +248,7 @@ export class AuthService {
             'Authorization': `Bearer ${token}`
         });
 
-        return this.http.post(`${this.apiUrl}/me/avatar`, formData, { headers })
+        return this.http.post(`${this.userDetailsApiUrl}/me/avatar`, formData, { headers })
             .pipe(
                 tap((response: any) => {
                     const currentUser = this.getCurrentUser();
@@ -261,7 +271,7 @@ export class AuthService {
             'Content-Type': 'application/json'
         });
 
-        return this.http.patch<UserResponse>(`${this.apiUrl}/me`, userData, { headers })
+        return this.http.patch<UserResponse>(`${this.userDetailsApiUrl}/me`, userData, { headers })
             .pipe(
                 tap(user => {
                     this.currentUserSubject.next(user);

@@ -44,7 +44,7 @@
           </p>
           <div class="hidden h-3.5 w-px bg-gray-300 dark:bg-gray-700 xl:block"></div>
           <p class="text-sm text-gray-500 dark:text-gray-400">
-            {{ user.location }}
+            {{ userDetails.city && userDetails.country ? userDetails.city + ', ' + userDetails.country : (userDetails.city || userDetails.country || 'No location set') }}
           </p>
         </div>
         } @else {

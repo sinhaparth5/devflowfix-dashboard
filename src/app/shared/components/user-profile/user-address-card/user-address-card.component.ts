@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ModalService } from '../../../services/modal.service';
 
 import { InputFieldComponent } from '../../form/input/input-field.component';
@@ -9,6 +10,7 @@ import { UserDetailsService, UserDetails } from '../../../services/user-details.
 @Component({
   selector: 'app-user-address-card',
   imports: [
+    FormsModule,
     InputFieldComponent,
     LabelComponent,
     ModalComponent
