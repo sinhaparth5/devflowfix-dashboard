@@ -1,0 +1,16 @@
+apiVersion: v2
+name: devflowfix-chart
+description: Helm chart for DevFlowFix Dashboard - Angular frontend application
+type: application
+version: 0.1.0
+appVersion: "v1.0"
+keywords:
+  - devflowfix
+  - dashboard
+  - angular
+  - frontend
+maintainers:
+  - name: Parth Sinha
+home: https://devflowfix.com
+sources:
+  - https://github.com/parthsinha90/devflowfix

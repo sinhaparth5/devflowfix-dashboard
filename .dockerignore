@@ -1,0 +1,15 @@
+node_modules
+dist
+.git
+.gitignore
+.angular
+*.md
+.env*
+.vscode
+.idea
+*.log
+npm-debug.log*
+Dockerfile
+.dockerignore
+amplify.yml
+customHttp.yml

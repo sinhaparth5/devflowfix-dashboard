@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: devflowfix
+  labels:
+    app.kubernetes.io/name: devflowfix
+    app.kubernetes.io/component: frontend

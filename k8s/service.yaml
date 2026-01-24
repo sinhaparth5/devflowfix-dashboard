@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: devflowfix-dashboard
+  namespace: devflowfix
+  labels:
+    app.kubernetes.io/name: devflowfix
+    app.kubernetes.io/component: frontend
+spec:
+  type: ClusterIP  # Traefik handles external LoadBalancer
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: devflowfix
+    app.kubernetes.io/component: frontend

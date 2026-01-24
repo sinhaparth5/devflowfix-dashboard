@@ -1,0 +1,163 @@
+# ===========================================
+# DevFlowFix IngressRoutes & Certificates
+# ===========================================
+
+---
+# IngressRoute for DevFlowFix Dashboard App
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: devflowfix-dashboard
+  namespace: devflowfix
+  labels:
+    app.kubernetes.io/name: devflowfix
+    app.kubernetes.io/component: ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`staging.devflowfix.com`)
+      kind: Rule
+      middlewares:
+        - name: devflowfix-chain
+          namespace: devflowfix
+      services:
+        - name: devflowfix-dashboard
+          port: 80
+          passHostHeader: true
+      priority: 10
+  tls:
+    secretName: devflowfix-staging-tls
+    domains:
+      - main: staging.devflowfix.com
+
+---
+# HTTP to HTTPS Redirect for DevFlowFix
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: devflowfix-dashboard-http
+  namespace: devflowfix
+  labels:
+    app.kubernetes.io/name: devflowfix
+    app.kubernetes.io/component: ingress
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`staging.devflowfix.com`)
+      kind: Rule
+      middlewares:
+        - name: redirect-https
+          namespace: devflowfix
+      services:
+        - name: devflowfix-dashboard
+          port: 80
+
+---
+# Certificate for DevFlowFix Staging
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: devflowfix-staging-cert
+  namespace: devflowfix
+  labels:
+    app.kubernetes.io/name: devflowfix
+    app.kubernetes.io/component: certificate
+spec:
+  secretName: devflowfix-staging-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - staging.devflowfix.com
+  privateKey:
+    rotationPolicy: Always
+
+---
+# ===========================================
+# Traefik Dashboard IngressRoute
+# ===========================================
+
+# Certificate for Traefik Dashboard
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traefik-dashboard-cert
+  namespace: traefik
+  labels:
+    app.kubernetes.io/name: traefik
+    app.kubernetes.io/component: certificate
+spec:
+  secretName: traefik-dashboard-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - traefik.devflowfix.com
+  privateKey:
+    rotationPolicy: Always
+
+---
+# IngressRoute for Traefik Dashboard (with auth)
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard-secure
+  namespace: traefik
+  labels:
+    app.kubernetes.io/name: traefik
+    app.kubernetes.io/component: dashboard
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`traefik.devflowfix.com`)
+      kind: Rule
+      middlewares:
+        - name: traefik-dashboard-auth
+          namespace: traefik
+      services:
+        - name: api@internal
+          kind: TraefikService
+  tls:
+    secretName: traefik-dashboard-tls
+    domains:
+      - main: traefik.devflowfix.com
+
+---
+# HTTP Redirect for Traefik Dashboard
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard-http
+  namespace: traefik
+  labels:
+    app.kubernetes.io/name: traefik
+    app.kubernetes.io/component: dashboard
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`traefik.devflowfix.com`)
+      kind: Rule
+      services:
+        - name: api@internal
+          kind: TraefikService
+      middlewares:
+        - name: redirect-https-traefik
+          namespace: traefik
+
+---
+# HTTPS Redirect Middleware for Traefik namespace
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-https-traefik
+  namespace: traefik
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true

@@ -1,0 +1,14 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: devflowfix-dashboard
+  namespace: devflowfix
+  labels:
+    app.kubernetes.io/name: devflowfix
+    app.kubernetes.io/component: frontend
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: devflowfix
+      app.kubernetes.io/component: frontend
