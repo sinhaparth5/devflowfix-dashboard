@@ -1,118 +1,148 @@
-<div class="grid grid-cols-12 gap-4 md:gap-6">
+<div class="grid grid-cols-12 gap-5 md:gap-6 2xl:gap-7">
 
-  <!-- Metrics Cards -->
-  <div class="col-span-12" data-tour="metrics-cards">
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 md:gap-6">
+  <!-- Metrics Cards Row -->
+  <div class="col-span-12">
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4 md:gap-6">
 
-      <!-- Total Incidents -->
-      <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 dark:bg-blue-500/10">
-              <svg class="h-6 w-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-            </div>
+      <!-- Total Incidents Card -->
+      <div class="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-gray-300 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-gray-700">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Incidents</span>
+            @if (isLoadingStats) {
+              <div class="mt-2 h-9 w-24 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+            } @else {
+              <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+                {{ stats?.total_incidents || 0 }}
+              </h3>
+            }
+          </div>
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg shadow-blue-500/25">
+            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
           </div>
         </div>
-        <div class="mt-4">
-          <p class="text-sm text-gray-500 dark:text-gray-400">Total Incidents</p>
-          @if (isLoadingStats) {
-            <div class="mt-1 h-8 w-20 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-          } @else {
-            <h3 class="mt-1 text-2xl font-semibold text-gray-800 dark:text-white/90">
-              {{ stats?.total_incidents || 0 }}
-            </h3>
-          }
+        <div class="mt-4 flex items-center gap-2">
+          <span class="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-400">
+            All time
+          </span>
         </div>
       </div>
 
-      <!-- Success Rate -->
-      <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-50 dark:bg-green-500/10">
-              <svg class="h-6 w-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
+      <!-- Success Rate Card -->
+      <div class="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-gray-300 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-gray-700">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Success Rate</span>
+            @if (isLoadingStats) {
+              <div class="mt-2 h-9 w-24 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+            } @else {
+              <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+                {{ formatPercentage(stats?.success_rate || 0) }}
+              </h3>
+            }
+          </div>
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/25">
+            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
           </div>
         </div>
-        <div class="mt-4">
-          <p class="text-sm text-gray-500 dark:text-gray-400">Success Rate</p>
-          @if (isLoadingStats) {
-            <div class="mt-1 h-8 w-20 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-          } @else {
-            <h3 class="mt-1 text-2xl font-semibold text-gray-800 dark:text-white/90">
-              {{ formatPercentage(stats?.success_rate || 0) }}
-            </h3>
-          }
+        <div class="mt-4 flex items-center gap-2">
+          <span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400">
+            Resolution rate
+          </span>
         </div>
       </div>
 
-      <!-- Resolved -->
-      <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-purple-50 dark:bg-purple-500/10">
-              <svg class="h-6 w-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
+      <!-- Resolved Card -->
+      <div class="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-gray-300 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-gray-700">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Resolved</span>
+            @if (isLoadingStats) {
+              <div class="mt-2 h-9 w-24 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+            } @else {
+              <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+                {{ stats?.resolved_incidents || 0 }}
+              </h3>
+            }
+          </div>
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-violet-600 shadow-lg shadow-violet-500/25">
+            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
           </div>
         </div>
-        <div class="mt-4">
-          <p class="text-sm text-gray-500 dark:text-gray-400">Resolved</p>
-          @if (isLoadingStats) {
-            <div class="mt-1 h-8 w-20 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-          } @else {
-            <h3 class="mt-1 text-2xl font-semibold text-gray-800 dark:text-white/90">
-              {{ stats?.resolved_incidents || 0 }}
-            </h3>
-          }
+        <div class="mt-4 flex items-center gap-2">
+          <span class="inline-flex items-center rounded-full bg-violet-50 px-2 py-1 text-xs font-medium text-violet-700 dark:bg-violet-500/10 dark:text-violet-400">
+            Auto-fixed
+          </span>
         </div>
       </div>
 
-      <!-- Failed -->
-      <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-50 dark:bg-red-500/10">
-              <svg class="h-6 w-6 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </div>
+      <!-- Failed Card -->
+      <div class="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-gray-300 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-gray-700">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Failed</span>
+            @if (isLoadingStats) {
+              <div class="mt-2 h-9 w-24 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+            } @else {
+              <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+                {{ stats?.failed_incidents || 0 }}
+              </h3>
+            }
+          </div>
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-rose-500 to-rose-600 shadow-lg shadow-rose-500/25">
+            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </div>
         </div>
-        <div class="mt-4">
-          <p class="text-sm text-gray-500 dark:text-gray-400">Failed</p>
-          @if (isLoadingStats) {
-            <div class="mt-1 h-8 w-20 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-          } @else {
-            <h3 class="mt-1 text-2xl font-semibold text-gray-800 dark:text-white/90">
-              {{ stats?.failed_incidents || 0 }}
-            </h3>
-          }
+        <div class="mt-4 flex items-center gap-2">
+          <span class="inline-flex items-center rounded-full bg-rose-50 px-2 py-1 text-xs font-medium text-rose-700 dark:bg-rose-500/10 dark:text-rose-400">
+            Needs attention
+          </span>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- Incident Trends Chart -->
+  <!-- Charts Row: Trends + MTTR -->
   <div class="col-span-12 xl:col-span-8">
-    <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
-      <div class="mb-5 flex items-center justify-between">
-        <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
-          Incident Trends (Last 30 Days)
-        </h3>
+    <div class="h-full rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+      <div class="mb-6 flex items-center justify-between">
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Incident Trends</h3>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Last 30 days activity</p>
+        </div>
+        <div class="flex items-center gap-4 text-xs">
+          <div class="flex items-center gap-1.5">
+            <span class="h-2.5 w-2.5 rounded-full bg-blue-500"></span>
+            <span class="text-gray-600 dark:text-gray-400">Total</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+            <span class="text-gray-600 dark:text-gray-400">Resolved</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="h-2.5 w-2.5 rounded-full bg-rose-500"></span>
+            <span class="text-gray-600 dark:text-gray-400">Failed</span>
+          </div>
+        </div>
       </div>
       @if (isLoadingTrends) {
-        <div class="flex h-[350px] items-center justify-center">
-          <div class="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600"></div>
+        <div class="flex h-[320px] items-center justify-center">
+          <div class="flex flex-col items-center gap-3">
+            <div class="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600 dark:border-gray-700"></div>
+            <span class="text-sm text-gray-500 dark:text-gray-400">Loading trends...</span>
+          </div>
         </div>
       } @else {
-        <div id="trends-chart">
+        <div id="trends-chart" class="-mx-2">
           <apx-chart
             [series]="trendsChartOptions.series!"
             [chart]="trendsChartOptions.chart!"
@@ -131,62 +161,80 @@
 
   <!-- MTTR Card -->
   <div class="col-span-12 xl:col-span-4">
-    <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
-      <h3 class="mb-5 text-lg font-semibold text-gray-800 dark:text-white/90">
-        Mean Time To Repair
-      </h3>
+    <div class="h-full rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Mean Time To Repair</h3>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Average resolution time</p>
+      </div>
       @if (isLoadingMTTR) {
         <div class="space-y-4">
-          <div class="h-16 w-full animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-          <div class="h-16 w-full animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
+          <div class="h-24 w-full animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700"></div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="h-20 animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700"></div>
+            <div class="h-20 animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700"></div>
+          </div>
         </div>
       } @else if (mttr) {
-        <div class="space-y-4">
-          <div class="rounded-lg bg-blue-50 p-4 dark:bg-blue-500/10">
-            <p class="text-sm text-gray-600 dark:text-gray-400">Average</p>
-            <p class="mt-1 text-2xl font-bold text-blue-600 dark:text-blue-400">
-              {{ formatSeconds(mttr.average_seconds) }}
-            </p>
+        <div class="space-y-5">
+          <!-- Primary MTTR Display -->
+          <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 p-5 text-white shadow-lg shadow-blue-500/25">
+            <div class="relative z-10">
+              <p class="text-sm font-medium text-blue-100">Average</p>
+              <p class="mt-1 text-3xl font-bold">{{ formatSeconds(mttr.average_seconds) }}</p>
+            </div>
+            <div class="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-white/10"></div>
+            <div class="absolute -bottom-6 -right-6 h-20 w-20 rounded-full bg-white/5"></div>
           </div>
+          <!-- Secondary Stats -->
           <div class="grid grid-cols-2 gap-4">
-            <div class="rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50">
-              <p class="text-xs text-gray-600 dark:text-gray-400">Median</p>
-              <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white/90">
+            <div class="rounded-xl border border-gray-100 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-800/50">
+              <p class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Median</p>
+              <p class="mt-2 text-xl font-bold text-gray-900 dark:text-white">
                 {{ formatSeconds(mttr.median_seconds) }}
               </p>
             </div>
-            <div class="rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50">
-              <p class="text-xs text-gray-600 dark:text-gray-400">95th %ile</p>
-              <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white/90">
+            <div class="rounded-xl border border-gray-100 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-800/50">
+              <p class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">95th %ile</p>
+              <p class="mt-2 text-xl font-bold text-gray-900 dark:text-white">
                 {{ formatSeconds(mttr.p95_seconds) }}
               </p>
             </div>
           </div>
-          <div class="text-xs text-gray-500 dark:text-gray-400">
-            Based on {{ mttr.sample_size }} incidents
+          <!-- Sample Size -->
+          <div class="flex items-center gap-2 rounded-lg bg-gray-50 px-4 py-2.5 dark:bg-gray-800/50">
+            <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="text-sm text-gray-600 dark:text-gray-400">Based on {{ mttr.sample_size }} resolved incidents</span>
           </div>
         </div>
       } @else {
-        <div class="flex flex-col items-center justify-center py-8">
-          <svg class="h-16 w-16 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">No MTTR data available</p>
+        <div class="flex h-[280px] flex-col items-center justify-center">
+          <div class="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+            <svg class="h-8 w-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <p class="mt-4 text-sm font-medium text-gray-600 dark:text-gray-400">No MTTR data available</p>
           <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">Data will appear as incidents are resolved</p>
         </div>
       }
     </div>
   </div>
 
-  <!-- Breakdown by Source -->
-  <div class="col-span-12 xl:col-span-6">
-    <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
-      <h3 class="mb-5 text-lg font-semibold text-gray-800 dark:text-white/90">
-        Incidents by Source
-      </h3>
+  <!-- Breakdown Charts Row -->
+  <div class="col-span-12 lg:col-span-6">
+    <div class="h-full rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Incidents by Source</h3>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Distribution across platforms</p>
+      </div>
       @if (isLoadingBreakdown) {
-        <div class="flex h-[300px] items-center justify-center">
-          <div class="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600"></div>
+        <div class="flex h-[280px] items-center justify-center">
+          <div class="flex flex-col items-center gap-3">
+            <div class="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600 dark:border-gray-700"></div>
+            <span class="text-sm text-gray-500 dark:text-gray-400">Loading data...</span>
+          </div>
         </div>
       } @else {
         <div id="source-chart">
@@ -203,15 +251,18 @@
     </div>
   </div>
 
-  <!-- Breakdown by Severity -->
-  <div class="col-span-12 xl:col-span-6">
-    <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
-      <h3 class="mb-5 text-lg font-semibold text-gray-800 dark:text-white/90">
-        Incidents by Severity
-      </h3>
+  <div class="col-span-12 lg:col-span-6">
+    <div class="h-full rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Incidents by Severity</h3>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Breakdown by priority level</p>
+      </div>
       @if (isLoadingBreakdown) {
-        <div class="flex h-[300px] items-center justify-center">
-          <div class="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600"></div>
+        <div class="flex h-[280px] items-center justify-center">
+          <div class="flex flex-col items-center gap-3">
+            <div class="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600 dark:border-gray-700"></div>
+            <span class="text-sm text-gray-500 dark:text-gray-400">Loading data...</span>
+          </div>
         </div>
       } @else {
         <div id="severity-chart">
@@ -232,43 +283,69 @@
 
   <!-- Top Repositories -->
   <div class="col-span-12">
-    <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
-      <h3 class="mb-5 text-lg font-semibold text-gray-800 dark:text-white/90">
-        Top Repositories by Incident Count
-      </h3>
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+      <div class="mb-6 flex items-center justify-between">
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Top Repositories</h3>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Repositories with most incidents</p>
+        </div>
+        @if (topRepositories.length > 0) {
+          <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 dark:bg-gray-800 dark:text-gray-400">
+            Top {{ topRepositories.length }}
+          </span>
+        }
+      </div>
       @if (isLoadingRepos) {
-        <div class="flex h-[200px] items-center justify-center">
-          <div class="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600"></div>
+        <div class="space-y-3">
+          @for (i of [1, 2, 3, 4, 5]; track i) {
+            <div class="flex items-center gap-4">
+              <div class="h-8 w-8 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+              <div class="flex-1">
+                <div class="h-4 w-48 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
+              </div>
+              <div class="h-6 w-16 animate-pulse rounded-full bg-gray-200 dark:bg-gray-700"></div>
+            </div>
+          }
         </div>
       } @else if (topRepositories.length > 0) {
-        <div class="overflow-x-auto">
-          <table class="w-full">
-            <thead>
-              <tr class="border-b border-gray-200 dark:border-gray-700">
-                <th class="pb-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Repository</th>
-                <th class="pb-3 text-right text-sm font-semibold text-gray-700 dark:text-gray-300">Incident Count</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (repo of topRepositories; track repo.repository) {
-                <tr class="border-b border-gray-100 dark:border-gray-800">
-                  <td class="py-3 text-sm text-gray-800 dark:text-white/90">
-                    {{ repo.repository }}
-                  </td>
-                  <td class="py-3 text-right text-sm font-semibold text-gray-800 dark:text-white/90">
-                    {{ repo.count }}
-                  </td>
-                </tr>
-              }
-            </tbody>
-          </table>
+        <div class="space-y-3">
+          @for (repo of topRepositories; track repo.repository; let i = $index) {
+            <div class="group flex items-center gap-4 rounded-xl border border-transparent p-3 transition-all hover:border-gray-100 hover:bg-gray-50 dark:hover:border-gray-800 dark:hover:bg-gray-800/50">
+              <!-- Rank Badge -->
+              <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg font-semibold"
+                   [class]="i === 0 ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400' :
+                            i === 1 ? 'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300' :
+                            i === 2 ? 'bg-orange-100 text-orange-700 dark:bg-orange-500/20 dark:text-orange-400' :
+                            'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'">
+                {{ i + 1 }}
+              </div>
+              <!-- Repository Info -->
+              <div class="min-w-0 flex-1">
+                <p class="truncate text-sm font-medium text-gray-900 dark:text-white">{{ repo.repository }}</p>
+                <!-- Progress Bar -->
+                <div class="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
+                  <div class="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-500"
+                       [style.width.%]="(repo.count / topRepositories[0].count) * 100"></div>
+                </div>
+              </div>
+              <!-- Count Badge -->
+              <div class="shrink-0">
+                <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1.5 text-sm font-semibold text-blue-700 dark:bg-blue-500/10 dark:text-blue-400">
+                  {{ repo.count }}
+                </span>
+              </div>
+            </div>
+          }
         </div>
       } @else {
-        <div class="flex flex-col items-center justify-center py-8">
-          <svg class="h-16 w-16 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-          </svg>
-          <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">No repository data available</p>
+        <div class="flex h-[200px] flex-col items-center justify-center">
+          <div class="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+            <svg class="h-8 w-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+            </svg>
+          </div>
+          <p class="mt-4 text-sm font-medium text-gray-600 dark:text-gray-400">No repository data available</p>
+          <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">Incidents will appear here once tracked</p>
         </div>
       }
     </div>

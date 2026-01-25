@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { SeoService } from '../../../shared/services/seo.service';
 import { AnalyticsService, IncidentStats, TrendDataPoint, BreakdownData, MTTRData, TopRepository } from '../../../shared/services/analytics.service';
@@ -7,7 +8,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 
 @Component({
   selector: 'app-analytics',
-  imports: [NgApexchartsModule],
+  imports: [CommonModule, NgApexchartsModule],
   templateUrl: './analytics.component.html',
   styles: ``
 })
@@ -174,27 +175,58 @@ export class AnalyticsComponent implements OnInit {
     if (!data || data.length === 0) {
       this.trendsChartOptions = {
         series: [
-          { name: 'Total Incidents', data: [] },
+          { name: 'Total', data: [] },
           { name: 'Resolved', data: [] },
           { name: 'Failed', data: [] }
         ],
         chart: {
-          type: 'line',
-          height: 350,
+          type: 'area',
+          height: 320,
           toolbar: { show: false },
-          zoom: { enabled: false }
+          zoom: { enabled: false },
+          fontFamily: 'inherit',
+          sparkline: { enabled: false }
         },
-        colors: ['#3B82F6', '#10B981', '#EF4444'],
+        colors: ['#3B82F6', '#10B981', '#F43F5E'],
         dataLabels: { enabled: false },
-        stroke: { curve: 'smooth', width: 3 },
-        xaxis: { categories: [] },
-        yaxis: { title: { text: 'Count' } },
-        legend: { position: 'top' },
-        grid: { borderColor: '#f1f1f1' },
+        stroke: { curve: 'smooth', width: 2 },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.3,
+            opacityTo: 0.05,
+            stops: [0, 95, 100]
+          }
+        },
+        xaxis: {
+          categories: [],
+          labels: {
+            style: { colors: '#9CA3AF', fontSize: '12px' }
+          },
+          axisBorder: { show: false },
+          axisTicks: { show: false }
+        },
+        yaxis: {
+          labels: {
+            style: { colors: '#9CA3AF', fontSize: '12px' }
+          }
+        },
+        legend: { show: false },
+        grid: {
+          borderColor: '#E5E7EB',
+          strokeDashArray: 4,
+          xaxis: { lines: { show: false } }
+        },
+        tooltip: {
+          theme: 'light',
+          x: { show: true }
+        },
         noData: {
           text: 'No data available',
           align: 'center',
-          verticalAlign: 'middle'
+          verticalAlign: 'middle',
+          style: { color: '#9CA3AF', fontSize: '14px' }
         }
       };
       return;
@@ -207,23 +239,54 @@ export class AnalyticsComponent implements OnInit {
 
     this.trendsChartOptions = {
       series: [
-        { name: 'Total Incidents', data: total },
+        { name: 'Total', data: total },
         { name: 'Resolved', data: resolved },
         { name: 'Failed', data: failed }
       ],
       chart: {
-        type: 'line',
-        height: 350,
+        type: 'area',
+        height: 320,
         toolbar: { show: false },
-        zoom: { enabled: false }
+        zoom: { enabled: false },
+        fontFamily: 'inherit'
       },
-      colors: ['#3B82F6', '#10B981', '#EF4444'],
+      colors: ['#3B82F6', '#10B981', '#F43F5E'],
       dataLabels: { enabled: false },
-      stroke: { curve: 'smooth', width: 3 },
-      xaxis: { categories: dates },
-      yaxis: { title: { text: 'Count' } },
-      legend: { position: 'top' },
-      grid: { borderColor: '#f1f1f1' }
+      stroke: { curve: 'smooth', width: 2 },
+      fill: {
+        type: 'gradient',
+        gradient: {
+          shadeIntensity: 1,
+          opacityFrom: 0.3,
+          opacityTo: 0.05,
+          stops: [0, 95, 100]
+        }
+      },
+      xaxis: {
+        categories: dates,
+        labels: {
+          style: { colors: '#9CA3AF', fontSize: '12px' },
+          rotate: -45,
+          rotateAlways: false
+        },
+        axisBorder: { show: false },
+        axisTicks: { show: false }
+      },
+      yaxis: {
+        labels: {
+          style: { colors: '#9CA3AF', fontSize: '12px' }
+        }
+      },
+      legend: { show: false },
+      grid: {
+        borderColor: '#E5E7EB',
+        strokeDashArray: 4,
+        xaxis: { lines: { show: false } }
+      },
+      tooltip: {
+        theme: 'light',
+        x: { show: true }
+      }
     };
   }
 
@@ -237,16 +300,47 @@ export class AnalyticsComponent implements OnInit {
         series: [],
         chart: {
           type: 'donut',
-          height: 300
+          height: 280,
+          fontFamily: 'inherit'
         },
         labels: [],
-        colors: ['#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B'],
-        legend: { position: 'bottom' },
-        dataLabels: { enabled: true },
+        colors: ['#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B', '#10B981'],
+        legend: {
+          position: 'bottom',
+          fontSize: '13px',
+          labels: { colors: '#6B7280' },
+          markers: { radius: 4 },
+          itemMargin: { horizontal: 12, vertical: 4 }
+        },
+        dataLabels: {
+          enabled: true,
+          style: { fontSize: '12px', fontWeight: 600 },
+          dropShadow: { enabled: false }
+        },
+        plotOptions: {
+          pie: {
+            donut: {
+              size: '65%',
+              labels: {
+                show: true,
+                name: { fontSize: '14px', color: '#6B7280' },
+                value: { fontSize: '24px', fontWeight: 700, color: '#111827' },
+                total: {
+                  show: true,
+                  label: 'Total',
+                  fontSize: '14px',
+                  color: '#6B7280'
+                }
+              }
+            }
+          }
+        },
+        stroke: { width: 0 },
         noData: {
           text: 'No data available',
           align: 'center',
-          verticalAlign: 'middle'
+          verticalAlign: 'middle',
+          style: { color: '#9CA3AF', fontSize: '14px' }
         }
       };
       return;
@@ -256,18 +350,57 @@ export class AnalyticsComponent implements OnInit {
       series: values,
       chart: {
         type: 'donut',
-        height: 300
+        height: 280,
+        fontFamily: 'inherit'
       },
       labels: labels.map(l => l.charAt(0).toUpperCase() + l.slice(1)),
-      colors: ['#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B'],
-      legend: { position: 'bottom' },
-      dataLabels: { enabled: true }
+      colors: ['#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B', '#10B981'],
+      legend: {
+        position: 'bottom',
+        fontSize: '13px',
+        labels: { colors: '#6B7280' },
+        markers: { radius: 4 },
+        itemMargin: { horizontal: 12, vertical: 4 }
+      },
+      dataLabels: {
+        enabled: true,
+        style: { fontSize: '12px', fontWeight: 600 },
+        dropShadow: { enabled: false }
+      },
+      plotOptions: {
+        pie: {
+          donut: {
+            size: '65%',
+            labels: {
+              show: true,
+              name: { fontSize: '14px', color: '#6B7280' },
+              value: { fontSize: '24px', fontWeight: 700, color: '#111827' },
+              total: {
+                show: true,
+                label: 'Total',
+                fontSize: '14px',
+                color: '#6B7280'
+              }
+            }
+          }
+        }
+      },
+      stroke: { width: 0 }
     };
   }
 
   setupSeverityChart(data: BreakdownData): void {
     const labels = Object.keys(data);
     const values = Object.values(data);
+
+    // Map severity levels to colors
+    const severityColors: { [key: string]: string } = {
+      critical: '#EF4444',
+      high: '#F97316',
+      medium: '#F59E0B',
+      low: '#10B981',
+      info: '#3B82F6'
+    };
 
     // Handle empty data
     if (labels.length === 0 || values.length === 0) {
@@ -278,29 +411,53 @@ export class AnalyticsComponent implements OnInit {
         }],
         chart: {
           type: 'bar',
-          height: 300,
-          toolbar: { show: false }
+          height: 280,
+          toolbar: { show: false },
+          fontFamily: 'inherit'
         },
         plotOptions: {
           bar: {
             horizontal: false,
-            columnWidth: '55%',
-            borderRadius: 4
+            columnWidth: '50%',
+            borderRadius: 6,
+            distributed: true
           }
         },
         dataLabels: { enabled: false },
-        xaxis: { categories: [] },
-        yaxis: { title: { text: 'Count' } },
-        colors: ['#EF4444', '#F59E0B', '#3B82F6', '#10B981'],
+        xaxis: {
+          categories: [],
+          labels: {
+            style: { colors: '#6B7280', fontSize: '12px' }
+          },
+          axisBorder: { show: false },
+          axisTicks: { show: false }
+        },
+        yaxis: {
+          labels: {
+            style: { colors: '#9CA3AF', fontSize: '12px' }
+          }
+        },
+        colors: ['#EF4444', '#F97316', '#F59E0B', '#10B981', '#3B82F6'],
         fill: { opacity: 1 },
+        legend: { show: false },
+        grid: {
+          borderColor: '#E5E7EB',
+          strokeDashArray: 4,
+          xaxis: { lines: { show: false } }
+        },
+        tooltip: { theme: 'light' },
         noData: {
           text: 'No data available',
           align: 'center',
-          verticalAlign: 'middle'
+          verticalAlign: 'middle',
+          style: { color: '#9CA3AF', fontSize: '14px' }
         }
       };
       return;
     }
+
+    // Get colors based on severity labels
+    const colors = labels.map(l => severityColors[l.toLowerCase()] || '#6B7280');
 
     this.severityChartOptions = {
       series: [{
@@ -309,23 +466,41 @@ export class AnalyticsComponent implements OnInit {
       }],
       chart: {
         type: 'bar',
-        height: 300,
-        toolbar: { show: false }
+        height: 280,
+        toolbar: { show: false },
+        fontFamily: 'inherit'
       },
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: '55%',
-          borderRadius: 4
+          columnWidth: '50%',
+          borderRadius: 6,
+          distributed: true
         }
       },
       dataLabels: { enabled: false },
       xaxis: {
-        categories: labels.map(l => l.charAt(0).toUpperCase() + l.slice(1))
+        categories: labels.map(l => l.charAt(0).toUpperCase() + l.slice(1)),
+        labels: {
+          style: { colors: '#6B7280', fontSize: '12px' }
+        },
+        axisBorder: { show: false },
+        axisTicks: { show: false }
       },
-      yaxis: { title: { text: 'Count' } },
-      colors: ['#EF4444', '#F59E0B', '#3B82F6', '#10B981'],
-      fill: { opacity: 1 }
+      yaxis: {
+        labels: {
+          style: { colors: '#9CA3AF', fontSize: '12px' }
+        }
+      },
+      colors: colors,
+      fill: { opacity: 1 },
+      legend: { show: false },
+      grid: {
+        borderColor: '#E5E7EB',
+        strokeDashArray: 4,
+        xaxis: { lines: { show: false } }
+      },
+      tooltip: { theme: 'light' }
     };
   }
 
