@@ -65,6 +65,7 @@ export class CalenderComponent implements OnInit, OnDestroy {
   isLoading = false;
   isSaving = false;
   error: string | null = null;
+  private initialLoadComplete = false;
 
   calendarsEvents: Record<string, string> = {
     Danger: 'danger',
@@ -129,25 +130,38 @@ export class CalenderComponent implements OnInit, OnDestroy {
       next: (response) => {
         this.events = this.mapApiEventsToCalendar(response.events);
         this.updateCalendarEvents();
+        this.initialLoadComplete = true;
       },
       error: (err) => {
         console.error('Failed to load events:', err);
         this.error = 'Failed to load events. Please try again.';
+        this.initialLoadComplete = true;
       }
     });
   }
 
   private handleDatesSet(dateInfo: any) {
+    // Skip the initial datesSet call - let loadEvents() handle the first load
+    // This prevents a race condition where datesSet overwrites the initial events
+    if (!this.initialLoadComplete) {
+      return;
+    }
+
     // Load events for the visible date range
     const year = dateInfo.start.getFullYear();
     const month = dateInfo.start.getMonth() + 1;
 
     this.eventsService.getEventsByMonth(year, month).subscribe({
       next: (response) => {
-        this.events = this.mapApiEventsToCalendar(response.events);
-        this.updateCalendarEvents();
+        const newEvents = this.mapApiEventsToCalendar(response.events);
+        // Only update if we got valid data
+        if (newEvents.length > 0 || response.events.length === 0) {
+          this.events = newEvents;
+          this.updateCalendarEvents();
+        }
       },
       error: (err) => {
+        // Don't clear events on error - keep showing existing events
         console.error('Failed to load events for month:', err);
       }
     });
