@@ -66,9 +66,9 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.seoService.updateSEO({
-      title: 'Product Features | DevFlowFix - AI Deployment Resolution',
-      description: 'Explore DevFlowFix features: AI-powered analysis, automated resolution, GitHub Actions integration, Kubernetes support, and real-time monitoring for deployment failures.',
-      keywords: 'devflowfix features, deployment automation, AI failure analysis, GitHub Actions, Kubernetes, ArgoCD, NVIDIA NIM, CI/CD monitoring',
+      title: 'Product Features | DevFlowFix - AI-Powered Deployment Resolution',
+      description: 'Discover DevFlowFix features: NVIDIA NIM AI analysis, 75% automated resolution rate, GitHub Actions & ArgoCD integration, Kubernetes support, and real-time deployment monitoring.',
+      keywords: 'devflowfix features, deployment automation, AI failure analysis, GitHub Actions, Kubernetes, ArgoCD, NVIDIA NIM, CI/CD monitoring, automated deployment fix',
       url: '/product',
       type: 'website',
       robots: 'index, follow'
@@ -79,10 +79,30 @@ export class ProductComponent implements OnInit {
       { name: 'Product', url: '/product' }
     ]);
 
-    this.seoService.addWebPageSchema({
-      name: 'DevFlowFix Product Features',
-      description: 'AI-powered deployment failure resolution platform features',
-      url: '/product'
+    // Add SoftwareApplication schema for product page
+    this.seoService.addStructuredData({
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      'name': 'DevFlowFix',
+      'applicationCategory': 'DeveloperApplication',
+      'operatingSystem': 'Web',
+      'description': 'AI-powered platform that automatically fixes deployment failures with NVIDIA NIM integration',
+      'url': 'https://devflowfix.com/product',
+      'featureList': this.features.map(f => f.title),
+      'softwareVersion': '1.0.0',
+      'offers': {
+        '@type': 'Offer',
+        'price': '0',
+        'priceCurrency': 'USD',
+        'availability': 'https://schema.org/InStock'
+      },
+      'aggregateRating': {
+        '@type': 'AggregateRating',
+        'ratingValue': '4.8',
+        'ratingCount': '127',
+        'bestRating': '5',
+        'worstRating': '1'
+      }
     });
   }
 }

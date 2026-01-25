@@ -88,9 +88,9 @@ export class HelpCenterComponent implements OnInit {
 
   ngOnInit(): void {
     this.seoService.updateSEO({
-      title: 'Help Center | DevFlowFix - Documentation & Support',
-      description: 'Get help with DevFlowFix. Find guides, tutorials, FAQs, and troubleshooting tips for deployment automation and CI/CD integration.',
-      keywords: 'devflowfix help, devflowfix documentation, deployment help, CI/CD support, GitHub Actions help, kubernetes troubleshooting',
+      title: 'Help Center | DevFlowFix - Documentation, Guides & Support',
+      description: 'Get help with DevFlowFix. Access comprehensive guides, tutorials, FAQs, and troubleshooting tips for deployment automation, GitHub Actions, ArgoCD, and Kubernetes integration.',
+      keywords: 'devflowfix help, devflowfix documentation, deployment help, CI/CD support, GitHub Actions help, kubernetes troubleshooting, argocd setup guide, devops support',
       url: '/help-center',
       type: 'website',
       robots: 'index, follow'
@@ -101,7 +101,7 @@ export class HelpCenterComponent implements OnInit {
       { name: 'Help Center', url: '/help-center' }
     ]);
 
-    // Add FAQ schema
+    // Add FAQ schema for help center
     this.seoService.addFAQSchema(this.faqs);
   }
 }

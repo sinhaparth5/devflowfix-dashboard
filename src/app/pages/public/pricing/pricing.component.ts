@@ -89,9 +89,9 @@ export class PricingComponent implements OnInit {
 
   ngOnInit(): void {
     this.seoService.updateSEO({
-      title: 'Pricing | DevFlowFix - Affordable Deployment Automation',
-      description: 'Simple, transparent pricing for DevFlowFix. Start free, upgrade as you grow. Plans for individuals, teams, and enterprises.',
-      keywords: 'devflowfix pricing, deployment automation cost, CI/CD tool pricing, free deployment tool, enterprise DevOps pricing',
+      title: 'Pricing Plans | DevFlowFix - Start Free, Scale as You Grow',
+      description: 'Simple, transparent pricing for DevFlowFix. Start free with 100 deployments/month, upgrade to Pro for unlimited deployments, or get custom Enterprise solutions. No hidden fees.',
+      keywords: 'devflowfix pricing, deployment automation cost, CI/CD tool pricing, free deployment tool, enterprise DevOps pricing, AI deployment resolution pricing',
       url: '/pricing',
       type: 'website',
       robots: 'index, follow'
@@ -102,19 +102,27 @@ export class PricingComponent implements OnInit {
       { name: 'Pricing', url: '/pricing' }
     ]);
 
-    // Add pricing schema
+    // Add pricing schema with offers
     const pricingSchema = {
       '@context': 'https://schema.org',
       '@type': 'Product',
       'name': 'DevFlowFix',
       'description': 'AI-powered deployment failure resolution platform',
+      'brand': {
+        '@type': 'Brand',
+        'name': 'DevFlowFix'
+      },
       'offers': this.plans.map((plan, index) => ({
         '@type': 'Offer',
         'name': plan.name,
         'price': plan.price === 'Free' ? '0' : plan.price === 'Custom' ? '' : plan.price.replace('$', ''),
         'priceCurrency': 'USD',
-        'description': plan.description
+        'description': plan.description,
+        'availability': 'https://schema.org/InStock'
       }))
     };
+
+    // Add FAQ schema for better SEO
+    this.seoService.addFAQSchema(this.faqs);
   }
 }

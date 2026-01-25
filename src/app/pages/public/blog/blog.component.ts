@@ -76,9 +76,9 @@ export class BlogComponent implements OnInit {
 
   ngOnInit(): void {
     this.seoService.updateSEO({
-      title: 'Blog | DevFlowFix - DevOps Insights & Tutorials',
-      description: 'Read the latest articles on deployment automation, CI/CD best practices, Kubernetes, GitHub Actions, and AI-powered DevOps from the DevFlowFix team.',
-      keywords: 'devflowfix blog, devops blog, CI/CD tutorials, kubernetes articles, github actions guide, deployment best practices',
+      title: 'Blog | DevFlowFix - DevOps Insights, Tutorials & Best Practices',
+      description: 'Expert articles on deployment automation, CI/CD best practices, Kubernetes monitoring, GitHub Actions integration, and AI-powered DevOps. Learn from the DevFlowFix team.',
+      keywords: 'devflowfix blog, devops blog, CI/CD tutorials, kubernetes articles, github actions guide, deployment best practices, argocd gitops, deployment automation tips',
       url: '/blog',
       type: 'website',
       robots: 'index, follow'
@@ -89,10 +89,31 @@ export class BlogComponent implements OnInit {
       { name: 'Blog', url: '/blog' }
     ]);
 
-    this.seoService.addWebPageSchema({
-      name: 'DevFlowFix Blog',
-      description: 'DevOps insights, tutorials, and best practices from the DevFlowFix team',
-      url: '/blog'
+    // Add Blog schema for better SEO
+    this.seoService.addStructuredData({
+      '@context': 'https://schema.org',
+      '@type': 'Blog',
+      'name': 'DevFlowFix Blog',
+      'description': 'DevOps insights, tutorials, and best practices from the DevFlowFix team',
+      'url': 'https://devflowfix.com/blog',
+      'publisher': {
+        '@type': 'Organization',
+        'name': 'DevFlowFix',
+        'logo': {
+          '@type': 'ImageObject',
+          'url': 'https://devflowfix.com/images/logo/logo.svg'
+        }
+      },
+      'blogPost': this.posts.slice(0, 3).map(post => ({
+        '@type': 'BlogPosting',
+        'headline': post.title,
+        'description': post.excerpt,
+        'datePublished': post.date,
+        'author': {
+          '@type': 'Organization',
+          'name': 'DevFlowFix'
+        }
+      }))
     });
   }
 

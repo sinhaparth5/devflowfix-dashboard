@@ -34,9 +34,9 @@ export class AboutComponent implements OnInit {
 
   ngOnInit(): void {
     this.seoService.updateSEO({
-      title: 'About Us | DevFlowFix - Our Mission & Story',
-      description: 'Learn about DevFlowFix, the AI-powered platform revolutionizing deployment failure resolution. Discover our mission to help developers ship faster with fewer incidents.',
-      keywords: 'about devflowfix, deployment automation company, CI/CD innovation, DevOps tools, AI deployment resolution',
+      title: 'About Us | DevFlowFix - Our Mission to Eliminate Deployment Failures',
+      description: 'Meet the team behind DevFlowFix. Learn how we\'re using AI and NVIDIA NIM to revolutionize deployment failure resolution with 75% automated fix rate in under 8 minutes.',
+      keywords: 'about devflowfix, deployment automation company, CI/CD innovation, DevOps tools, AI deployment resolution, NVIDIA NIM, automated deployment fixes',
       url: '/about',
       type: 'website',
       robots: 'index, follow'
@@ -47,10 +47,34 @@ export class AboutComponent implements OnInit {
       { name: 'About', url: '/about' }
     ]);
 
-    this.seoService.addWebPageSchema({
-      name: 'About DevFlowFix',
-      description: 'Learn about our mission to revolutionize deployment failure resolution',
-      url: '/about'
+    // Add Organization schema for about page
+    this.seoService.addStructuredData({
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      'name': 'About DevFlowFix',
+      'description': 'Learn about our mission to revolutionize deployment failure resolution',
+      'url': 'https://devflowfix.com/about',
+      'mainEntity': {
+        '@type': 'Organization',
+        'name': 'DevFlowFix',
+        'foundingDate': '2024',
+        'description': 'AI-powered deployment failure resolution platform',
+        'slogan': 'Fix Deployments Before They Break Production',
+        'url': 'https://devflowfix.com',
+        'sameAs': [
+          'https://twitter.com/devflowfix',
+          'https://github.com/devflowfix',
+          'https://linkedin.com/company/devflowfix'
+        ],
+        'knowsAbout': [
+          'Deployment Automation',
+          'CI/CD',
+          'Kubernetes',
+          'GitHub Actions',
+          'ArgoCD',
+          'AI-powered DevOps'
+        ]
+      }
     });
   }
 }

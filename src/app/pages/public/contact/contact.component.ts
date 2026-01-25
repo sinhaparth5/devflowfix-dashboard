@@ -39,9 +39,9 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
     this.seoService.updateSEO({
-      title: 'Contact Us | DevFlowFix - Get in Touch',
-      description: 'Contact the DevFlowFix team for sales inquiries, technical support, or partnership opportunities. We\'re here to help you succeed.',
-      keywords: 'contact devflowfix, devflowfix support, deployment tool help, CI/CD support, DevOps consultation',
+      title: 'Contact Us | DevFlowFix - Sales, Support & Partnerships',
+      description: 'Get in touch with DevFlowFix. Contact our team for sales inquiries, technical support, enterprise solutions, or partnership opportunities. Response within 24 hours.',
+      keywords: 'contact devflowfix, devflowfix support, deployment tool help, CI/CD support, DevOps consultation, enterprise sales, technical support',
       url: '/contact',
       type: 'website',
       robots: 'index, follow'
@@ -52,10 +52,32 @@ export class ContactComponent implements OnInit {
       { name: 'Contact', url: '/contact' }
     ]);
 
-    this.seoService.addWebPageSchema({
-      name: 'Contact DevFlowFix',
-      description: 'Get in touch with our team for support and inquiries',
-      url: '/contact'
+    // Add ContactPage schema for better SEO
+    this.seoService.addStructuredData({
+      '@context': 'https://schema.org',
+      '@type': 'ContactPage',
+      'name': 'Contact DevFlowFix',
+      'description': 'Get in touch with our team for support and inquiries',
+      'url': 'https://devflowfix.com/contact',
+      'mainEntity': {
+        '@type': 'Organization',
+        'name': 'DevFlowFix',
+        'email': 'hello@devflowfix.com',
+        'contactPoint': [
+          {
+            '@type': 'ContactPoint',
+            'contactType': 'sales',
+            'email': 'hello@devflowfix.com',
+            'availableLanguage': 'English'
+          },
+          {
+            '@type': 'ContactPoint',
+            'contactType': 'technical support',
+            'email': 'enterprise@devflowfix.com',
+            'availableLanguage': 'English'
+          }
+        ]
+      }
     });
   }
 
