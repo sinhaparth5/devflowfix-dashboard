@@ -5,7 +5,9 @@
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
     "types": [
-      "jasmine"
+      "vitest/globals",
+      "zone.js",
+      "zone.js/testing"
     ]
   },
   "include": [
