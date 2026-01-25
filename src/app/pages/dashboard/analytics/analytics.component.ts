@@ -309,7 +309,6 @@ export class AnalyticsComponent implements OnInit {
           position: 'bottom',
           fontSize: '13px',
           labels: { colors: '#6B7280' },
-          markers: { radius: 4 },
           itemMargin: { horizontal: 12, vertical: 4 }
         },
         dataLabels: {
@@ -359,7 +358,6 @@ export class AnalyticsComponent implements OnInit {
         position: 'bottom',
         fontSize: '13px',
         labels: { colors: '#6B7280' },
-        markers: { radius: 4 },
         itemMargin: { horizontal: 12, vertical: 4 }
       },
       dataLabels: {

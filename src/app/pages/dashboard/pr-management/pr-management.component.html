@@ -1,67 +1,87 @@
-<div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+<div class="space-y-6">
   <!-- Header -->
-  <div class="border-b border-stroke px-7 py-5 dark:border-strokedark">
-    <h3 class="font-medium text-black dark:text-white">PR Management</h3>
+  <div>
+    <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">PR Management</h1>
     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
       Manage automated pull requests, GitHub tokens, and view statistics
     </p>
   </div>
 
   <!-- Tab Navigation -->
-  <div class="border-b border-stroke dark:border-strokedark">
-    <nav class="flex space-x-4 px-7 py-3" aria-label="Tabs">
-      <button
-        (click)="switchTab('prs')"
-        [class.text-brand-500]="activeTab === 'prs'"
-        [class.border-b-2]="activeTab === 'prs'"
-        [class.border-brand-500]="activeTab === 'prs'"
-        [class.text-gray-500]="activeTab !== 'prs'"
-        [class.dark:text-gray-400]="activeTab !== 'prs'"
-        class="px-3 py-2 font-medium transition-colors hover:text-brand-500 dark:hover:text-brand-400">
-        Pull Requests
-      </button>
-      <button
-        (click)="switchTab('tokens')"
-        [class.text-brand-500]="activeTab === 'tokens'"
-        [class.border-b-2]="activeTab === 'tokens'"
-        [class.border-brand-500]="activeTab === 'tokens'"
-        [class.text-gray-500]="activeTab !== 'tokens'"
-        [class.dark:text-gray-400]="activeTab !== 'tokens'"
-        class="px-3 py-2 font-medium transition-colors hover:text-brand-500 dark:hover:text-brand-400">
-        GitHub Tokens
-      </button>
-      <button
-        (click)="switchTab('stats')"
-        [class.text-brand-500]="activeTab === 'stats'"
-        [class.border-b-2]="activeTab === 'stats'"
-        [class.border-brand-500]="activeTab === 'stats'"
-        [class.text-gray-500]="activeTab !== 'stats'"
-        [class.dark:text-gray-400]="activeTab !== 'stats'"
-        class="px-3 py-2 font-medium transition-colors hover:text-brand-500 dark:hover:text-brand-400">
-        Statistics
-      </button>
-    </nav>
-  </div>
+  <div class="rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
+    <div class="border-b border-gray-100 dark:border-gray-800">
+      <nav class="flex gap-1 px-4" aria-label="Tabs">
+        <button
+          (click)="switchTab('prs')"
+          class="relative px-4 py-3 text-sm font-medium transition-colors"
+          [class]="activeTab === 'prs'
+            ? 'text-blue-600 dark:text-blue-400'
+            : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'">
+          <div class="flex items-center gap-2">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+            </svg>
+            Pull Requests
+          </div>
+          @if (activeTab === 'prs') {
+            <span class="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-blue-600 dark:bg-blue-400"></span>
+          }
+        </button>
+        <button
+          (click)="switchTab('tokens')"
+          class="relative px-4 py-3 text-sm font-medium transition-colors"
+          [class]="activeTab === 'tokens'
+            ? 'text-blue-600 dark:text-blue-400'
+            : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'">
+          <div class="flex items-center gap-2">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+            </svg>
+            GitHub Tokens
+          </div>
+          @if (activeTab === 'tokens') {
+            <span class="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-blue-600 dark:bg-blue-400"></span>
+          }
+        </button>
+        <button
+          (click)="switchTab('stats')"
+          class="relative px-4 py-3 text-sm font-medium transition-colors"
+          [class]="activeTab === 'stats'
+            ? 'text-blue-600 dark:text-blue-400'
+            : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'">
+          <div class="flex items-center gap-2">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+            Statistics
+          </div>
+          @if (activeTab === 'stats') {
+            <span class="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-blue-600 dark:bg-blue-400"></span>
+          }
+        </button>
+      </nav>
+    </div>
 
-  <!-- Tab Content -->
-  <div class="p-7">
-    <!-- Pull Requests Tab -->
-    @if (activeTab === 'prs') {
-      <app-pr-list-table (viewDetails)="openPRDetails($event)"></app-pr-list-table>
-    }
+    <!-- Tab Content -->
+    <div class="p-6">
+      <!-- Pull Requests Tab -->
+      @if (activeTab === 'prs') {
+        <app-pr-list-table (viewDetails)="openPRDetails($event)"></app-pr-list-table>
+      }
 
-    <!-- GitHub Tokens Tab -->
-    @if (activeTab === 'tokens') {
-      <div class="space-y-6">
-        <app-token-registration-form (tokenRegistered)="onTokenRegistered()"></app-token-registration-form>
-        <app-token-list-table></app-token-list-table>
-      </div>
-    }
+      <!-- GitHub Tokens Tab -->
+      @if (activeTab === 'tokens') {
+        <div class="space-y-6">
+          <app-token-registration-form (tokenRegistered)="onTokenRegistered()"></app-token-registration-form>
+          <app-token-list-table></app-token-list-table>
+        </div>
+      }
 
-    <!-- Statistics Tab -->
-    @if (activeTab === 'stats') {
-      <app-pr-stats-dashboard></app-pr-stats-dashboard>
-    }
+      <!-- Statistics Tab -->
+      @if (activeTab === 'stats') {
+        <app-pr-stats-dashboard></app-pr-stats-dashboard>
+      }
+    </div>
   </div>
 </div>
 
