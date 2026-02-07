@@ -30,11 +30,6 @@
       ]
     }
   ],
-  "overrides": {
-    "*.wasm": {
-      "contentType": "application/wasm"
-    }
-  },
   "rewrites": [
     {
       "source": "/((?!api/).*)",
