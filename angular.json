@@ -48,6 +48,11 @@
                 "glob": "silent-refresh.html",
                 "input": "src",
                 "output": "/"
+              },
+              {
+                "glob": "*.wasm",
+                "input": "wasm/pkg",
+                "output": "/"
               }
             ],
             "styles": [

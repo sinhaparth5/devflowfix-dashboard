@@ -3,6 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { OnboardingService, OnboardingStep } from '../../services/onboarding.service';
+import { WasmService } from '../../services/wasm.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -284,9 +285,11 @@ export class ProductTourComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private resizeObserver: ResizeObserver | null = null;
   private confettiColors = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#3b82f6'];
+  private cachedConfettiPositions: number[] | null = null;
 
   constructor(
     private onboardingService: OnboardingService,
+    private wasmService: WasmService,
     private router: Router,
     @Inject(PLATFORM_ID) platformId: Object
   ) {
@@ -384,7 +387,11 @@ export class ProductTourComponent implements OnInit, OnDestroy {
   }
 
   getRandomPosition(index: number): number {
-    return (index * 17) % 100;
+    if (!this.cachedConfettiPositions) {
+      const wasm = this.wasmService.module;
+      this.cachedConfettiPositions = Array.from(wasm.compute_confetti_positions(this.confettiPieces.length));
+    }
+    return this.cachedConfettiPositions[index];
   }
 
   getConfettiColor(index: number): string {
@@ -478,86 +485,34 @@ export class ProductTourComponent implements OnInit, OnDestroy {
 
   private updateClipPath(spotlight: { top: number; left: number; width: number; height: number }): void {
     const borderRadius = 12; // rounded-xl equivalent
-    const { top, left, width, height } = spotlight;
-    const right = left + width;
-    const bottom = top + height;
-
-    // Create a polygon that covers the entire viewport with a rounded rectangular cutout
-    this.spotlightClipPath = `polygon(
-      0% 0%,
-      0% 100%,
-      ${left}px 100%,
-      ${left}px ${top + borderRadius}px,
-      ${left + borderRadius}px ${top}px,
-      ${right - borderRadius}px ${top}px,
-      ${right}px ${top + borderRadius}px,
-      ${right}px ${bottom - borderRadius}px,
-      ${right - borderRadius}px ${bottom}px,
-      ${left + borderRadius}px ${bottom}px,
-      ${left}px ${bottom - borderRadius}px,
-      ${left}px 100%,
-      100% 100%,
-      100% 0%
-    )`;
+    const wasm = this.wasmService.module;
+    this.spotlightClipPath = wasm.compute_clip_path(
+      spotlight.top, spotlight.left, spotlight.width, spotlight.height, borderRadius
+    );
   }
 
   private positionTooltip(targetRect: DOMRect): void {
     const tooltipWidth = Math.min(360, window.innerWidth - 32);
-    const tooltipHeight = 380; // Approximate height with new elements
+    const tooltipHeight = 380;
     const gap = 16;
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
-    let top = 0;
-    let left = 0;
+    const wasm = this.wasmService.module;
+    const pos = wasm.compute_tooltip_position(
+      targetRect.top,
+      targetRect.left,
+      targetRect.width,
+      targetRect.height,
+      tooltipWidth,
+      tooltipHeight,
+      viewportWidth,
+      viewportHeight,
+      gap,
+      this.currentStep?.position || ''
+    ) as { top: number; left: number };
 
-    // Determine best position based on available space
-    const spaceAbove = targetRect.top;
-    const spaceBelow = viewportHeight - targetRect.bottom;
-    const spaceLeft = targetRect.left;
-    const spaceRight = viewportWidth - targetRect.right;
-
-    let position = this.currentStep?.position;
-
-    // Auto-adjust position if not enough space
-    if (!position) {
-      if (spaceBelow >= tooltipHeight + gap) {
-        position = 'bottom';
-      } else if (spaceAbove >= tooltipHeight + gap) {
-        position = 'top';
-      } else if (spaceRight >= tooltipWidth + gap) {
-        position = 'right';
-      } else if (spaceLeft >= tooltipWidth + gap) {
-        position = 'left';
-      } else {
-        position = 'bottom'; // Default fallback
-      }
-    }
-
-    switch (position) {
-      case 'bottom':
-        top = targetRect.bottom + gap;
-        left = targetRect.left + (targetRect.width / 2) - (tooltipWidth / 2);
-        break;
-      case 'top':
-        top = targetRect.top - tooltipHeight - gap;
-        left = targetRect.left + (targetRect.width / 2) - (tooltipWidth / 2);
-        break;
-      case 'left':
-        top = targetRect.top + (targetRect.height / 2) - (tooltipHeight / 2);
-        left = targetRect.left - tooltipWidth - gap;
-        break;
-      case 'right':
-        top = targetRect.top + (targetRect.height / 2) - (tooltipHeight / 2);
-        left = targetRect.right + gap;
-        break;
-    }
-
-    // Keep tooltip within viewport bounds
-    left = Math.max(16, Math.min(left, viewportWidth - tooltipWidth - 16));
-    top = Math.max(16, Math.min(top, viewportHeight - tooltipHeight - 16));
-
-    this.tooltipPosition = { top, left };
+    this.tooltipPosition = pos;
   }
 
   private centerTooltip(): void {

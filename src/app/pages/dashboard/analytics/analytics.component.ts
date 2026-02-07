@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SeoService } from '../../../shared/services/seo.service';
 import { AnalyticsService, IncidentStats, TrendDataPoint, BreakdownData, MTTRData, TopRepository } from '../../../shared/services/analytics.service';
+import { WasmService } from '../../../shared/services/wasm.service';
 import { ApexOptions } from 'ng-apexcharts';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
@@ -36,7 +37,8 @@ export class AnalyticsComponent implements OnInit {
 
   constructor(
     private seoService: SeoService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private wasmService: WasmService
   ) {}
 
   ngOnInit(): void {
@@ -232,16 +234,14 @@ export class AnalyticsComponent implements OnInit {
       return;
     }
 
-    const dates = data.map(d => new Date(d.period).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
-    const total = data.map(d => d.total);
-    const resolved = data.map(d => d.resolved);
-    const failed = data.map(d => d.failed);
+    const wasm = this.wasmService.module;
+    const transformed = wasm.transform_trends(data) as { dates: string[]; total: number[]; resolved: number[]; failed: number[] };
 
     this.trendsChartOptions = {
       series: [
-        { name: 'Total', data: total },
-        { name: 'Resolved', data: resolved },
-        { name: 'Failed', data: failed }
+        { name: 'Total', data: transformed.total },
+        { name: 'Resolved', data: transformed.resolved },
+        { name: 'Failed', data: transformed.failed }
       ],
       chart: {
         type: 'area',
@@ -263,7 +263,7 @@ export class AnalyticsComponent implements OnInit {
         }
       },
       xaxis: {
-        categories: dates,
+        categories: transformed.dates,
         labels: {
           style: { colors: '#9CA3AF', fontSize: '12px' },
           rotate: -45,
@@ -291,11 +291,10 @@ export class AnalyticsComponent implements OnInit {
   }
 
   setupSourceChart(data: BreakdownData): void {
-    const labels = Object.keys(data);
-    const values = Object.values(data);
+    const keys = Object.keys(data);
 
     // Handle empty data
-    if (labels.length === 0 || values.length === 0) {
+    if (keys.length === 0) {
       this.sourceChartOptions = {
         series: [],
         chart: {
@@ -345,14 +344,17 @@ export class AnalyticsComponent implements OnInit {
       return;
     }
 
+    const wasm = this.wasmService.module;
+    const transformed = wasm.transform_breakdown(data) as { labels: string[]; values: number[] };
+
     this.sourceChartOptions = {
-      series: values,
+      series: transformed.values,
       chart: {
         type: 'donut',
         height: 280,
         fontFamily: 'inherit'
       },
-      labels: labels.map(l => l.charAt(0).toUpperCase() + l.slice(1)),
+      labels: transformed.labels.map(l => l.charAt(0).toUpperCase() + l.slice(1)),
       colors: ['#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B', '#10B981'],
       legend: {
         position: 'bottom',
@@ -388,8 +390,7 @@ export class AnalyticsComponent implements OnInit {
   }
 
   setupSeverityChart(data: BreakdownData): void {
-    const labels = Object.keys(data);
-    const values = Object.values(data);
+    const keys = Object.keys(data);
 
     // Map severity levels to colors
     const severityColors: { [key: string]: string } = {
@@ -401,7 +402,7 @@ export class AnalyticsComponent implements OnInit {
     };
 
     // Handle empty data
-    if (labels.length === 0 || values.length === 0) {
+    if (keys.length === 0) {
       this.severityChartOptions = {
         series: [{
           name: 'Incidents',
@@ -455,12 +456,14 @@ export class AnalyticsComponent implements OnInit {
     }
 
     // Get colors based on severity labels
-    const colors = labels.map(l => severityColors[l.toLowerCase()] || '#6B7280');
+    const wasm = this.wasmService.module;
+    const transformed = wasm.transform_breakdown(data) as { labels: string[]; values: number[] };
+    const colors = transformed.labels.map(l => severityColors[l.toLowerCase()] || '#6B7280');
 
     this.severityChartOptions = {
       series: [{
         name: 'Incidents',
-        data: values
+        data: transformed.values
       }],
       chart: {
         type: 'bar',
@@ -478,7 +481,7 @@ export class AnalyticsComponent implements OnInit {
       },
       dataLabels: { enabled: false },
       xaxis: {
-        categories: labels.map(l => l.charAt(0).toUpperCase() + l.slice(1)),
+        categories: transformed.labels,
         labels: {
           style: { colors: '#6B7280', fontSize: '12px' }
         },
@@ -503,15 +506,10 @@ export class AnalyticsComponent implements OnInit {
   }
 
   formatSeconds(seconds: number): string {
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    if (hours > 0) {
-      return `${hours}h ${minutes % 60}m`;
-    }
-    return `${minutes}m`;
+    return this.wasmService.module.format_seconds_to_duration(seconds);
   }
 
   formatPercentage(value: number): string {
-    return `${(value * 100).toFixed(1)}%`;
+    return this.wasmService.module.format_percentage(value);
   }
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { SeoService } from '../../../../shared/services/seo.service';
 import { IncidentsService, Incident, IncidentFilters, IncidentsListResponse } from '../../../../shared/services/incidents.service';
+import { WasmService } from '../../../../shared/services/wasm.service';
 import { IncidentStatusBadgeComponent } from '../../../../shared/components/incidents/incident-status-badge.component';
 import { IncidentSeverityIconComponent } from '../../../../shared/components/incidents/incident-severity-icon.component';
 import { IncidentFilterComponent } from '../../../../shared/components/incidents/incident-filter.component';
@@ -41,6 +42,7 @@ export class IncidentsListComponent implements OnInit {
   constructor(
     private seoService: SeoService,
     private incidentsService: IncidentsService,
+    private wasmService: WasmService,
     private router: Router
   ) {}
 
@@ -110,52 +112,18 @@ export class IncidentsListComponent implements OnInit {
 
   getResolutionTime(createdAt: string, resolvedAt: string | null): string {
     if (!resolvedAt) return 'N/A';
-
-    const created = new Date(createdAt);
-    const resolved = new Date(resolvedAt);
-    const diff = resolved.getTime() - created.getTime();
-
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-
-    if (hours > 0) {
-      return `${hours}h ${minutes}m`;
-    }
-    return `${minutes}m`;
+    return this.wasmService.module.compute_resolution_time(createdAt, resolvedAt);
   }
 
   get pageNumbers(): number[] {
-    const pages = [];
-    const maxPagesToShow = 5;
-    let startPage = Math.max(1, this.currentPage - Math.floor(maxPagesToShow / 2));
-    let endPage = Math.min(this.totalPages, startPage + maxPagesToShow - 1);
-
-    if (endPage - startPage < maxPagesToShow - 1) {
-      startPage = Math.max(1, endPage - maxPagesToShow + 1);
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(i);
-    }
-    return pages;
+    const wasm = this.wasmService.module;
+    const result = wasm.compute_page_numbers(this.currentPage, this.totalPages, 5);
+    return Array.from(result);
   }
 
   exportToCSV(): void {
-    const headers = ['Incident ID', 'Source', 'Severity', 'Status', 'Failure Type', 'Created At', 'Resolved At'];
-    const csvData = this.incidents.map(incident => [
-      incident.incident_id,
-      incident.source,
-      incident.severity,
-      incident.outcome,
-      incident.failure_type,
-      incident.created_at,
-      incident.resolved_at || 'N/A'
-    ]);
-
-    let csv = headers.join(',') + '\n';
-    csvData.forEach(row => {
-      csv += row.map(cell => `"${cell}"`).join(',') + '\n';
-    });
+    const wasm = this.wasmService.module;
+    const csv = wasm.build_incidents_csv(this.incidents);
 
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
