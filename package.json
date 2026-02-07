@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
+    "wasm:build": "cd wasm && wasm-pack build --target web --out-dir pkg",
+    "wasm:build:dev": "cd wasm && wasm-pack build --target web --out-dir pkg --dev",
+    "prebuild": "wasm-pack --version && npm run wasm:build || echo 'wasm-pack not found, using pre-built wasm/pkg'",
+    "prestart": "wasm-pack --version && npm run wasm:build:dev || echo 'wasm-pack not found, using pre-built wasm/pkg'",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -39,7 +43,8 @@
     "swiper": "^11.2.10",
     "tailwindcss": "^4.1.11",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.15.0",
+    "devflowfix-wasm": "file:wasm/pkg"
   },
   "devDependencies": {
     "@angular/build": "^21.0.5",

@@ -1,0 +1,15 @@
+{
+  "name": "devflowfix-wasm",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "devflowfix_wasm_bg.wasm",
+    "devflowfix_wasm.js",
+    "devflowfix_wasm.d.ts"
+  ],
+  "main": "devflowfix_wasm.js",
+  "types": "devflowfix_wasm.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
