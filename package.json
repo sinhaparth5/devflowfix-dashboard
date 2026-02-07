@@ -32,7 +32,9 @@
     "@popperjs/core": "^2.11.8",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/prismjs": "^1.26.5",
+    "angular-oauth2-oidc": "^20.0.2",
     "apexcharts": "^5.3.2",
+    "devflowfix-wasm": "file:wasm/pkg",
     "flatpickr": "^4.6.13",
     "ng-apexcharts": "^2.0.0",
     "ng-otp-input": "^2.0.9",
@@ -42,8 +44,7 @@
     "swiper": "^11.2.10",
     "tailwindcss": "^4.1.11",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0",
-    "devflowfix-wasm": "file:wasm/pkg"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
     "@angular/build": "^21.1.1",
