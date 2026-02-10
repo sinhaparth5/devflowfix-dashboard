@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
+import { WasmService } from './wasm.service';
 
 export interface SanitizationConfig {
   allowedTags?: string[];
@@ -12,67 +13,37 @@ export interface SanitizationConfig {
 })
 export class SanitizationService {
 
-  constructor(private domSanitizer: DomSanitizer) {}
+  constructor(
+    private domSanitizer: DomSanitizer,
+    private wasmService: WasmService
+  ) {}
 
   /**
    * Sanitize plain text input - removes HTML tags and encodes special characters
    * Use this for: user names, email inputs, search queries, form text fields
+   * Delegated to WASM for performance (pre-compiled regex + no DOM element creation)
    */
   sanitizeText(input: string): string {
     if (!input) return '';
-
-    // Remove any HTML tags
-    const stripped = input.replace(/<[^>]*>/g, '');
-
-    // Encode special characters
-    return this.encodeHtml(stripped);
+    return this.wasmService.module.sanitize_text(input);
   }
 
   /**
    * Sanitize email input - validates format and removes dangerous characters
+   * Delegated to WASM for faster regex processing
    */
   sanitizeEmail(email: string): string {
     if (!email) return '';
-
-    // Remove any non-email characters
-    const cleaned = email
-      .replace(/<[^>]*>/g, '') // Remove HTML tags
-      .replace(/[^\w\s@.\-+]/gi, '') // Keep only valid email chars
-      .trim()
-      .toLowerCase();
-
-    return cleaned;
+    return this.wasmService.module.sanitize_email(email);
   }
 
   /**
    * Sanitize URL input - validates URL and prevents javascript: and data: URIs
+   * Delegated to WASM for faster string checks
    */
   sanitizeUrl(url: string): string {
     if (!url) return '';
-
-    const trimmed = url.trim().toLowerCase();
-
-    // Block dangerous protocols
-    if (
-      trimmed.startsWith('javascript:') ||
-      trimmed.startsWith('data:') ||
-      trimmed.startsWith('vbscript:') ||
-      trimmed.startsWith('file:')
-    ) {
-      return '';
-    }
-
-    // Allow only http, https, mailto
-    if (
-      !trimmed.startsWith('http://') &&
-      !trimmed.startsWith('https://') &&
-      !trimmed.startsWith('mailto:') &&
-      !trimmed.startsWith('/')
-    ) {
-      return '';
-    }
-
-    return url.trim();
+    return this.wasmService.module.sanitize_url(url);
   }
 
   /**
@@ -82,16 +53,15 @@ export class SanitizationService {
   sanitizeHtml(html: string, config?: SanitizationConfig): SafeHtml {
     if (!html) return '';
 
-    // First pass: strip potentially dangerous tags
-    let cleaned = this.stripDangerousTags(html);
+    // First pass: strip potentially dangerous tags (via WASM)
+    let cleaned = this.wasmService.module.strip_dangerous_tags(html);
 
-    // If config provided, apply whitelist filtering
+    // If config provided, apply whitelist filtering (requires DOM)
     if (config?.allowedTags) {
       cleaned = this.filterAllowedTags(cleaned, config);
     }
 
     // Let Angular sanitize it (this is safe)
-    // This will remove any remaining dangerous content
     return this.domSanitizer.sanitize(1, cleaned) || ''; // 1 = SecurityContext.HTML
   }
 
@@ -124,45 +94,13 @@ export class SanitizationService {
   }
 
   /**
-   * Encode HTML special characters
-   */
-  private encodeHtml(text: string): string {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
-
-  /**
-   * Strip dangerous HTML tags
-   */
-  private stripDangerousTags(html: string): string {
-    const dangerousTags = [
-      'script', 'iframe', 'object', 'embed', 'link',
-      'style', 'base', 'meta', 'applet', 'form'
-    ];
-
-    let cleaned = html;
-    dangerousTags.forEach(tag => {
-      const regex = new RegExp(`<${tag}[^>]*>.*?</${tag}>`, 'gi');
-      cleaned = cleaned.replace(regex, '');
-      // Also remove self-closing tags
-      const selfClosing = new RegExp(`<${tag}[^>]*/>`, 'gi');
-      cleaned = cleaned.replace(selfClosing, '');
-    });
-
-    return cleaned;
-  }
-
-  /**
-   * Filter to only allowed tags
+   * Filter to only allowed tags (requires DOM for parsing/traversal)
    */
   private filterAllowedTags(html: string, config: SanitizationConfig): string {
     if (!config.allowedTags || config.allowedTags.length === 0) {
-      return this.encodeHtml(html); // No tags allowed, return encoded text
+      return this.wasmService.module.encode_html(html);
     }
 
-    // This is a simple implementation
-    // For production, consider using a library like DOMPurify
     const div = document.createElement('div');
     div.innerHTML = html;
 
@@ -172,7 +110,7 @@ export class SanitizationService {
   }
 
   /**
-   * Recursively sanitize DOM nodes
+   * Recursively sanitize DOM nodes (must stay in TS — manipulates live DOM)
    */
   private sanitizeNode(
     node: Node,
@@ -183,13 +121,11 @@ export class SanitizationService {
       const element = node as Element;
       const tagName = element.tagName.toLowerCase();
 
-      // Remove if tag not allowed
       if (!allowedTags.includes(tagName)) {
         element.remove();
         return;
       }
 
-      // Remove disallowed attributes
       const attrs = Array.from(element.attributes);
       const allowedAttrs = allowedAttributes[tagName] || [];
 
@@ -200,34 +136,23 @@ export class SanitizationService {
       });
     }
 
-    // Recursively sanitize child nodes
     const children = Array.from(node.childNodes);
     children.forEach(child => this.sanitizeNode(child, allowedTags, allowedAttributes));
   }
 
   /**
    * Sanitize JSON input to prevent injection
+   * Delegated to WASM — entire recursive traversal happens in Rust
+   * with zero JS↔WASM boundary crossings per string
    */
   sanitizeJson(input: any): any {
+    if (input === null || input === undefined) return input;
     if (typeof input === 'string') {
-      return this.sanitizeText(input);
+      return this.wasmService.module.sanitize_text(input);
     }
+    if (typeof input !== 'object') return input;
 
-    if (Array.isArray(input)) {
-      return input.map(item => this.sanitizeJson(item));
-    }
-
-    if (typeof input === 'object' && input !== null) {
-      const sanitized: any = {};
-      for (const key in input) {
-        if (input.hasOwnProperty(key)) {
-          sanitized[key] = this.sanitizeJson(input[key]);
-        }
-      }
-      return sanitized;
-    }
-
-    return input;
+    return this.wasmService.module.sanitize_json(input);
   }
 
   /**
@@ -237,7 +162,6 @@ export class SanitizationService {
     allowedTypes?: string[];
     maxSize?: number; // in bytes
   }): { valid: boolean; error?: string } {
-    // Check file type
     if (options.allowedTypes && options.allowedTypes.length > 0) {
       const isAllowed = options.allowedTypes.some(type =>
         file.type.startsWith(type) || file.name.endsWith(type)
@@ -251,7 +175,6 @@ export class SanitizationService {
       }
     }
 
-    // Check file size
     if (options.maxSize && file.size > options.maxSize) {
       const maxSizeMB = (options.maxSize / (1024 * 1024)).toFixed(2);
       return {

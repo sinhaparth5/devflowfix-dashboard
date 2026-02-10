@@ -1,9 +1,9 @@
 import { HttpInterceptorFn, HttpRequest, HttpParams } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { SanitizationService } from '../services/sanitization.service';
+import { WasmService } from '../services/wasm.service';
 
 export const sanitizationInterceptor: HttpInterceptorFn = (req, next) => {
-  const sanitizationService = inject(SanitizationService);
+  const wasmService = inject(WasmService);
 
   // Skip sanitization for certain endpoints (like file uploads and OAuth)
   const skipSanitization = [
@@ -25,8 +25,8 @@ export const sanitizationInterceptor: HttpInterceptorFn = (req, next) => {
   if (req.headers.get('Content-Type')?.includes('application/json') ||
       (typeof req.body === 'object' && req.body.constructor === Object)) {
 
-    // Deep clone and sanitize
-    sanitizedBody = sanitizationService.sanitizeJson(req.body);
+    // Entire recursive JSON sanitization happens in WASM — zero JS↔WASM boundary crossings per string
+    sanitizedBody = wasmService.module.sanitize_json(req.body);
   }
 
   // Clone request with sanitized body

@@ -1,6 +1,12 @@
 /* tslint:disable */
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
+export const encode_html: (a: number, b: number, c: number) => void;
+export const sanitize_email: (a: number, b: number, c: number) => void;
+export const sanitize_json: (a: number, b: number) => void;
+export const sanitize_text: (a: number, b: number, c: number) => void;
+export const sanitize_url: (a: number, b: number, c: number) => void;
+export const strip_dangerous_tags: (a: number, b: number, c: number) => void;
 export const format_mttr: (a: number, b: number) => void;
 export const format_percentage: (a: number, b: number) => void;
 export const format_seconds_to_duration: (a: number, b: number) => void;
