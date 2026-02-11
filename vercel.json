@@ -30,6 +30,19 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "devflowfix.com"
+        }
+      ],
+      "destination": "https://www.devflowfix.com/:path",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/((?!api/).*)",

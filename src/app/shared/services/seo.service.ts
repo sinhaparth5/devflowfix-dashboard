@@ -28,7 +28,7 @@ export class SeoService {
     robots: 'index, follow'
   };
 
-  private baseUrl = 'https://devflowfix.com';
+  private baseUrl = 'https://www.devflowfix.com';
 
   constructor(
     private meta: Meta,
@@ -101,7 +101,8 @@ export class SeoService {
    * Update canonical URL
    */
   private updateCanonicalUrl(url?: string): void {
-    const canonicalUrl = url || this.getCurrentUrl();
+    const resolvedUrl = url && !url.startsWith('http') ? `${this.baseUrl}${url.startsWith('/') ? '' : '/'}${url}` : url;
+    const canonicalUrl = resolvedUrl || this.getCurrentUrl();
 
     // Remove existing canonical link
     const existingLink = document.querySelector('link[rel="canonical"]');
@@ -366,7 +367,7 @@ export class SeoService {
       title: 'DevFlowFix - Automated Deployment Failure Resolution',
       description: 'DevFlowFix automatically fixes 75% of deployment failures in under 8 minutes using AI-powered analysis. Integrates with GitHub Actions, ArgoCD, and Kubernetes.',
       keywords: 'devflowfix, deployment automation, kubernetes, github actions, argocd, AI remediation, deployment failures, NVIDIA NIM, CI/CD automation',
-      url: '/',
+      url: 'https://www.devflowfix.com/',
       type: 'website'
     });
 
