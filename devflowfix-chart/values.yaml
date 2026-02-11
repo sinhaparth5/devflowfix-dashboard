@@ -31,41 +31,49 @@ securityContext:
   runAsNonRoot: false
 
 service:
-  type: ClusterIP  # Traefik handles external LoadBalancer
+  type: ClusterIP  # kgateway handles external LoadBalancer
   port: 80
   annotations: {}
 
-ingress:
-  # Set to false when using Traefik IngressRoute (CRD)
-  # Set to true if using standard Kubernetes Ingress with Traefik
+# Kubernetes Gateway API configuration (kgateway)
+gateway:
   enabled: true
-  className: traefik
+  gatewayClassName: kgateway
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
-  hosts:
-    - host: staging.devflowfix.com
-      paths:
-        - path: /
-          pathType: Prefix
-  tls:
-    - secretName: devflowfix-staging-tls
-      hosts:
-        - staging.devflowfix.com
-
-# Traefik IngressRoute (alternative to standard Ingress)
-# Use this for more advanced Traefik features
-ingressRoute:
-  enabled: false
-  entryPoints:
-    - websecure
-  middlewares:
-    - name: devflowfix-chain
-      namespace: devflowfix
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: staging.devflowfix.com
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: devflowfix-staging-tls
+            kind: Secret
 
 httpRoute:
-  enabled: false
+  enabled: true
+  hostnames:
+    - staging.devflowfix.com
+  parentRefs:
+    - name: devflowfix-gateway
+      sectionName: https
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+
+# HTTP to HTTPS redirect route
+httpRedirectRoute:
+  enabled: true
+  parentRefs:
+    - name: devflowfix-gateway
+      sectionName: http
 
 resources:
   requests:

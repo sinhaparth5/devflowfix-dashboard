@@ -13,11 +13,14 @@ spec:
     - Ingress
     - Egress
   ingress:
-    # Allow traffic from Traefik ingress controller
+    # Allow traffic from kgateway proxy (Gateway API)
     - from:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: traefik
+              kubernetes.io/metadata.name: {{ .Release.Namespace }}
+          podSelector:
+            matchLabels:
+              gateway.networking.k8s.io/gateway-name: {{ include "devflowfix-chart.fullname" . | replace "-dashboard" "" }}-gateway
       ports:
         - protocol: TCP
           port: {{ .Values.service.port }}

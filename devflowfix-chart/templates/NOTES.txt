@@ -1,21 +1,20 @@
 DevFlowFix Dashboard has been deployed!
 
-{{- if .Values.ingress.enabled }}
-The application is available at:
-{{- range $host := .Values.ingress.hosts }}
-  {{- range .paths }}
-  https://{{ $host.host }}{{ .path }}
-  {{- end }}
+{{- if .Values.gateway.enabled }}
+The application is available via Gateway API:
+
+  Gateway: {{ include "devflowfix-chart.fullname" . | replace "-dashboard" "" }}-gateway
+{{- if .Values.httpRoute.enabled }}
+{{- range .Values.httpRoute.hostnames }}
+  URL: https://{{ . }}
 {{- end }}
-{{- else if contains "NodePort" .Values.service.type }}
-Get the application URL by running:
-  export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "devflowfix-chart.fullname" . }})
-  export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
-  echo http://$NODE_IP:$NODE_PORT
-{{- else if contains "LoadBalancer" .Values.service.type }}
-Get the application URL by running:
-  NOTE: It may take a few minutes for the LoadBalancer IP to be available.
-  kubectl get --namespace {{ .Release.Namespace }} svc -w {{ include "devflowfix-chart.fullname" . }}
+{{- end }}
+
+Check Gateway status:
+  kubectl get gateway -n {{ .Release.Namespace }}
+
+Check HTTPRoute status:
+  kubectl get httproute -n {{ .Release.Namespace }}
 {{- else if contains "ClusterIP" .Values.service.type }}
 Get the application URL by running:
   kubectl --namespace {{ .Release.Namespace }} port-forward svc/{{ include "devflowfix-chart.fullname" . }} 8080:{{ .Values.service.port }}
