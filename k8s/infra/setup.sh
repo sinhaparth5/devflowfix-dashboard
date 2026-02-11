@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # DevFlowFix Infrastructure Setup Script
-# This script installs cert-manager and Traefik on AKS
+# This script installs cert-manager and kgateway on AKS
 
 set -e
 
@@ -40,16 +40,24 @@ if ! command -v helm &> /dev/null; then
     exit 1
 fi
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 echo ""
 echo "Step 1: Adding Helm repositories..."
 echo "--------------------------------------------"
 helm repo add jetstack https://charts.jetstack.io || true
-helm repo add traefik https://traefik.github.io/charts || true
+helm repo add kgateway https://kgateway.dev/charts || true
 helm repo update
 print_status "Helm repositories updated"
 
 echo ""
-echo "Step 2: Installing cert-manager..."
+echo "Step 2: Installing Gateway API CRDs..."
+echo "--------------------------------------------"
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.2.1/standard-install.yaml
+print_status "Gateway API CRDs installed"
+
+echo ""
+echo "Step 3: Installing cert-manager..."
 echo "--------------------------------------------"
 kubectl create namespace cert-manager --dry-run=client -o yaml | kubectl apply -f -
 
@@ -58,9 +66,10 @@ helm upgrade --install cert-manager jetstack/cert-manager \
   --version v1.14.4 \
   --set installCRDs=true \
   --set prometheus.enabled=false \
+  --set "extraArgs={--feature-gates=ExperimentalGatewayAPISupport=true}" \
   --wait
 
-print_status "cert-manager installed"
+print_status "cert-manager installed (with Gateway API support)"
 
 # Wait for cert-manager to be ready
 echo "Waiting for cert-manager to be ready..."
@@ -68,46 +77,45 @@ kubectl wait --for=condition=Available deployment --all -n cert-manager --timeou
 print_status "cert-manager is ready"
 
 echo ""
-echo "Step 3: Installing Traefik..."
+echo "Step 4: Installing kgateway..."
 echo "--------------------------------------------"
-kubectl create namespace traefik --dry-run=client -o yaml | kubectl apply -f -
+kubectl create namespace kgateway-system --dry-run=client -o yaml | kubectl apply -f -
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-helm upgrade --install traefik traefik/traefik \
-  --namespace traefik \
-  --values "${SCRIPT_DIR}/traefik-values.yaml" \
+helm upgrade --install kgateway kgateway/kgateway \
+  --namespace kgateway-system \
+  --values "${SCRIPT_DIR}/kgateway-values.yaml" \
   --wait
 
-print_status "Traefik installed"
+print_status "kgateway installed"
 
 echo ""
-echo "Step 4: Creating ClusterIssuers..."
+echo "Step 5: Creating ClusterIssuers..."
 echo "--------------------------------------------"
 kubectl apply -f "${SCRIPT_DIR}/cert-manager-issuer.yaml"
 print_status "ClusterIssuers created"
 
 echo ""
-echo "Step 5: Creating DevFlowFix namespace..."
+echo "Step 6: Creating DevFlowFix namespace..."
 echo "--------------------------------------------"
 kubectl create namespace devflowfix --dry-run=client -o yaml | kubectl apply -f -
 print_status "devflowfix namespace created"
 
 echo ""
-echo "Step 6: Applying Traefik middlewares..."
+echo "Step 7: Applying kgateway policies and certificates..."
 echo "--------------------------------------------"
-kubectl apply -f "${SCRIPT_DIR}/traefik-middleware.yaml"
-print_status "Traefik middlewares applied"
+kubectl apply -f "${SCRIPT_DIR}/kgateway-policies.yaml"
+print_status "kgateway policies applied"
 
 echo ""
 echo "============================================"
-echo "Getting Traefik External IP..."
+echo "Getting Gateway External IP..."
 echo "============================================"
 echo ""
 
 # Wait for LoadBalancer IP
 echo "Waiting for LoadBalancer IP (this may take a minute)..."
 for i in {1..60}; do
-    EXTERNAL_IP=$(kubectl get svc traefik -n traefik -o jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null)
+    EXTERNAL_IP=$(kubectl get svc -n devflowfix -l gateway.networking.k8s.io/gateway-name=devflowfix-gateway -o jsonpath='{.items[0].status.loadBalancer.ingress[0].ip}' 2>/dev/null)
     if [ -n "$EXTERNAL_IP" ]; then
         break
     fi
@@ -115,7 +123,7 @@ for i in {1..60}; do
 done
 
 if [ -n "$EXTERNAL_IP" ]; then
-    print_status "Traefik External IP: ${EXTERNAL_IP}"
+    print_status "Gateway External IP: ${EXTERNAL_IP}"
     echo ""
     echo "============================================"
     echo "CLOUDFLARE DNS CONFIGURATION"
@@ -133,7 +141,7 @@ if [ -n "$EXTERNAL_IP" ]; then
     echo ""
 else
     print_warning "Could not get External IP yet. Run this command to check:"
-    echo "  kubectl get svc traefik -n traefik"
+    echo "  kubectl get svc -n devflowfix"
 fi
 
 echo ""
@@ -144,16 +152,15 @@ echo ""
 echo "1. Configure Cloudflare DNS with the External IP above"
 echo ""
 echo "2. Deploy DevFlowFix application:"
-echo "   helm upgrade --install devflowfix ../devflowfix-chart -n devflowfix"
+echo "   kubectl apply -k ../  (or use Helm chart)"
 echo ""
-echo "3. Apply IngressRoute (optional, for advanced Traefik features):"
-echo "   kubectl apply -f traefik-ingressroute.yaml"
+echo "3. Check Gateway status:"
+echo "   kubectl get gateway -n devflowfix"
 echo ""
-echo "4. Check certificate status:"
+echo "4. Check HTTPRoute status:"
+echo "   kubectl get httproute -n devflowfix"
+echo ""
+echo "5. Check certificate status:"
 echo "   kubectl get certificate -n devflowfix"
-echo ""
-echo "5. Access Traefik dashboard:"
-echo "   kubectl port-forward -n traefik svc/traefik 9000:9000"
-echo "   Then visit: http://localhost:9000/dashboard/"
 echo ""
 print_status "Infrastructure setup complete!"

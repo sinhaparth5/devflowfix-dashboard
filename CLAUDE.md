@@ -37,6 +37,7 @@ kubectl get pods -n devflowfix -w
 ### Route Organization
 
 Routes are defined in `src/app/app.routes.ts`:
+
 - **Public pages**: `/`, `/about`, `/product`, `/pricing`, `/contact`, `/blog`
 - **Legal pages**: `/privacy-policy`, `/terms-of-service`, `/cookie-policy`
 - **Dashboard (protected)**: `/dashboard/*` - requires authentication
@@ -62,13 +63,13 @@ Routes are defined in `src/app/app.routes.ts`:
 The app deploys to Azure Kubernetes Service (AKS):
 
 ```
-Internet -> Cloudflare (DNS/CDN) -> Azure Load Balancer -> Traefik (Ingress) -> DevFlowFix Pods
+Internet -> Cloudflare (DNS/CDN) -> Azure Load Balancer -> kgateway (Gateway API) -> DevFlowFix Pods
 ```
 
-- **Ingress**: Traefik with custom IngressRoutes
+- **Ingress**: kgateway (Kubernetes Gateway API) with Gateway + HTTPRoute resources
 - **TLS**: cert-manager with Let's Encrypt
 - **Helm chart**: `devflowfix-chart/` directory
-- **K8s manifests**: `k8s/` directory (deployment, service, HPA, PDB, network policies)
+- **K8s manifests**: `k8s/` directory (deployment, service, gateway, httproute, HPA, PDB, network policies)
 
 Detailed CLI commands for Kubernetes, Helm, and Docker operations are in `CLI.md`.
 

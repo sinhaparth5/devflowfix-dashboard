@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/name: devflowfix
     app.kubernetes.io/component: frontend
 spec:
-  type: ClusterIP  # Traefik handles external LoadBalancer
+  type: ClusterIP  # kgateway handles external LoadBalancer
   ports:
     - name: http
       port: 80

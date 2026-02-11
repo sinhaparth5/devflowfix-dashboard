@@ -1,0 +1,36 @@
+# ===========================================
+# DevFlowFix Gateway (Kubernetes Gateway API)
+# Uses kgateway as the implementation
+# ===========================================
+
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: devflowfix-gateway
+  namespace: devflowfix
+  labels:
+    app.kubernetes.io/name: devflowfix
+    app.kubernetes.io/component: gateway
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  gatewayClassName: kgateway
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: staging.devflowfix.com
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: devflowfix-staging-tls
+            kind: Secret
+      allowedRoutes:
+        namespaces:
+          from: Same

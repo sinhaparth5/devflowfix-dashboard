@@ -7,7 +7,8 @@ resources:
   - namespace.yaml
   - deployment.yaml
   - service.yaml
-  - ingress.yaml
+  - gateway.yaml
+  - httproute.yaml
   - hpa.yaml
   - pdb.yaml
   - networkpolicy.yaml

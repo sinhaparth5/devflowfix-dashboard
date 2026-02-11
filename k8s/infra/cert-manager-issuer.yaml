@@ -12,8 +12,11 @@ spec:
       name: letsencrypt-staging-key
     solvers:
       - http01:
-          ingress:
-            ingressClassName: traefik
+          gatewayHTTPRoute:
+            parentRefs:
+              - name: devflowfix-gateway
+                namespace: devflowfix
+                kind: Gateway
 
 ---
 # Production issuer (use after testing with staging)
@@ -30,5 +33,8 @@ spec:
       name: letsencrypt-prod-key
     solvers:
       - http01:
-          ingress:
-            ingressClassName: traefik
+          gatewayHTTPRoute:
+            parentRefs:
+              - name: devflowfix-gateway
+                namespace: devflowfix
+                kind: Gateway

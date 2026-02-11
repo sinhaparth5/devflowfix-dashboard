@@ -1,11 +1,11 @@
 # Infrastructure Setup for DevFlowFix
 
-This guide sets up Traefik as ingress controller and cert-manager for automatic TLS certificates.
+This guide sets up kgateway (Kubernetes Gateway API) as the ingress controller and cert-manager for automatic TLS certificates.
 
 ## Architecture
 
 ```
-Internet → Cloudflare (DNS) → Azure Load Balancer → Traefik (Ingress) → DevFlowFix Pods
+Internet → Cloudflare (DNS) → Azure Load Balancer → kgateway (Gateway API) → DevFlowFix Pods
                                                           ↓
                                                    cert-manager (TLS)
 ```
@@ -16,58 +16,57 @@ Internet → Cloudflare (DNS) → Azure Load Balancer → Traefik (Ingress) → 
 - kubectl configured
 - Helm 3.x installed
 
-## Installation Steps
+## Quick Start
 
-### 1. Install cert-manager
+Run the automated setup script:
 
 ```bash
-# Add Jetstack Helm repo
+chmod +x setup.sh
+./setup.sh
+```
+
+## Manual Installation Steps
+
+### 1. Install Gateway API CRDs
+
+```bash
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.2.1/standard-install.yaml
+```
+
+### 2. Install cert-manager
+
+```bash
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
 
-# Install cert-manager with CRDs
 helm install cert-manager jetstack/cert-manager \
   --namespace cert-manager \
   --create-namespace \
   --version v1.14.4 \
   --set installCRDs=true \
-  --set prometheus.enabled=false
+  --set prometheus.enabled=false \
+  --set "extraArgs={--feature-gates=ExperimentalGatewayAPISupport=true}"
 
-# Verify installation
 kubectl wait --for=condition=Available deployment --all -n cert-manager --timeout=300s
 ```
 
-### 2. Install Traefik
+### 3. Install kgateway
 
 ```bash
-# Add Traefik Helm repo
-helm repo add traefik https://traefik.github.io/charts
+helm repo add kgateway https://kgateway.dev/charts
 helm repo update
 
-# Install Traefik with custom values
-helm install traefik traefik/traefik \
-  --namespace traefik \
+helm install kgateway kgateway/kgateway \
+  --namespace kgateway-system \
   --create-namespace \
-  --values traefik-values.yaml
+  --values kgateway-values.yaml
 
-# Verify installation
-kubectl get pods -n traefik
-kubectl get svc -n traefik
+kubectl get pods -n kgateway-system
 ```
-
-### 3. Get Traefik External IP
-
-```bash
-# Wait for LoadBalancer IP
-kubectl get svc -n traefik traefik -w
-```
-
-Note the EXTERNAL-IP for Cloudflare DNS configuration.
 
 ### 4. Create ClusterIssuers
 
 ```bash
-# Apply cert-manager issuers
 kubectl apply -f cert-manager-issuer.yaml
 ```
 
@@ -77,58 +76,54 @@ kubectl apply -f cert-manager-issuer.yaml
 kubectl create namespace devflowfix
 ```
 
-### 6. Apply Traefik Middlewares
+### 6. Apply kgateway Policies
 
 ```bash
-kubectl apply -f traefik-middleware.yaml
+kubectl apply -f kgateway-policies.yaml
 ```
 
 ### 7. Deploy DevFlowFix Application
 
 ```bash
-# Using Helm chart
-helm install devflowfix ../devflowfix-chart \
-  --namespace devflowfix
+# Using Kustomize
+kubectl apply -k ../
 
-# Apply IngressRoute
-kubectl apply -f traefik-ingressroute.yaml
+# Or using Helm chart
+helm install devflowfix ../devflowfix-chart --namespace devflowfix
 ```
 
 ### 8. Configure Cloudflare DNS
 
-1. Go to Cloudflare Dashboard → DNS
-2. Add A record:
+1. Get the Gateway external IP:
+   ```bash
+   kubectl get svc -n devflowfix
+   ```
+
+2. Go to Cloudflare Dashboard → DNS
+3. Add A record:
    - Name: `staging`
-   - IPv4: `<TRAEFIK_EXTERNAL_IP>`
+   - IPv4: `<GATEWAY_EXTERNAL_IP>`
    - Proxy: Proxied (orange cloud)
 
-3. SSL/TLS Settings:
+4. SSL/TLS Settings:
    - Mode: **Full (strict)**
-   - This works because cert-manager provides valid Let's Encrypt certificates
 
 ## Verify Setup
 
 ```bash
+# Check Gateway status
+kubectl get gateway -n devflowfix
+
+# Check HTTPRoute status
+kubectl get httproute -n devflowfix
+
 # Check certificate status
 kubectl get certificate -n devflowfix
-
-# Check certificate details
 kubectl describe certificate devflowfix-staging-cert -n devflowfix
-
-# Check IngressRoute
-kubectl get ingressroute -n devflowfix
 
 # Test HTTPS
 curl -v https://staging.devflowfix.com
 ```
-
-## Traefik Dashboard
-
-Access Traefik dashboard at: `https://traefik.staging.devflowfix.com`
-
-To enable dashboard access, add DNS record:
-- Name: `traefik.staging`
-- IPv4: `<TRAEFIK_EXTERNAL_IP>`
 
 ## Troubleshooting
 
@@ -144,24 +139,27 @@ kubectl describe certificate devflowfix-staging-cert -n devflowfix
 kubectl get challenges -n devflowfix
 ```
 
-### Traefik not routing
+### Gateway not routing
 ```bash
-# Check Traefik logs
-kubectl logs -n traefik -l app.kubernetes.io/name=traefik
+# Check kgateway controller logs
+kubectl logs -n kgateway-system -l app.kubernetes.io/name=kgateway
 
-# Check IngressRoute status
-kubectl describe ingressroute devflowfix-dashboard -n devflowfix
+# Check Gateway status conditions
+kubectl describe gateway devflowfix-gateway -n devflowfix
+
+# Check HTTPRoute status
+kubectl describe httproute devflowfix-dashboard -n devflowfix
 ```
 
 ## Useful Commands
 
 ```bash
-# View all Traefik resources
-kubectl get ingressroute,middleware,tlsoption -A
+# View all Gateway API resources
+kubectl get gateway,httproute -A
 
 # Force certificate renewal
 kubectl delete secret devflowfix-staging-tls -n devflowfix
 
-# Restart Traefik
-kubectl rollout restart deployment traefik -n traefik
+# Restart kgateway
+kubectl rollout restart deployment -n kgateway-system
 ```

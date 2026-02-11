@@ -1,0 +1,53 @@
+# kgateway Helm Values for AKS
+# Gateway API-native ingress controller
+
+# Gateway deployment configuration
+gateway:
+  # Service type for Azure
+  service:
+    type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/azure-load-balancer-internal: "false"
+    externalTrafficPolicy: Local
+
+  # Resource limits
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+
+  # Replicas
+  replicas: 2
+
+  # Pod disruption budget
+  podDisruptionBudget:
+    minAvailable: 1
+
+  # Affinity - spread across nodes
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: kgateway
+            topologyKey: kubernetes.io/hostname
+
+  # Security context
+  securityContext:
+    capabilities:
+      drop: [ALL]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 65532
+    runAsGroup: 65532
+
+  podSecurityContext:
+    fsGroup: 65532
+
+# Logging
+logLevel: info
