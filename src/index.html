@@ -1,253 +1,314 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <!-- Google Consent Mode - Set defaults BEFORE loading any tracking scripts -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+  <head>
+    <!-- Google Consent Mode - Set defaults BEFORE loading any tracking scripts -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
 
-    // Set default consent to denied - GDPR compliant
-    gtag('consent', 'default', {
-      'analytics_storage': 'denied',
-      'ad_storage': 'denied',
-      'ad_user_data': 'denied',
-      'ad_personalization': 'denied',
-      'functionality_storage': 'granted',
-      'personalization_storage': 'denied',
-      'security_storage': 'granted',
-      'wait_for_update': 500
-    });
+      // Set default consent to denied - GDPR compliant
+      gtag("consent", "default", {
+        analytics_storage: "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        functionality_storage: "granted",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
 
-    // Check for existing consent in cookie and apply it immediately
-    (function() {
-      try {
-        // Helper function to get cookie by name
-        function getCookie(name) {
-          var nameEQ = name + '=';
-          var cookies = document.cookie.split(';');
-          for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
-            if (cookie.indexOf(nameEQ) === 0) {
-              return decodeURIComponent(cookie.substring(nameEQ.length));
+      // Check for existing consent in cookie and apply it immediately
+      (function () {
+        try {
+          // Helper function to get cookie by name
+          function getCookie(name) {
+            var nameEQ = name + "=";
+            var cookies = document.cookie.split(";");
+            for (var i = 0; i < cookies.length; i++) {
+              var cookie = cookies[i].trim();
+              if (cookie.indexOf(nameEQ) === 0) {
+                return decodeURIComponent(cookie.substring(nameEQ.length));
+              }
             }
+            return null;
           }
-          return null;
+
+          var savedConsent = getCookie("cookie_consent");
+          if (savedConsent) {
+            var preferences = JSON.parse(savedConsent);
+            gtag("consent", "update", {
+              analytics_storage: preferences.analytics ? "granted" : "denied",
+              ad_storage: preferences.marketing ? "granted" : "denied",
+              ad_user_data: preferences.marketing ? "granted" : "denied",
+              ad_personalization: preferences.marketing ? "granted" : "denied",
+            });
+          }
+        } catch (e) {
+          // If there's an error reading consent, defaults remain (denied)
         }
+      })();
+    </script>
 
-        var savedConsent = getCookie('cookie_consent');
-        if (savedConsent) {
-          var preferences = JSON.parse(savedConsent);
-          gtag('consent', 'update', {
-            'analytics_storage': preferences.analytics ? 'granted' : 'denied',
-            'ad_storage': preferences.marketing ? 'granted' : 'denied',
-            'ad_user_data': preferences.marketing ? 'granted' : 'denied',
-            'ad_personalization': preferences.marketing ? 'granted' : 'denied'
-          });
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-T384SGWX");
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-LPNVX4RD1L"
+    ></script>
+    <script>
+      gtag("js", new Date());
+      gtag("config", "G-LPNVX4RD1L");
+    </script>
+    <script
+      src="https://analytics.ahrefs.com/analytics.js"
+      data-key="DVxYxChv9P7a2Kd93b5QNA"
+      async
+    ></script>
+
+    <meta charset="utf-8" />
+    <title>DevFlowFix - Dashboard for AI agent for CI/CD pipelines</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta
+      name="title"
+      content="DevFlowFix - Modern Project Management Dashboard"
+    />
+    <meta
+      name="description"
+      content="DevFlowFix is a modern, feature-rich dashboard for project management, team collaboration, and workflow optimization. Built with Angular and designed for developers."
+    />
+    <meta
+      name="keywords"
+      content="devflowfix, project management, dashboard, angular, workflow, collaboration, development tools, team management"
+    />
+    <meta name="author" content="DevFlowFix" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="theme-color" content="#ff8800" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.devflowfix.com" />
+    <meta
+      property="og:title"
+      content="DevFlowFix - Modern Project Management Dashboard"
+    />
+    <meta
+      property="og:description"
+      content="DevFlowFix is a modern, feature-rich dashboard for project management, team collaboration, and workflow optimization."
+    />
+    <meta
+      property="og:image"
+      content="https://www.devflowfix.com/images/logo/devflowfix_image.png"
+    />
+    <meta property="og:site_name" content="DevFlowFix" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://x.com/devflowfix" />
+    <meta
+      name="twitter:title"
+      content="DevFlowFix - Modern Project Management Dashboard"
+    />
+    <meta
+      name="twitter:description"
+      content="DevFlowFix is a modern, feature-rich dashboard for project management, team collaboration, and workflow optimization."
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.devflowfix.com/images/devflowfix_og_img.png"
+    />
+    <meta name="twitter:site" content="@devflowfix" />
+
+    <link rel="canonical" href="https://www.devflowfix.com/" />
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <link rel="manifest" href="manifest.json" />
+
+    <meta name="application-name" content="DevFlowFix" />
+    <meta name="apple-mobile-web-app-title" content="DevFlowFix" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="msapplication-TileColor" content="#ff8800" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "DevFlowFix",
+        "url": "https://www.devflowfix.com",
+        "logo": "https://www.devflowfix.com/images/logo/logo.svg",
+        "description": "AI-powered platform that automatically fixes 75% of deployment failures in under 8 minutes",
+        "sameAs": [
+          "https://twitter.com/devflowfix",
+          "https://github.com/devflowfix",
+          "https://linkedin.com/company/devflowfix"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "availableLanguage": "English"
         }
-      } catch (e) {
-        // If there's an error reading consent, defaults remain (denied)
       }
-    })();
-  </script>
+    </script>
 
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-T384SGWX');</script>
-  <!-- End Google Tag Manager -->
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LPNVX4RD1L"></script>
-  <script>
-    gtag('js', new Date());
-    gtag('config', 'G-LPNVX4RD1L');
-  </script>
-
-  <meta charset="utf-8">
-  <title>DevFlowFix - Dashboard for AI agent for CI/CD pipelines</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <meta name="title" content="DevFlowFix - Modern Project Management Dashboard">
-  <meta name="description" content="DevFlowFix is a modern, feature-rich dashboard for project management, team collaboration, and workflow optimization. Built with Angular and designed for developers.">
-  <meta name="keywords" content="devflowfix, project management, dashboard, angular, workflow, collaboration, development tools, team management">
-  <meta name="author" content="DevFlowFix">
-  <meta name="robots" content="index, follow">
-  <meta name="language" content="English">
-  <meta name="theme-color" content="#ff8800">
-
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.devflowfix.com">
-  <meta property="og:title" content="DevFlowFix - Modern Project Management Dashboard">
-  <meta property="og:description" content="DevFlowFix is a modern, feature-rich dashboard for project management, team collaboration, and workflow optimization.">
-  <meta property="og:image" content="https://www.devflowfix.com/images/logo/devflowfix_image.png">
-  <meta property="og:site_name" content="DevFlowFix">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://x.com/devflowfix">
-  <meta name="twitter:title" content="DevFlowFix - Modern Project Management Dashboard">
-  <meta name="twitter:description" content="DevFlowFix is a modern, feature-rich dashboard for project management, team collaboration, and workflow optimization.">
-  <meta name="twitter:image" content="https://www.devflowfix.com/images/devflowfix_og_img.png">
-  <meta name="twitter:site" content="@devflowfix">
-
-  <link rel="canonical" href="https://www.devflowfix.com/">
-
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-
-  <link rel="manifest" href="manifest.json">
-
-  <meta name="application-name" content="DevFlowFix">
-  <meta name="apple-mobile-web-app-title" content="DevFlowFix">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="msapplication-TileColor" content="#ff8800">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "DevFlowFix",
-    "url": "https://www.devflowfix.com",
-    "logo": "https://www.devflowfix.com/images/logo/logo.svg",
-    "description": "AI-powered platform that automatically fixes 75% of deployment failures in under 8 minutes",
-    "sameAs": [
-      "https://twitter.com/devflowfix",
-      "https://github.com/devflowfix",
-      "https://linkedin.com/company/devflowfix"
-    ],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "customer support",
-      "availableLanguage": "English"
-    }
-  }
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "DevFlowFix",
-    "url": "https://www.devflowfix.com",
-    "description": "Automated Deployment Failure Resolution Platform",
-    "publisher": {
-      "@type": "Organization",
-      "name": "DevFlowFix"
-    }
-  }
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "DevFlowFix",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Web",
-    "description": "AI-powered platform that automatically fixes deployment failures. Integrates with GitHub Actions, ArgoCD, and Kubernetes.",
-    "url": "https://www.devflowfix.com",
-    "image": "https://www.devflowfix.com/images/devflowfix_og_img.png",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "featureList": [
-      "Automated deployment failure resolution",
-      "GitHub Actions integration",
-      "ArgoCD integration",
-      "Kubernetes support",
-      "NVIDIA NIM AI-powered analysis"
-    ]
-  }
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "itemListElement": [
+    <script type="application/ld+json">
       {
-        "@type": "SiteNavigationElement",
-        "position": 1,
-        "name": "Home",
-        "description": "DevFlowFix Homepage - AI-powered deployment failure resolution",
-        "url": "https://www.devflowfix.com"
-      },
-      {
-        "@type": "SiteNavigationElement",
-        "position": 2,
-        "name": "Product",
-        "description": "Explore DevFlowFix features and capabilities",
-        "url": "https://www.devflowfix.com/product"
-      },
-      {
-        "@type": "SiteNavigationElement",
-        "position": 3,
-        "name": "Pricing",
-        "description": "Simple, transparent pricing plans",
-        "url": "https://www.devflowfix.com/pricing"
-      },
-      {
-        "@type": "SiteNavigationElement",
-        "position": 4,
-        "name": "About",
-        "description": "Learn about DevFlowFix and our mission",
-        "url": "https://www.devflowfix.com/about"
-      },
-      {
-        "@type": "SiteNavigationElement",
-        "position": 5,
-        "name": "Blog",
-        "description": "DevOps insights and tutorials",
-        "url": "https://www.devflowfix.com/blog"
-      },
-      {
-        "@type": "SiteNavigationElement",
-        "position": 6,
-        "name": "Help Center",
-        "description": "Documentation and support resources",
-        "url": "https://www.devflowfix.com/help-center"
-      },
-      {
-        "@type": "SiteNavigationElement",
-        "position": 7,
-        "name": "Contact",
-        "description": "Get in touch with our team",
-        "url": "https://www.devflowfix.com/contact"
-      },
-      {
-        "@type": "SiteNavigationElement",
-        "position": 8,
-        "name": "Sign In",
-        "description": "Sign in to your DevFlowFix dashboard",
-        "url": "https://www.devflowfix.com/signin"
-      },
-      {
-        "@type": "SiteNavigationElement",
-        "position": 9,
-        "name": "Sign Up",
-        "description": "Create a free DevFlowFix account",
-        "url": "https://www.devflowfix.com/signup"
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "DevFlowFix",
+        "url": "https://www.devflowfix.com",
+        "description": "Automated Deployment Failure Resolution Platform",
+        "publisher": {
+          "@type": "Organization",
+          "name": "DevFlowFix"
+        }
       }
-    ]
-  }
-  </script>
-</head>
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T384SGWX"
-  height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+    </script>
 
-  <!-- Skip to Main Content Link (WCAG 2.4.1) -->
-  <a href="#main-content" class="skip-link" style="position:absolute;top:-100%;left:50%;transform:translateX(-50%);">Skip to main content</a>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "DevFlowFix",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "description": "AI-powered platform that automatically fixes deployment failures. Integrates with GitHub Actions, ArgoCD, and Kubernetes.",
+        "url": "https://www.devflowfix.com",
+        "image": "https://www.devflowfix.com/images/devflowfix_og_img.png",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Automated deployment failure resolution",
+          "GitHub Actions integration",
+          "ArgoCD integration",
+          "Kubernetes support",
+          "NVIDIA NIM AI-powered analysis"
+        ]
+      }
+    </script>
 
-  <app-root></app-root>
-</body>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "SiteNavigationElement",
+            "position": 1,
+            "name": "Home",
+            "description": "DevFlowFix Homepage - AI-powered deployment failure resolution",
+            "url": "https://www.devflowfix.com"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 2,
+            "name": "Product",
+            "description": "Explore DevFlowFix features and capabilities",
+            "url": "https://www.devflowfix.com/product"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 3,
+            "name": "Pricing",
+            "description": "Simple, transparent pricing plans",
+            "url": "https://www.devflowfix.com/pricing"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 4,
+            "name": "About",
+            "description": "Learn about DevFlowFix and our mission",
+            "url": "https://www.devflowfix.com/about"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 5,
+            "name": "Blog",
+            "description": "DevOps insights and tutorials",
+            "url": "https://www.devflowfix.com/blog"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 6,
+            "name": "Help Center",
+            "description": "Documentation and support resources",
+            "url": "https://www.devflowfix.com/help-center"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 7,
+            "name": "Contact",
+            "description": "Get in touch with our team",
+            "url": "https://www.devflowfix.com/contact"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 8,
+            "name": "Sign In",
+            "description": "Sign in to your DevFlowFix dashboard",
+            "url": "https://www.devflowfix.com/signin"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 9,
+            "name": "Sign Up",
+            "description": "Create a free DevFlowFix account",
+            "url": "https://www.devflowfix.com/signup"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-T384SGWX"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+        title="Google Tag Manager"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Skip to Main Content Link (WCAG 2.4.1) -->
+    <a
+      href="#main-content"
+      class="skip-link"
+      style="
+        position: absolute;
+        top: -100%;
+        left: 50%;
+        transform: translateX(-50%);
+      "
+      >Skip to main content</a
+    >
+
+    <app-root></app-root>
+  </body>
 </html>
