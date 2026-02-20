@@ -11,22 +11,427 @@
     <!-- Large Background Text with Scroll Animation (Decorative) -->
     <div class="scroll-text" data-direction="left" data-speed="0.3" style="top: 25%; left: 0;" aria-hidden="true">DEVFLOW • FIX • DEPLOY</div>
 
-    <!-- Animated Background Elements (Decorative) -->
+    <!-- Ambient Glow (unchanged) -->
     <div class="absolute w-64 h-64 rounded-full opacity-20 top-20 right-20 bg-brand-100 blur-3xl animate-pulse-slow" aria-hidden="true"></div>
     <div class="absolute w-96 h-96 rounded-full opacity-10 bottom-20 left-20 bg-mustard-100 blur-3xl animate-pulse-slow delay-300" aria-hidden="true"></div>
 
-    <!-- Funky Floating Shapes (Decorative) -->
-    <div class="absolute w-20 h-20 border-4 border-brand-400 top-32 left-12 animate-rotate-slow opacity-30" style="transform: rotate(45deg);" aria-hidden="true"></div>
-    <div class="absolute w-16 h-16 border-4 border-mustard-400 rounded-full bottom-32 right-16 animate-float opacity-40" aria-hidden="true"></div>
-    <div class="absolute w-24 h-24 bg-brand-200 top-64 right-32 animate-wiggle opacity-20" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%);" aria-hidden="true"></div>
-    <div class="absolute p-3 bg-white border-2 border-gray-900 shadow-lg rounded-2xl top-1/2 left-20 animate-float-circle" style="transform: rotate(-12deg);" aria-hidden="true">
-      <svg class="w-6 h-6 text-brand-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+    <!-- ═══════════════════════════════════════════════════════════
+         MEHNDI · MANDALA · RANGOLI — HERO DECORATIONS
+         Hybrid of 399.jpg + 8194.jpg + 54624.jpg reference designs
+         Pointed bezier petals · Scrollwork · Beaded rings · Zigzag
+         ═══════════════════════════════════════════════════════════ -->
+
+    <!-- ══ PHOTO LAYER 1: 399.jpg mehndi mandala — top-right ghost ══ -->
+    <!-- mix-blend-mode:multiply makes the cream bg transparent, warm brown lines tinted orange remain -->
+    <div class="absolute pointer-events-none animate-rotate-slow"
+         style="top:-100px;right:-140px;width:580px;height:580px;opacity:0.1;mix-blend-mode:multiply;animation-duration:100s;filter:sepia(1) hue-rotate(-5deg) saturate(3) brightness(0.75);"
+         aria-hidden="true">
+      <img src="/images/designs/399.jpg" alt="" class="w-full h-full object-contain select-none" draggable="false"/>
+    </div>
+
+    <!-- ══ PHOTO LAYER 2: 8194.jpg floral mehndi — bottom-left ghost ══ -->
+    <!-- pink shifted toward amber-orange via hue-rotate -->
+    <div class="absolute pointer-events-none animate-rotate-slow"
+         style="bottom:-110px;left:-90px;width:440px;height:440px;opacity:0.075;mix-blend-mode:multiply;animation-duration:130s;animation-direction:reverse;filter:hue-rotate(48deg) saturate(2) brightness(0.88);"
+         aria-hidden="true">
+      <img src="/images/designs/8194.jpg" alt="" class="w-full h-full object-contain select-none" draggable="false"/>
+    </div>
+
+    <!-- ══ MAIN SVG MANDALA — large, intricate, mehndi bezier style ══ -->
+    <!-- Hybrid of 399.jpg (pointed petals, beaded rings) + 54624.jpg (scrollwork, zigzag) -->
+    <div class="absolute pointer-events-none"
+         style="top:20px;right:10px;width:420px;height:420px;opacity:0.16;z-index:0;"
+         aria-hidden="true">
+      <svg viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" class="w-full h-full animate-rotate-slow" style="animation-duration:55s;">
+        <g transform="translate(190,190)">
+
+          <!-- ─── LAYER 1: Outer scroll-tip teardrops (8×, r=155–175) ─── -->
+          <!-- Each teardrop has two curling hooks — like 54624.jpg outer tips -->
+          <path d="M 0,-155 C -9,-159 -11,-168 -7,-174 C -3,-180 3,-180 7,-174 C 11,-168 9,-159 0,-155 Z" fill="#ff8800"/>
+          <path d="M -7,-174 C -11,-180 -9,-186 -5,-185 C -1,-184 0,-180 -3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round"/>
+          <path d="M 7,-174 C 11,-180 9,-186 5,-185 C 1,-184 0,-180 3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="-14" cy="-160" r="2.5" fill="#f59e0b"/>
+          <circle cx="14" cy="-160" r="2.5" fill="#f59e0b"/>
+          <path d="M 0,-155 C -9,-159 -11,-168 -7,-174 C -3,-180 3,-180 7,-174 C 11,-168 9,-159 0,-155 Z" fill="#ff8800" transform="rotate(45)"/>
+          <path d="M -7,-174 C -11,-180 -9,-186 -5,-185 C -1,-184 0,-180 -3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round" transform="rotate(45)"/>
+          <path d="M 7,-174 C 11,-180 9,-186 5,-185 C 1,-184 0,-180 3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round" transform="rotate(45)"/>
+          <circle cx="-14" cy="-160" r="2.5" fill="#f59e0b" transform="rotate(45)"/>
+          <circle cx="14" cy="-160" r="2.5" fill="#f59e0b" transform="rotate(45)"/>
+          <path d="M 0,-155 C -9,-159 -11,-168 -7,-174 C -3,-180 3,-180 7,-174 C 11,-168 9,-159 0,-155 Z" fill="#ff8800" transform="rotate(90)"/>
+          <path d="M -7,-174 C -11,-180 -9,-186 -5,-185 C -1,-184 0,-180 -3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round" transform="rotate(90)"/>
+          <path d="M 7,-174 C 11,-180 9,-186 5,-185 C 1,-184 0,-180 3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round" transform="rotate(90)"/>
+          <circle cx="-14" cy="-160" r="2.5" fill="#f59e0b" transform="rotate(90)"/>
+          <circle cx="14" cy="-160" r="2.5" fill="#f59e0b" transform="rotate(90)"/>
+          <path d="M 0,-155 C -9,-159 -11,-168 -7,-174 C -3,-180 3,-180 7,-174 C 11,-168 9,-159 0,-155 Z" fill="#ff8800" transform="rotate(135)"/>
+          <path d="M -7,-174 C -11,-180 -9,-186 -5,-185 C -1,-184 0,-180 -3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round" transform="rotate(135)"/>
+          <path d="M 7,-174 C 11,-180 9,-186 5,-185 C 1,-184 0,-180 3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round" transform="rotate(135)"/>
+          <circle cx="-14" cy="-160" r="2.5" fill="#f59e0b" transform="rotate(135)"/>
+          <circle cx="14" cy="-160" r="2.5" fill="#f59e0b" transform="rotate(135)"/>
+          <path d="M 0,-155 C -9,-159 -11,-168 -7,-174 C -3,-180 3,-180 7,-174 C 11,-168 9,-159 0,-155 Z" fill="#ff8800" transform="rotate(180)"/>
+          <path d="M -7,-174 C -11,-180 -9,-186 -5,-185 C -1,-184 0,-180 -3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round" transform="rotate(180)"/>
+          <path d="M 7,-174 C 11,-180 9,-186 5,-185 C 1,-184 0,-180 3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round" transform="rotate(180)"/>
+          <circle cx="-14" cy="-160" r="2.5" fill="#f59e0b" transform="rotate(180)"/>
+          <circle cx="14" cy="-160" r="2.5" fill="#f59e0b" transform="rotate(180)"/>
+          <path d="M 0,-155 C -9,-159 -11,-168 -7,-174 C -3,-180 3,-180 7,-174 C 11,-168 9,-159 0,-155 Z" fill="#ff8800" transform="rotate(225)"/>
+          <path d="M -7,-174 C -11,-180 -9,-186 -5,-185 C -1,-184 0,-180 -3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round" transform="rotate(225)"/>
+          <path d="M 7,-174 C 11,-180 9,-186 5,-185 C 1,-184 0,-180 3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round" transform="rotate(225)"/>
+          <circle cx="-14" cy="-160" r="2.5" fill="#f59e0b" transform="rotate(225)"/>
+          <circle cx="14" cy="-160" r="2.5" fill="#f59e0b" transform="rotate(225)"/>
+          <path d="M 0,-155 C -9,-159 -11,-168 -7,-174 C -3,-180 3,-180 7,-174 C 11,-168 9,-159 0,-155 Z" fill="#ff8800" transform="rotate(270)"/>
+          <path d="M -7,-174 C -11,-180 -9,-186 -5,-185 C -1,-184 0,-180 -3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round" transform="rotate(270)"/>
+          <path d="M 7,-174 C 11,-180 9,-186 5,-185 C 1,-184 0,-180 3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round" transform="rotate(270)"/>
+          <circle cx="-14" cy="-160" r="2.5" fill="#f59e0b" transform="rotate(270)"/>
+          <circle cx="14" cy="-160" r="2.5" fill="#f59e0b" transform="rotate(270)"/>
+          <path d="M 0,-155 C -9,-159 -11,-168 -7,-174 C -3,-180 3,-180 7,-174 C 11,-168 9,-159 0,-155 Z" fill="#ff8800" transform="rotate(315)"/>
+          <path d="M -7,-174 C -11,-180 -9,-186 -5,-185 C -1,-184 0,-180 -3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round" transform="rotate(315)"/>
+          <path d="M 7,-174 C 11,-180 9,-186 5,-185 C 1,-184 0,-180 3,-177" fill="none" stroke="#ff8800" stroke-width="2" stroke-linecap="round" transform="rotate(315)"/>
+          <circle cx="-14" cy="-160" r="2.5" fill="#f59e0b" transform="rotate(315)"/>
+          <circle cx="14" cy="-160" r="2.5" fill="#f59e0b" transform="rotate(315)"/>
+
+          <!-- ─── LAYER 2: 8 Large Pointed Bezier Lotus Petals (r=100–152) ─── -->
+          <!-- Bezier curves give the authentic pointed mehndi petal shape (not ellipses) -->
+          <!-- Each petal: filled orange + white inner-leaf highlight + vein lines + side beads -->
+          <path d="M 0,-100 C -22,-120 -15,-140 0,-152 C 15,-140 22,-120 0,-100 Z" fill="#ff8800"/>
+          <path d="M 0,-106 C -10,-124 -7,-138 0,-148 C 7,-138 10,-124 0,-106 Z" fill="white" opacity="0.22"/>
+          <path d="M -5,-114 C -4,-127 -2,-138 0,-146" fill="none" stroke="white" stroke-width="0.9" opacity="0.3"/>
+          <path d="M 5,-114 C 4,-127 2,-138 0,-146" fill="none" stroke="white" stroke-width="0.9" opacity="0.3"/>
+          <circle cx="-15" cy="-118" r="2.2" fill="white" opacity="0.38"/>
+          <circle cx="15" cy="-118" r="2.2" fill="white" opacity="0.38"/>
+          <circle cx="-10" cy="-133" r="1.6" fill="white" opacity="0.28"/>
+          <circle cx="10" cy="-133" r="1.6" fill="white" opacity="0.28"/>
+          <path d="M 0,-100 C -22,-120 -15,-140 0,-152 C 15,-140 22,-120 0,-100 Z" fill="#ff8800" transform="rotate(45)"/>
+          <path d="M 0,-106 C -10,-124 -7,-138 0,-148 C 7,-138 10,-124 0,-106 Z" fill="white" opacity="0.22" transform="rotate(45)"/>
+          <circle cx="-15" cy="-118" r="2.2" fill="white" opacity="0.38" transform="rotate(45)"/>
+          <circle cx="15" cy="-118" r="2.2" fill="white" opacity="0.38" transform="rotate(45)"/>
+          <path d="M 0,-100 C -22,-120 -15,-140 0,-152 C 15,-140 22,-120 0,-100 Z" fill="#ff8800" transform="rotate(90)"/>
+          <path d="M 0,-106 C -10,-124 -7,-138 0,-148 C 7,-138 10,-124 0,-106 Z" fill="white" opacity="0.22" transform="rotate(90)"/>
+          <circle cx="-15" cy="-118" r="2.2" fill="white" opacity="0.38" transform="rotate(90)"/>
+          <circle cx="15" cy="-118" r="2.2" fill="white" opacity="0.38" transform="rotate(90)"/>
+          <path d="M 0,-100 C -22,-120 -15,-140 0,-152 C 15,-140 22,-120 0,-100 Z" fill="#ff8800" transform="rotate(135)"/>
+          <path d="M 0,-106 C -10,-124 -7,-138 0,-148 C 7,-138 10,-124 0,-106 Z" fill="white" opacity="0.22" transform="rotate(135)"/>
+          <circle cx="-15" cy="-118" r="2.2" fill="white" opacity="0.38" transform="rotate(135)"/>
+          <circle cx="15" cy="-118" r="2.2" fill="white" opacity="0.38" transform="rotate(135)"/>
+          <path d="M 0,-100 C -22,-120 -15,-140 0,-152 C 15,-140 22,-120 0,-100 Z" fill="#ff8800" transform="rotate(180)"/>
+          <path d="M 0,-106 C -10,-124 -7,-138 0,-148 C 7,-138 10,-124 0,-106 Z" fill="white" opacity="0.22" transform="rotate(180)"/>
+          <circle cx="-15" cy="-118" r="2.2" fill="white" opacity="0.38" transform="rotate(180)"/>
+          <circle cx="15" cy="-118" r="2.2" fill="white" opacity="0.38" transform="rotate(180)"/>
+          <path d="M 0,-100 C -22,-120 -15,-140 0,-152 C 15,-140 22,-120 0,-100 Z" fill="#ff8800" transform="rotate(225)"/>
+          <path d="M 0,-106 C -10,-124 -7,-138 0,-148 C 7,-138 10,-124 0,-106 Z" fill="white" opacity="0.22" transform="rotate(225)"/>
+          <circle cx="-15" cy="-118" r="2.2" fill="white" opacity="0.38" transform="rotate(225)"/>
+          <circle cx="15" cy="-118" r="2.2" fill="white" opacity="0.38" transform="rotate(225)"/>
+          <path d="M 0,-100 C -22,-120 -15,-140 0,-152 C 15,-140 22,-120 0,-100 Z" fill="#ff8800" transform="rotate(270)"/>
+          <path d="M 0,-106 C -10,-124 -7,-138 0,-148 C 7,-138 10,-124 0,-106 Z" fill="white" opacity="0.22" transform="rotate(270)"/>
+          <circle cx="-15" cy="-118" r="2.2" fill="white" opacity="0.38" transform="rotate(270)"/>
+          <circle cx="15" cy="-118" r="2.2" fill="white" opacity="0.38" transform="rotate(270)"/>
+          <path d="M 0,-100 C -22,-120 -15,-140 0,-152 C 15,-140 22,-120 0,-100 Z" fill="#ff8800" transform="rotate(315)"/>
+          <path d="M 0,-106 C -10,-124 -7,-138 0,-148 C 7,-138 10,-124 0,-106 Z" fill="white" opacity="0.22" transform="rotate(315)"/>
+          <circle cx="-15" cy="-118" r="2.2" fill="white" opacity="0.38" transform="rotate(315)"/>
+          <circle cx="15" cy="-118" r="2.2" fill="white" opacity="0.38" transform="rotate(315)"/>
+
+          <!-- ─── LAYER 3: 8 Between-petal accent petals (r=88–112, 22.5° offset) ─── -->
+          <path d="M 0,-88 C -10,-96 -7,-106 0,-112 C 7,-106 10,-96 0,-88 Z" fill="#f59e0b" transform="rotate(22.5)"/>
+          <path d="M 0,-91 C -5,-97 -3,-105 0,-109 C 3,-105 5,-97 0,-91 Z" fill="white" opacity="0.28" transform="rotate(22.5)"/>
+          <path d="M 0,-88 C -10,-96 -7,-106 0,-112 C 7,-106 10,-96 0,-88 Z" fill="#f59e0b" transform="rotate(67.5)"/>
+          <path d="M 0,-91 C -5,-97 -3,-105 0,-109 C 3,-105 5,-97 0,-91 Z" fill="white" opacity="0.28" transform="rotate(67.5)"/>
+          <path d="M 0,-88 C -10,-96 -7,-106 0,-112 C 7,-106 10,-96 0,-88 Z" fill="#f59e0b" transform="rotate(112.5)"/>
+          <path d="M 0,-91 C -5,-97 -3,-105 0,-109 C 3,-105 5,-97 0,-91 Z" fill="white" opacity="0.28" transform="rotate(112.5)"/>
+          <path d="M 0,-88 C -10,-96 -7,-106 0,-112 C 7,-106 10,-96 0,-88 Z" fill="#f59e0b" transform="rotate(157.5)"/>
+          <path d="M 0,-91 C -5,-97 -3,-105 0,-109 C 3,-105 5,-97 0,-91 Z" fill="white" opacity="0.28" transform="rotate(157.5)"/>
+          <path d="M 0,-88 C -10,-96 -7,-106 0,-112 C 7,-106 10,-96 0,-88 Z" fill="#f59e0b" transform="rotate(202.5)"/>
+          <path d="M 0,-91 C -5,-97 -3,-105 0,-109 C 3,-105 5,-97 0,-91 Z" fill="white" opacity="0.28" transform="rotate(202.5)"/>
+          <path d="M 0,-88 C -10,-96 -7,-106 0,-112 C 7,-106 10,-96 0,-88 Z" fill="#f59e0b" transform="rotate(247.5)"/>
+          <path d="M 0,-91 C -5,-97 -3,-105 0,-109 C 3,-105 5,-97 0,-91 Z" fill="white" opacity="0.28" transform="rotate(247.5)"/>
+          <path d="M 0,-88 C -10,-96 -7,-106 0,-112 C 7,-106 10,-96 0,-88 Z" fill="#f59e0b" transform="rotate(292.5)"/>
+          <path d="M 0,-91 C -5,-97 -3,-105 0,-109 C 3,-105 5,-97 0,-91 Z" fill="white" opacity="0.28" transform="rotate(292.5)"/>
+          <path d="M 0,-88 C -10,-96 -7,-106 0,-112 C 7,-106 10,-96 0,-88 Z" fill="#f59e0b" transform="rotate(337.5)"/>
+          <path d="M 0,-91 C -5,-97 -3,-105 0,-109 C 3,-105 5,-97 0,-91 Z" fill="white" opacity="0.28" transform="rotate(337.5)"/>
+
+          <!-- ─── Beaded ring at r=84 (16 dots) — from 399.jpg bead detail ─── -->
+          <circle cx="0" cy="-84" r="3" fill="#f59e0b"/><circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(22.5)"/>
+          <circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(45)"/><circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(67.5)"/>
+          <circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(90)"/><circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(112.5)"/>
+          <circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(135)"/><circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(157.5)"/>
+          <circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(180)"/><circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(202.5)"/>
+          <circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(225)"/><circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(247.5)"/>
+          <circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(270)"/><circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(292.5)"/>
+          <circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(315)"/><circle cx="0" cy="-84" r="3" fill="#f59e0b" transform="rotate(337.5)"/>
+          <circle cx="0" cy="0" r="80" fill="none" stroke="#ff8800" stroke-width="0.8"/>
+
+          <!-- ─── Zigzag sawtooth ring at r=76 (24 diamonds) — like 399.jpg chevron ─── -->
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(15)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(30)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(45)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(60)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(75)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(90)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(105)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(120)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(135)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(150)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(165)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(180)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(195)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(210)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(225)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(240)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(255)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(270)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(285)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(300)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(315)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(330)"/>
+          <polygon points="0,-72.5 2.5,-76 0,-79.5 -2.5,-76" fill="#ff8800" transform="rotate(345)"/>
+
+          <!-- ─── LAYER 4: Inner feather petals (r=62–76, at 22.5°, 8×) ─── -->
+          <path d="M 0,-62 C -9,-67 -7,-72 0,-76 C 7,-72 9,-67 0,-62 Z" fill="#f59e0b" transform="rotate(22.5)"/>
+          <path d="M 0,-62 C -9,-67 -7,-72 0,-76 C 7,-72 9,-67 0,-62 Z" fill="#f59e0b" transform="rotate(67.5)"/>
+          <path d="M 0,-62 C -9,-67 -7,-72 0,-76 C 7,-72 9,-67 0,-62 Z" fill="#f59e0b" transform="rotate(112.5)"/>
+          <path d="M 0,-62 C -9,-67 -7,-72 0,-76 C 7,-72 9,-67 0,-62 Z" fill="#f59e0b" transform="rotate(157.5)"/>
+          <path d="M 0,-62 C -9,-67 -7,-72 0,-76 C 7,-72 9,-67 0,-62 Z" fill="#f59e0b" transform="rotate(202.5)"/>
+          <path d="M 0,-62 C -9,-67 -7,-72 0,-76 C 7,-72 9,-67 0,-62 Z" fill="#f59e0b" transform="rotate(247.5)"/>
+          <path d="M 0,-62 C -9,-67 -7,-72 0,-76 C 7,-72 9,-67 0,-62 Z" fill="#f59e0b" transform="rotate(292.5)"/>
+          <path d="M 0,-62 C -9,-67 -7,-72 0,-76 C 7,-72 9,-67 0,-62 Z" fill="#f59e0b" transform="rotate(337.5)"/>
+
+          <!-- ─── LAYER 5: Aligned inner petals (r=55–68, 8×) ─── -->
+          <path d="M 0,-55 C -8,-59 -6,-64 0,-68 C 6,-64 8,-59 0,-55 Z" fill="#ff8800"/>
+          <path d="M 0,-55 C -8,-59 -6,-64 0,-68 C 6,-64 8,-59 0,-55 Z" fill="#ff8800" transform="rotate(45)"/>
+          <path d="M 0,-55 C -8,-59 -6,-64 0,-68 C 6,-64 8,-59 0,-55 Z" fill="#ff8800" transform="rotate(90)"/>
+          <path d="M 0,-55 C -8,-59 -6,-64 0,-68 C 6,-64 8,-59 0,-55 Z" fill="#ff8800" transform="rotate(135)"/>
+          <path d="M 0,-55 C -8,-59 -6,-64 0,-68 C 6,-64 8,-59 0,-55 Z" fill="#ff8800" transform="rotate(180)"/>
+          <path d="M 0,-55 C -8,-59 -6,-64 0,-68 C 6,-64 8,-59 0,-55 Z" fill="#ff8800" transform="rotate(225)"/>
+          <path d="M 0,-55 C -8,-59 -6,-64 0,-68 C 6,-64 8,-59 0,-55 Z" fill="#ff8800" transform="rotate(270)"/>
+          <path d="M 0,-55 C -8,-59 -6,-64 0,-68 C 6,-64 8,-59 0,-55 Z" fill="#ff8800" transform="rotate(315)"/>
+
+          <!-- ─── Amber dot ring at r=50 (8×) ─── -->
+          <circle cx="0" cy="-50" r="3.5" fill="#f59e0b"/>
+          <circle cx="0" cy="-50" r="3.5" fill="#f59e0b" transform="rotate(45)"/>
+          <circle cx="0" cy="-50" r="3.5" fill="#f59e0b" transform="rotate(90)"/>
+          <circle cx="0" cy="-50" r="3.5" fill="#f59e0b" transform="rotate(135)"/>
+          <circle cx="0" cy="-50" r="3.5" fill="#f59e0b" transform="rotate(180)"/>
+          <circle cx="0" cy="-50" r="3.5" fill="#f59e0b" transform="rotate(225)"/>
+          <circle cx="0" cy="-50" r="3.5" fill="#f59e0b" transform="rotate(270)"/>
+          <circle cx="0" cy="-50" r="3.5" fill="#f59e0b" transform="rotate(315)"/>
+          <circle cx="0" cy="0" r="46" fill="none" stroke="#ff8800" stroke-width="1"/>
+
+          <!-- ─── LAYER 6: Innermost lotus petals (r=30–46, 8×) ─── -->
+          <path d="M 0,-30 C -7,-35 -5,-41 0,-46 C 5,-41 7,-35 0,-30 Z" fill="#ff8800"/>
+          <path d="M 0,-30 C -7,-35 -5,-41 0,-46 C 5,-41 7,-35 0,-30 Z" fill="#ff8800" transform="rotate(45)"/>
+          <path d="M 0,-30 C -7,-35 -5,-41 0,-46 C 5,-41 7,-35 0,-30 Z" fill="#ff8800" transform="rotate(90)"/>
+          <path d="M 0,-30 C -7,-35 -5,-41 0,-46 C 5,-41 7,-35 0,-30 Z" fill="#ff8800" transform="rotate(135)"/>
+          <path d="M 0,-30 C -7,-35 -5,-41 0,-46 C 5,-41 7,-35 0,-30 Z" fill="#ff8800" transform="rotate(180)"/>
+          <path d="M 0,-30 C -7,-35 -5,-41 0,-46 C 5,-41 7,-35 0,-30 Z" fill="#ff8800" transform="rotate(225)"/>
+          <path d="M 0,-30 C -7,-35 -5,-41 0,-46 C 5,-41 7,-35 0,-30 Z" fill="#ff8800" transform="rotate(270)"/>
+          <path d="M 0,-30 C -7,-35 -5,-41 0,-46 C 5,-41 7,-35 0,-30 Z" fill="#ff8800" transform="rotate(315)"/>
+
+          <!-- ─── Dense inner bead ring at r=24 (12 dots, every 30°) ─── -->
+          <circle cx="0" cy="-24" r="2" fill="#f59e0b"/><circle cx="0" cy="-24" r="2" fill="#f59e0b" transform="rotate(30)"/>
+          <circle cx="0" cy="-24" r="2" fill="#f59e0b" transform="rotate(60)"/><circle cx="0" cy="-24" r="2" fill="#f59e0b" transform="rotate(90)"/>
+          <circle cx="0" cy="-24" r="2" fill="#f59e0b" transform="rotate(120)"/><circle cx="0" cy="-24" r="2" fill="#f59e0b" transform="rotate(150)"/>
+          <circle cx="0" cy="-24" r="2" fill="#f59e0b" transform="rotate(180)"/><circle cx="0" cy="-24" r="2" fill="#f59e0b" transform="rotate(210)"/>
+          <circle cx="0" cy="-24" r="2" fill="#f59e0b" transform="rotate(240)"/><circle cx="0" cy="-24" r="2" fill="#f59e0b" transform="rotate(270)"/>
+          <circle cx="0" cy="-24" r="2" fill="#f59e0b" transform="rotate(300)"/><circle cx="0" cy="-24" r="2" fill="#f59e0b" transform="rotate(330)"/>
+          <circle cx="0" cy="0" r="20" fill="none" stroke="#ff8800" stroke-width="1.2"/>
+
+          <!-- ─── Center 6-petal flower (r=10–19) ─── -->
+          <path d="M 0,-10 C -5,-13 -3,-17 0,-19 C 3,-17 5,-13 0,-10 Z" fill="#ff8800"/>
+          <path d="M 0,-10 C -5,-13 -3,-17 0,-19 C 3,-17 5,-13 0,-10 Z" fill="#ff8800" transform="rotate(60)"/>
+          <path d="M 0,-10 C -5,-13 -3,-17 0,-19 C 3,-17 5,-13 0,-10 Z" fill="#ff8800" transform="rotate(120)"/>
+          <path d="M 0,-10 C -5,-13 -3,-17 0,-19 C 3,-17 5,-13 0,-10 Z" fill="#ff8800" transform="rotate(180)"/>
+          <path d="M 0,-10 C -5,-13 -3,-17 0,-19 C 3,-17 5,-13 0,-10 Z" fill="#ff8800" transform="rotate(240)"/>
+          <path d="M 0,-10 C -5,-13 -3,-17 0,-19 C 3,-17 5,-13 0,-10 Z" fill="#ff8800" transform="rotate(300)"/>
+
+          <!-- ─── Center bindi ─── -->
+          <circle cx="0" cy="0" r="8" fill="#ff8800"/>
+          <circle cx="0" cy="0" r="4.5" fill="#f59e0b"/>
+          <circle cx="0" cy="0" r="2" fill="white"/>
+        </g>
       </svg>
     </div>
-    <div class="absolute w-14 h-14 bg-mustard-300 rounded-full bottom-48 left-1/3 animate-float opacity-25" aria-hidden="true"></div>
+
+    <!-- ══ SMALL ROTATING MEHNDI MANDALA — top-left accent ══ -->
+    <!-- Outline style with pointed petals + beads, like 54624.jpg line-work -->
+    <div class="absolute top-28 left-10 w-24 h-24 opacity-40 animate-rotate-slow" style="animation-duration:20s;" aria-hidden="true">
+      <svg viewBox="0 0 140 140" fill="none" stroke="#ff8800" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+        <g transform="translate(70,70)">
+          <circle cx="0" cy="0" r="64" stroke-width="0.8"/>
+          <!-- 8 pointed petals -->
+          <path d="M 0,-46 C -11,-55 -8,-62 0,-67 C 8,-62 11,-55 0,-46 Z" stroke-width="1.6"/>
+          <path d="M 0,-46 C -11,-55 -8,-62 0,-67 C 8,-62 11,-55 0,-46 Z" stroke-width="1.6" transform="rotate(45)"/>
+          <path d="M 0,-46 C -11,-55 -8,-62 0,-67 C 8,-62 11,-55 0,-46 Z" stroke-width="1.6" transform="rotate(90)"/>
+          <path d="M 0,-46 C -11,-55 -8,-62 0,-67 C 8,-62 11,-55 0,-46 Z" stroke-width="1.6" transform="rotate(135)"/>
+          <path d="M 0,-46 C -11,-55 -8,-62 0,-67 C 8,-62 11,-55 0,-46 Z" stroke-width="1.6" transform="rotate(180)"/>
+          <path d="M 0,-46 C -11,-55 -8,-62 0,-67 C 8,-62 11,-55 0,-46 Z" stroke-width="1.6" transform="rotate(225)"/>
+          <path d="M 0,-46 C -11,-55 -8,-62 0,-67 C 8,-62 11,-55 0,-46 Z" stroke-width="1.6" transform="rotate(270)"/>
+          <path d="M 0,-46 C -11,-55 -8,-62 0,-67 C 8,-62 11,-55 0,-46 Z" stroke-width="1.6" transform="rotate(315)"/>
+          <!-- Outer teardrop tips with small hooks -->
+          <path d="M 0,-68 C -4,-71 -5,-76 -2,-78 C 1,-80 4,-78 3,-74 C 2,-71 0,-69 0,-68 Z" stroke-width="1.2"/>
+          <path d="M 0,-68 C -4,-71 -5,-76 -2,-78 C 1,-80 4,-78 3,-74 C 2,-71 0,-69 0,-68 Z" stroke-width="1.2" transform="rotate(45)"/>
+          <path d="M 0,-68 C -4,-71 -5,-76 -2,-78 C 1,-80 4,-78 3,-74 C 2,-71 0,-69 0,-68 Z" stroke-width="1.2" transform="rotate(90)"/>
+          <path d="M 0,-68 C -4,-71 -5,-76 -2,-78 C 1,-80 4,-78 3,-74 C 2,-71 0,-69 0,-68 Z" stroke-width="1.2" transform="rotate(135)"/>
+          <path d="M 0,-68 C -4,-71 -5,-76 -2,-78 C 1,-80 4,-78 3,-74 C 2,-71 0,-69 0,-68 Z" stroke-width="1.2" transform="rotate(180)"/>
+          <path d="M 0,-68 C -4,-71 -5,-76 -2,-78 C 1,-80 4,-78 3,-74 C 2,-71 0,-69 0,-68 Z" stroke-width="1.2" transform="rotate(225)"/>
+          <path d="M 0,-68 C -4,-71 -5,-76 -2,-78 C 1,-80 4,-78 3,-74 C 2,-71 0,-69 0,-68 Z" stroke-width="1.2" transform="rotate(270)"/>
+          <path d="M 0,-68 C -4,-71 -5,-76 -2,-78 C 1,-80 4,-78 3,-74 C 2,-71 0,-69 0,-68 Z" stroke-width="1.2" transform="rotate(315)"/>
+          <!-- Middle ring -->
+          <circle cx="0" cy="0" r="35" stroke-width="0.7"/>
+          <!-- 8 bead dots on middle ring -->
+          <circle cx="0" cy="-35" r="2.5" fill="#ff8800" stroke="none"/>
+          <circle cx="0" cy="-35" r="2.5" fill="#ff8800" stroke="none" transform="rotate(45)"/>
+          <circle cx="0" cy="-35" r="2.5" fill="#ff8800" stroke="none" transform="rotate(90)"/>
+          <circle cx="0" cy="-35" r="2.5" fill="#ff8800" stroke="none" transform="rotate(135)"/>
+          <circle cx="0" cy="-35" r="2.5" fill="#ff8800" stroke="none" transform="rotate(180)"/>
+          <circle cx="0" cy="-35" r="2.5" fill="#ff8800" stroke="none" transform="rotate(225)"/>
+          <circle cx="0" cy="-35" r="2.5" fill="#ff8800" stroke="none" transform="rotate(270)"/>
+          <circle cx="0" cy="-35" r="2.5" fill="#ff8800" stroke="none" transform="rotate(315)"/>
+          <!-- 8 inner petals offset 22.5° -->
+          <path d="M 0,-22 C -6,-26 -4,-31 0,-34 C 4,-31 6,-26 0,-22 Z" stroke-width="1.3" transform="rotate(22.5)"/>
+          <path d="M 0,-22 C -6,-26 -4,-31 0,-34 C 4,-31 6,-26 0,-22 Z" stroke-width="1.3" transform="rotate(67.5)"/>
+          <path d="M 0,-22 C -6,-26 -4,-31 0,-34 C 4,-31 6,-26 0,-22 Z" stroke-width="1.3" transform="rotate(112.5)"/>
+          <path d="M 0,-22 C -6,-26 -4,-31 0,-34 C 4,-31 6,-26 0,-22 Z" stroke-width="1.3" transform="rotate(157.5)"/>
+          <path d="M 0,-22 C -6,-26 -4,-31 0,-34 C 4,-31 6,-26 0,-22 Z" stroke-width="1.3" transform="rotate(202.5)"/>
+          <path d="M 0,-22 C -6,-26 -4,-31 0,-34 C 4,-31 6,-26 0,-22 Z" stroke-width="1.3" transform="rotate(247.5)"/>
+          <path d="M 0,-22 C -6,-26 -4,-31 0,-34 C 4,-31 6,-26 0,-22 Z" stroke-width="1.3" transform="rotate(292.5)"/>
+          <path d="M 0,-22 C -6,-26 -4,-31 0,-34 C 4,-31 6,-26 0,-22 Z" stroke-width="1.3" transform="rotate(337.5)"/>
+          <!-- Inner circle -->
+          <circle cx="0" cy="0" r="14" stroke-width="1"/>
+          <circle cx="0" cy="0" r="5" fill="#ff8800" stroke="none"/>
+          <circle cx="0" cy="0" r="2.5" fill="white" stroke="none"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ══ ENHANCED RANGOLI STAR — mehndi style, top-right ══ -->
+    <!-- 8-pointed kolam star with zigzag band + inner lotus detail -->
+    <div class="absolute top-60 right-28 w-28 h-28 animate-wiggle opacity-25" aria-hidden="true">
+      <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+        <g transform="translate(55,55)">
+          <!-- 8-pointed star outer: r=44, inner r=19 -->
+          <polygon points="0,-44 7.3,-17.3 31.1,-31.1 17.3,-7.3 44,0 17.3,7.3 31.1,31.1 7.3,17.3 0,44 -7.3,17.3 -31.1,31.1 -17.3,7.3 -44,0 -17.3,-7.3 -31.1,-31.1 -7.3,-17.3" fill="#ff8800"/>
+          <!-- zigzag band ring at r=33 -->
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(15)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(30)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(45)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(60)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(75)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(90)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(105)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(120)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(135)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(150)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(165)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(180)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(195)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(210)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(225)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(240)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(255)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(270)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(285)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(300)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(315)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(330)"/>
+          <polygon points="0,-30 3,-33 0,-36 -3,-33" fill="white" transform="rotate(345)"/>
+          <!-- inner lotus petals (8×) -->
+          <path d="M 0,-14 C -5,-17 -3,-21 0,-23 C 3,-21 5,-17 0,-14 Z" fill="white"/>
+          <path d="M 0,-14 C -5,-17 -3,-21 0,-23 C 3,-21 5,-17 0,-14 Z" fill="white" transform="rotate(45)"/>
+          <path d="M 0,-14 C -5,-17 -3,-21 0,-23 C 3,-21 5,-17 0,-14 Z" fill="white" transform="rotate(90)"/>
+          <path d="M 0,-14 C -5,-17 -3,-21 0,-23 C 3,-21 5,-17 0,-14 Z" fill="white" transform="rotate(135)"/>
+          <path d="M 0,-14 C -5,-17 -3,-21 0,-23 C 3,-21 5,-17 0,-14 Z" fill="white" transform="rotate(180)"/>
+          <path d="M 0,-14 C -5,-17 -3,-21 0,-23 C 3,-21 5,-17 0,-14 Z" fill="white" transform="rotate(225)"/>
+          <path d="M 0,-14 C -5,-17 -3,-21 0,-23 C 3,-21 5,-17 0,-14 Z" fill="white" transform="rotate(270)"/>
+          <path d="M 0,-14 C -5,-17 -3,-21 0,-23 C 3,-21 5,-17 0,-14 Z" fill="white" transform="rotate(315)"/>
+          <!-- centre bindi -->
+          <circle cx="0" cy="0" r="9" fill="white"/>
+          <circle cx="0" cy="0" r="5" fill="#ff8800"/>
+          <circle cx="0" cy="0" r="2" fill="white"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ══ MEHNDI LOTUS BADGE CARD — pointed petals, mid-left ══ -->
+    <div class="absolute p-3 bg-white border-2 border-gray-900 shadow-lg rounded-2xl top-1/2 left-20 animate-float-circle" style="transform:rotate(-12deg);" aria-hidden="true">
+      <svg class="w-7 h-7 text-brand-500" viewBox="0 0 44 44" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g transform="translate(22,22)">
+          <!-- 8 pointed bezier petals -->
+          <path d="M 0,-13 C -5,-16 -3,-19 0,-21 C 3,-19 5,-16 0,-13 Z"/>
+          <path d="M 0,-13 C -5,-16 -3,-19 0,-21 C 3,-19 5,-16 0,-13 Z" transform="rotate(45)"/>
+          <path d="M 0,-13 C -5,-16 -3,-19 0,-21 C 3,-19 5,-16 0,-13 Z" transform="rotate(90)"/>
+          <path d="M 0,-13 C -5,-16 -3,-19 0,-21 C 3,-19 5,-16 0,-13 Z" transform="rotate(135)"/>
+          <path d="M 0,-13 C -5,-16 -3,-19 0,-21 C 3,-19 5,-16 0,-13 Z" transform="rotate(180)"/>
+          <path d="M 0,-13 C -5,-16 -3,-19 0,-21 C 3,-19 5,-16 0,-13 Z" transform="rotate(225)"/>
+          <path d="M 0,-13 C -5,-16 -3,-19 0,-21 C 3,-19 5,-16 0,-13 Z" transform="rotate(270)"/>
+          <path d="M 0,-13 C -5,-16 -3,-19 0,-21 C 3,-19 5,-16 0,-13 Z" transform="rotate(315)"/>
+          <!-- bead ring -->
+          <circle cx="0" cy="-10" r="1.5"/>
+          <circle cx="0" cy="-10" r="1.5" transform="rotate(45)"/>
+          <circle cx="0" cy="-10" r="1.5" transform="rotate(90)"/>
+          <circle cx="0" cy="-10" r="1.5" transform="rotate(135)"/>
+          <circle cx="0" cy="-10" r="1.5" transform="rotate(180)"/>
+          <circle cx="0" cy="-10" r="1.5" transform="rotate(225)"/>
+          <circle cx="0" cy="-10" r="1.5" transform="rotate(270)"/>
+          <circle cx="0" cy="-10" r="1.5" transform="rotate(315)"/>
+          <!-- center -->
+          <circle cx="0" cy="0" r="5"/>
+          <circle cx="0" cy="0" r="2.5" fill="white"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ══ TORAN AMBI PENDANT — richly decorated mango shape, bottom ══ -->
+    <!-- Inspired by traditional toran/door-hanging ambi motifs -->
+    <div class="absolute bottom-44 left-1/3 w-14 animate-float opacity-42" aria-hidden="true">
+      <svg viewBox="0 0 64 90" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+        <!-- Top hook/loop -->
+        <circle cx="32" cy="5" r="4" fill="none" stroke="#f59e0b" stroke-width="2"/>
+        <line x1="32" y1="9" x2="32" y2="16" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+        <!-- Outer ambi body -->
+        <path d="M32 82 C8 68,3 44,14 26 C24 8,46 8,56 26 C66 44,60 68,32 82 Z" fill="#f59e0b"/>
+        <!-- Second inner layer -->
+        <path d="M32 70 C14 58,11 40,20 28 C28 16,44 17,50 30 C58 44,54 62,32 70 Z" fill="#ff8800"/>
+        <!-- Third inner highlight -->
+        <path d="M32 58 C20 50,19 38,26 30 C32 22,42 24,46 34 C50 44,46 56,32 58 Z" fill="#f59e0b"/>
+        <!-- Innermost leaf -->
+        <path d="M32 46 C26 41,26 34,32 30 C38 34,38 41,32 46 Z" fill="#ff8800"/>
+        <!-- Decorative border dots (outer ambi edge) -->
+        <circle cx="14" cy="38" r="2.2" fill="white" opacity="0.5"/>
+        <circle cx="52" cy="38" r="2.2" fill="white" opacity="0.5"/>
+        <circle cx="20" cy="24" r="2" fill="white" opacity="0.5"/>
+        <circle cx="46" cy="24" r="2" fill="white" opacity="0.5"/>
+        <circle cx="32" cy="18" r="2" fill="white" opacity="0.5"/>
+        <!-- Center bindi -->
+        <circle cx="32" cy="36" r="3" fill="white" opacity="0.65"/>
+      </svg>
+    </div>
+
+    <!-- ══ JALI ROSETTE BADGE — dense 8-petal, small circle badge ══ -->
     <div class="absolute p-2 bg-white border-2 border-gray-900 rounded-full shadow-md top-96 right-1/4 animate-wiggle" aria-hidden="true">
-      <div class="w-5 h-5 rounded-full bg-gradient-to-br from-brand-500 to-brand-600"></div>
+      <svg class="w-5 h-5 text-brand-500" viewBox="0 0 30 30" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(15,15)">
+          <!-- 8 pointed bezier petals (alternating sizes) -->
+          <path d="M 0,-9 C -3.5,-11 -2,-13 0,-14 C 2,-13 3.5,-11 0,-9 Z"/>
+          <path d="M 0,-9 C -3.5,-11 -2,-13 0,-14 C 2,-13 3.5,-11 0,-9 Z" transform="rotate(45)"/>
+          <path d="M 0,-9 C -3.5,-11 -2,-13 0,-14 C 2,-13 3.5,-11 0,-9 Z" transform="rotate(90)"/>
+          <path d="M 0,-9 C -3.5,-11 -2,-13 0,-14 C 2,-13 3.5,-11 0,-9 Z" transform="rotate(135)"/>
+          <path d="M 0,-9 C -3.5,-11 -2,-13 0,-14 C 2,-13 3.5,-11 0,-9 Z" transform="rotate(180)"/>
+          <path d="M 0,-9 C -3.5,-11 -2,-13 0,-14 C 2,-13 3.5,-11 0,-9 Z" transform="rotate(225)"/>
+          <path d="M 0,-9 C -3.5,-11 -2,-13 0,-14 C 2,-13 3.5,-11 0,-9 Z" transform="rotate(270)"/>
+          <path d="M 0,-9 C -3.5,-11 -2,-13 0,-14 C 2,-13 3.5,-11 0,-9 Z" transform="rotate(315)"/>
+          <!-- bead dots -->
+          <circle cx="0" cy="-7" r="1.2"/>
+          <circle cx="0" cy="-7" r="1.2" transform="rotate(45)"/>
+          <circle cx="0" cy="-7" r="1.2" transform="rotate(90)"/>
+          <circle cx="0" cy="-7" r="1.2" transform="rotate(135)"/>
+          <circle cx="0" cy="-7" r="1.2" transform="rotate(180)"/>
+          <circle cx="0" cy="-7" r="1.2" transform="rotate(225)"/>
+          <circle cx="0" cy="-7" r="1.2" transform="rotate(270)"/>
+          <circle cx="0" cy="-7" r="1.2" transform="rotate(315)"/>
+          <!-- centre -->
+          <circle cx="0" cy="0" r="3.5"/>
+          <circle cx="0" cy="0" r="1.8" fill="white"/>
+        </g>
+      </svg>
     </div>
 
     <div class="container relative mx-auto max-w-7xl">
