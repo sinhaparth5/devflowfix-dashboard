@@ -7,11 +7,61 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [RouterModule],
   template: `
-    <footer class="bg-gray-900 text-white" role="contentinfo">
-      <div class="max-w-7xl mx-auto px-6 py-16">
+    <footer class="bg-gray-900 text-white relative overflow-hidden" role="contentinfo">
+
+      <!-- ══ Toran hanging pendant border at top of footer ══ -->
+      <div class="w-full overflow-hidden pointer-events-none" style="height:52px;" aria-hidden="true">
+        <svg class="w-full" height="52" viewBox="0 0 1200 52" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <pattern id="footerToran" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
+              <!-- Horizontal bar -->
+              <line x1="0" y1="3" x2="60" y2="3" stroke="#ff8800" stroke-width="1.5" opacity="0.35"/>
+              <!-- Side beads -->
+              <circle cx="10" cy="3" r="1.5" fill="#f59e0b" opacity="0.3"/>
+              <circle cx="50" cy="3" r="1.5" fill="#f59e0b" opacity="0.3"/>
+              <!-- Center bead on bar -->
+              <circle cx="30" cy="3" r="2" fill="#ff8800" opacity="0.4"/>
+              <!-- Hanging string -->
+              <line x1="30" y1="3" x2="30" y2="16" stroke="#ff8800" stroke-width="0.8" opacity="0.3"/>
+              <!-- Mango/ambi pendant -->
+              <path d="M30,16 C24,22 22,36 27,42 C29,46 31,46 33,42 C38,36 36,22 30,16 Z" fill="#ff8800" opacity="0.18"/>
+              <!-- Pendant inner highlight -->
+              <path d="M30,19 C27,25 26,35 28,40" stroke="#f59e0b" stroke-width="0.6" fill="none" opacity="0.25"/>
+              <!-- Pendant top bead -->
+              <circle cx="30" cy="14" r="2.2" fill="#f59e0b" opacity="0.3"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="52" fill="url(#footerToran)"/>
+        </svg>
+      </div>
+
+      <!-- ══ Subtle mandala watermark — far right background ══ -->
+      <div class="absolute top-16 right-0 pointer-events-none" style="width:340px;height:340px;opacity:0.04;" aria-hidden="true">
+        <svg viewBox="-170 -170 340 340" class="w-full h-full">
+          <g stroke="#ff8800" fill="none">
+            <circle r="160" stroke-width="0.75"/>
+            <circle r="130" stroke-width="0.75"/>
+            <circle r="100" stroke-width="0.75"/>
+            <circle r="70" stroke-width="0.75"/>
+            <circle r="40" stroke-width="0.75"/>
+          </g>
+          <g fill="#ff8800">
+            <path d="M0,-150 C-18,-90 -18,-25 0,0 C18,-25 18,-90 0,-150"/>
+            <path d="M0,-150 C-18,-90 -18,-25 0,0 C18,-25 18,-90 0,-150" transform="rotate(45)"/>
+            <path d="M0,-150 C-18,-90 -18,-25 0,0 C18,-25 18,-90 0,-150" transform="rotate(90)"/>
+            <path d="M0,-150 C-18,-90 -18,-25 0,0 C18,-25 18,-90 0,-150" transform="rotate(135)"/>
+            <path d="M0,-150 C-18,-90 -18,-25 0,0 C18,-25 18,-90 0,-150" transform="rotate(180)"/>
+            <path d="M0,-150 C-18,-90 -18,-25 0,0 C18,-25 18,-90 0,-150" transform="rotate(225)"/>
+            <path d="M0,-150 C-18,-90 -18,-25 0,0 C18,-25 18,-90 0,-150" transform="rotate(270)"/>
+            <path d="M0,-150 C-18,-90 -18,-25 0,0 C18,-25 18,-90 0,-150" transform="rotate(315)"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-6 py-16 relative">
         <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           <!-- Company Info -->
-          <div class="lg:col-span-2">
+          <div class="lg:col-span-2 relative">
             <a routerLink="/" class="flex items-center gap-2 mb-6 group" aria-label="DevFlowFix - Go to homepage">
               <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-500 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                 <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -86,8 +136,32 @@ import { RouterModule } from '@angular/router';
         </div>
 
         <!-- Bottom Bar -->
-        <div class="pt-8 border-t border-gray-800">
-          <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="pt-8 border-t border-gray-800 relative">
+          <!-- Mehndi divider accent along the top border -->
+          <div class="absolute -top-px left-0 right-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+            <svg width="120" height="8" viewBox="0 0 120 8" style="opacity:0.45;">
+              <line x1="0" y1="4" x2="120" y2="4" stroke="#ff8800" stroke-width="0.5" opacity="0.4"/>
+              <g transform="translate(60,4)" fill="#ff8800" opacity="0.7">
+                <path d="M0,-3 C-1,-1.5 -1,-0.3 0,0 C1,-0.3 1,-1.5 0,-3"/>
+                <path d="M0,-3 C-1,-1.5 -1,-0.3 0,0 C1,-0.3 1,-1.5 0,-3" transform="rotate(90)"/>
+                <path d="M0,-3 C-1,-1.5 -1,-0.3 0,0 C1,-0.3 1,-1.5 0,-3" transform="rotate(180)"/>
+                <path d="M0,-3 C-1,-1.5 -1,-0.3 0,0 C1,-0.3 1,-1.5 0,-3" transform="rotate(270)"/>
+              </g>
+              <circle cx="30" cy="4" r="1.5" fill="#ff8800" opacity="0.4"/>
+              <circle cx="90" cy="4" r="1.5" fill="#ff8800" opacity="0.4"/>
+            </svg>
+          </div>
+          <!-- Corner rosettes on bottom bar -->
+          <svg class="absolute bottom-0 left-0 w-5 h-5 pointer-events-none" viewBox="-8 -8 16 16" style="opacity:0.3;" aria-hidden="true">
+            <g fill="#ff8800"><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(45)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(90)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(135)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(180)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(225)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(270)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(315)"/></g>
+            <circle cx="0" cy="0" r="1.8" fill="#f59e0b"/>
+          </svg>
+          <svg class="absolute bottom-0 right-0 w-5 h-5 pointer-events-none" viewBox="-8 -8 16 16" style="opacity:0.3;" aria-hidden="true">
+            <g fill="#ff8800"><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(45)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(90)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(135)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(180)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(225)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(270)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(315)"/></g>
+            <circle cx="0" cy="0" r="1.8" fill="#f59e0b"/>
+          </svg>
+
+          <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-2">
             <p class="text-gray-300 text-sm">
               &copy; {{ currentYear }} DevFlowFix. All rights reserved.
             </p>

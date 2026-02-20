@@ -19,6 +19,32 @@ import { AuthService, ZitadelUser } from '../../../auth';
          [class.dark:border-gray-800]="true"
          role="navigation"
          aria-label="Main navigation">
+
+      <!-- ══ Indian toran bead strip — decorative bottom border ══ -->
+      <div class="absolute bottom-0 left-0 right-0 pointer-events-none overflow-hidden" style="height:4px;" aria-hidden="true">
+        <svg class="w-full" height="4" viewBox="0 0 900 4" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <pattern id="navToranBeads" x="0" y="0" width="36" height="4" patternUnits="userSpaceOnUse">
+              <line x1="0" y1="2" x2="36" y2="2" stroke="#ff8800" stroke-width="0.6" opacity="0.4"/>
+              <circle cx="18" cy="2" r="1.4" fill="#ff8800" opacity="0.55"/>
+              <path d="M 0,2 L 1.2,0.6 L 2.4,2 L 1.2,3.4 Z" fill="#f59e0b" opacity="0.5"/>
+              <path d="M 33.6,2 L 34.8,0.6 L 36,2 L 34.8,3.4 Z" fill="#f59e0b" opacity="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="4" fill="url(#navToranBeads)"/>
+        </svg>
+      </div>
+
+      <!-- ══ Subtle mehndi rosette accents — flanking the nav on far edges ══ -->
+      <svg class="absolute left-2 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none opacity-20 hidden lg:block" viewBox="-8 -8 16 16" aria-hidden="true">
+        <g fill="#ff8800"><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(45)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(90)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(135)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(180)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(225)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(270)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(315)"/></g>
+        <circle cx="0" cy="0" r="1.8" fill="#f59e0b"/>
+      </svg>
+      <svg class="absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none opacity-20 hidden lg:block" viewBox="-8 -8 16 16" aria-hidden="true">
+        <g fill="#ff8800"><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(45)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(90)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(135)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(180)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(225)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(270)"/><path d="M0,-6 C-1.8,-3.5 -1.8,-0.8 0,0 C1.8,-0.8 1.8,-3.5 0,-6" transform="rotate(315)"/></g>
+        <circle cx="0" cy="0" r="1.8" fill="#f59e0b"/>
+      </svg>
+
       <div class="max-w-7xl mx-auto px-6 py-4">
         <div class="flex items-center justify-between">
           <!-- Logo -->
@@ -103,18 +129,45 @@ import { AuthService, ZitadelUser } from '../../../auth';
               <span class="hidden sm:block text-sm text-gray-700 dark:text-gray-300">
                 Hi, {{ currentUser.name || currentUser.email }}
               </span>
+              <!-- Dashboard — jali 8-pointed star bleeding from top-left corner -->
               <a routerLink="/dashboard"
-                 class="px-5 py-2.5 text-sm font-semibold text-white bg-brand-500 rounded-lg hover:bg-brand-600 hover:scale-105 hover:shadow-lg hover:shadow-brand-500/25 transition-all duration-300 active:scale-95">
-                Dashboard
+                 class="relative overflow-hidden px-5 py-2.5 text-sm font-semibold text-white bg-brand-500 rounded-lg hover:bg-brand-600 hover:scale-105 hover:shadow-lg hover:shadow-brand-500/25 transition-all duration-300 active:scale-95">
+                <svg class="absolute pointer-events-none" style="left:-18px;top:-18px;width:68px;height:68px;opacity:0.2;" viewBox="-34 -34 68 68" aria-hidden="true">
+                  <path d="M0,-30 L8,-8 L30,0 L8,8 L0,30 L-8,8 L-30,0 L-8,-8 Z" fill="none" stroke="white" stroke-width="1.5"/>
+                  <path d="M0,-30 L8,-8 L30,0 L8,8 L0,30 L-8,8 L-30,0 L-8,-8 Z" transform="rotate(22.5)" fill="none" stroke="white" stroke-width="0.9" opacity="0.7"/>
+                  <path d="M0,-18 L5,-5 L18,0 L5,5 L0,18 L-5,5 L-18,0 L-5,-5 Z" fill="none" stroke="white" stroke-width="1" opacity="0.85"/>
+                  <g fill="white" opacity="0.65"><path d="M0,-11 C-3.5,-6.5 -3.5,-1.5 0,0 C3.5,-1.5 3.5,-6.5 0,-11"/><path d="M0,-11 C-3.5,-6.5 -3.5,-1.5 0,0 C3.5,-1.5 3.5,-6.5 0,-11" transform="rotate(45)"/><path d="M0,-11 C-3.5,-6.5 -3.5,-1.5 0,0 C3.5,-1.5 3.5,-6.5 0,-11" transform="rotate(90)"/><path d="M0,-11 C-3.5,-6.5 -3.5,-1.5 0,0 C3.5,-1.5 3.5,-6.5 0,-11" transform="rotate(135)"/><path d="M0,-11 C-3.5,-6.5 -3.5,-1.5 0,0 C3.5,-1.5 3.5,-6.5 0,-11" transform="rotate(180)"/><path d="M0,-11 C-3.5,-6.5 -3.5,-1.5 0,0 C3.5,-1.5 3.5,-6.5 0,-11" transform="rotate(225)"/><path d="M0,-11 C-3.5,-6.5 -3.5,-1.5 0,0 C3.5,-1.5 3.5,-6.5 0,-11" transform="rotate(270)"/><path d="M0,-11 C-3.5,-6.5 -3.5,-1.5 0,0 C3.5,-1.5 3.5,-6.5 0,-11" transform="rotate(315)"/></g>
+                  <circle cx="0" cy="0" r="4" fill="white" opacity="0.75"/>
+                </svg>
+                <span class="relative">Dashboard</span>
               </a>
             } @else {
               <a routerLink="/signin"
                  class="hidden sm:block px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-brand-500 transition-colors duration-200">
                 Sign In
               </a>
+              <!-- Get Started — ambi/paisley mango bleeding from bottom-right corner -->
               <a routerLink="/signup"
-                 class="px-5 py-2.5 text-sm font-semibold text-white bg-brand-500 rounded-lg hover:bg-brand-600 hover:scale-105 hover:shadow-lg hover:shadow-brand-500/25 transition-all duration-300 active:scale-95">
-                Get Started
+                 class="relative overflow-hidden px-5 py-2.5 text-sm font-semibold text-white bg-brand-500 rounded-lg hover:bg-brand-600 hover:scale-105 hover:shadow-lg hover:shadow-brand-500/25 transition-all duration-300 active:scale-95">
+                <svg class="absolute pointer-events-none" style="right:-22px;bottom:-20px;width:72px;height:92px;opacity:0.2;" viewBox="-36 -46 72 92" aria-hidden="true">
+                  <!-- Outer ambi/mango teardrop -->
+                  <path d="M0,-40 C-26,-22 -26,22 0,42 C24,24 24,-22 0,-40 Z" fill="none" stroke="white" stroke-width="1.6"/>
+                  <!-- Inner smaller teardrop -->
+                  <path d="M0,-26 C-16,-14 -16,14 0,28 C14,14 14,-14 0,-26 Z" fill="none" stroke="white" stroke-width="1" opacity="0.8"/>
+                  <!-- Curling tip -->
+                  <path d="M0,-40 C6,-50 15,-45 11,-37" fill="none" stroke="white" stroke-width="1.2"/>
+                  <!-- Center vein -->
+                  <line x1="0" y1="-30" x2="0" y2="30" stroke="white" stroke-width="0.6" opacity="0.55"/>
+                  <!-- Inner petal motif -->
+                  <path d="M0,-13 C-5,-7 -5,1 0,7 C5,1 5,-7 0,-13" fill="white" opacity="0.55"/>
+                  <!-- Side decorative dots -->
+                  <circle cx="-19" cy="-6" r="2" fill="white" opacity="0.6"/>
+                  <circle cx="-21" cy="6" r="1.5" fill="white" opacity="0.5"/>
+                  <circle cx="19" cy="-6" r="2" fill="white" opacity="0.6"/>
+                  <circle cx="21" cy="6" r="1.5" fill="white" opacity="0.5"/>
+                  <circle cx="0" cy="-3" r="3.5" fill="white" opacity="0.6"/>
+                </svg>
+                <span class="relative">Get Started</span>
               </a>
             }
 
