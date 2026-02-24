@@ -61,6 +61,11 @@
             "scripts": [
               "node_modules/apexcharts/dist/apexcharts.min.js"
             ],
+            "server": "src/main.server.ts",
+            "prerender": {
+              "discoverRoutes": false,
+              "routesFile": "prerender-routes.txt"
+            },
             "optimization": {
               "scripts": true,
               "styles": {

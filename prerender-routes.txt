@@ -1,0 +1,10 @@
+/
+/product
+/pricing
+/about
+/contact
+/blog
+/help-center
+/privacy-policy
+/terms-of-service
+/cookie-policy

@@ -1,4 +1,5 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
+import { Injectable, signal, computed, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { OAuthService, OAuthEvent } from 'angular-oauth2-oidc';
 import { authConfig } from './auth.config';
@@ -23,6 +24,7 @@ export interface ZitadelUser {
 export class AuthService {
   private router = inject(Router);
   private oauthService = inject(OAuthService);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   // Reactive signals for auth state
   private _isAuthenticated = signal(false);
@@ -35,7 +37,11 @@ export class AuthService {
   readonly isLoading = computed(() => this._isLoading());
 
   constructor() {
-    this.initializeAuth();
+    if (this.isBrowser) {
+      this.initializeAuth();
+    } else {
+      this._isLoading.set(false);
+    }
   }
 
   private async initializeAuth(): Promise<void> {

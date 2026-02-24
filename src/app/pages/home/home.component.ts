@@ -1,4 +1,5 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, QueryList, ViewChildren, inject, effect } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, QueryList, ViewChildren, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { SeoService } from '../../shared/services/seo.service';
@@ -322,6 +323,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private seoService = inject(SeoService);
   authService = inject(AuthService);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private observer!: IntersectionObserver;
 
   // Reactive auth state from Zitadel service
@@ -344,6 +346,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    if (!this.isBrowser) return;
     // Setup Intersection Observer for scroll animations
     this.setupScrollAnimations();
     this.setupScrollTextAnimation();

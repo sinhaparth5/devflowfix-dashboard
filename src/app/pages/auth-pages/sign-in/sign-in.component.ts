@@ -24,7 +24,7 @@ export class SignInComponent implements OnInit {
       keywords: 'sign in, login, devflowfix login, deployment dashboard, CI/CD login, kubernetes dashboard login',
       url: '/signin',
       type: 'website',
-      robots: 'index, follow'
+      robots: 'noindex, follow'
     });
 
     // Add breadcrumb for sign in page

@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
@@ -33,13 +34,20 @@ export class SeoService {
   constructor(
     private meta: Meta,
     private title: Title,
-    private router: Router
+    private router: Router,
+    @Inject(DOCUMENT) private document: Document
   ) {
-    // Listen to route changes and update canonical URL
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
+    ).subscribe((event) => {
+      const navEnd = event as NavigationEnd;
+      this.clearStructuredData(); // clear previous page's schemas on every navigation
       this.updateCanonicalUrl();
+      // Auto-apply noindex for protected and non-public routes
+      const url = navEnd.urlAfterRedirects;
+      if (url.startsWith('/dashboard') || url === '/auth/callback') {
+        this.updateMetaTag('robots', 'noindex, nofollow');
+      }
     });
   }
 
@@ -100,37 +108,40 @@ export class SeoService {
   }
 
   /**
-   * Update canonical URL
+   * Update canonical URL — SSR-safe via injected DOCUMENT token
    */
   private updateCanonicalUrl(url?: string): void {
     const resolvedUrl = url && !url.startsWith('http') ? `${this.baseUrl}${url.startsWith('/') ? '' : '/'}${url}` : url;
     const canonicalUrl = resolvedUrl || this.getCurrentUrl();
 
-    // Remove existing canonical link
-    const existingLink = document.querySelector('link[rel="canonical"]');
+    const existingLink = this.document.querySelector('link[rel="canonical"]');
     if (existingLink) {
       existingLink.remove();
     }
 
-    // Add new canonical link
-    const link = document.createElement('link');
+    const link = this.document.createElement('link');
     link.setAttribute('rel', 'canonical');
     link.setAttribute('href', canonicalUrl);
-    document.head.appendChild(link);
+    this.document.head.appendChild(link);
   }
 
   /**
-   * Create structured data (JSON-LD) — replaces ALL existing ld+json scripts
+   * Clear all JSON-LD structured data — called automatically on every route change
+   */
+  private clearStructuredData(): void {
+    this.document.querySelectorAll('script[type="application/ld+json"]').forEach(s => s.remove());
+  }
+
+  /**
+   * Append a JSON-LD structured data script.
+   * clearStructuredData() is called automatically on navigation — no need to clear here.
+   * Multiple calls on the same page correctly stack (e.g. breadcrumb + FAQ).
    */
   addStructuredData(data: any): void {
-    // Remove ALL existing structured data scripts (not just the first one)
-    document.querySelectorAll('script[type="application/ld+json"]').forEach(s => s.remove());
-
-    // Add new structured data
-    const script = document.createElement('script');
+    const script = this.document.createElement('script');
     script.type = 'application/ld+json';
     script.text = JSON.stringify(data);
-    document.head.appendChild(script);
+    this.document.head.appendChild(script);
   }
 
   /**
@@ -300,19 +311,15 @@ export class SeoService {
   }
 
   /**
-   * Add multiple structured data objects (for pages needing multiple schemas)
+   * Replace all structured data with multiple schemas at once (e.g. home page)
    */
   addMultipleStructuredData(dataArray: any[]): void {
-    // Remove existing structured data
-    const existingScripts = document.querySelectorAll('script[type="application/ld+json"]');
-    existingScripts.forEach(script => script.remove());
-
-    // Add each structured data object
+    this.clearStructuredData();
     dataArray.forEach(data => {
-      const script = document.createElement('script');
+      const script = this.document.createElement('script');
       script.type = 'application/ld+json';
       script.text = JSON.stringify(data);
-      document.head.appendChild(script);
+      this.document.head.appendChild(script);
     });
   }
 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { CookieConsentComponent } from './shared/components/cookie-consent/cookie-consent.component';
@@ -17,11 +18,14 @@ declare let gtag: Function;
 })
 export class AppComponent implements OnInit {
   title = 'DevFlowFix Dashboard | DevFlowFix';
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.setupGoogleAnalytics();
+    if (this.isBrowser) {
+      this.setupGoogleAnalytics();
+    }
   }
 
   private setupGoogleAnalytics(): void {

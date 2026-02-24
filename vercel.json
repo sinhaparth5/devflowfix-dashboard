@@ -1,4 +1,7 @@
 {
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/devflowfix/browser",
+  "framework": null,
   "headers": [
     {
       "source": "/(.*)",
