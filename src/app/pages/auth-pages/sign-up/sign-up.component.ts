@@ -24,7 +24,7 @@ export class SignUpComponent implements OnInit {
       keywords: 'sign up, register, create account, devflowfix free trial, deployment automation signup, CI/CD tool registration',
       url: '/signup',
       type: 'website',
-      robots: 'index, follow'
+      robots: 'noindex, follow'
     });
 
     // Add breadcrumb for sign up page

@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 
 type Theme = 'light' | 'dark';
@@ -6,12 +7,15 @@ type Theme = 'light' | 'dark';
 @Injectable({ providedIn: 'root' })
 
 export class ThemeService {
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private themeSubject = new BehaviorSubject<Theme>('light');
   theme$ = this.themeSubject.asObservable();
 
   constructor() {
-    const savedTheme = (localStorage.getItem('theme') as Theme) || 'light';
-    this.setTheme(savedTheme);
+    if (this.isBrowser) {
+      const savedTheme = (localStorage.getItem('theme') as Theme) || 'light';
+      this.setTheme(savedTheme);
+    }
   }
 
   toggleTheme() {
@@ -21,6 +25,7 @@ export class ThemeService {
 
   setTheme(theme: Theme) {
     this.themeSubject.next(theme);
+    if (!this.isBrowser) return;
     localStorage.setItem('theme', theme);
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');

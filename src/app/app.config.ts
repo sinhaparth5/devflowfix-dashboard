@@ -1,6 +1,7 @@
 import { ApplicationConfig, provideZoneChangeDetection, APP_INITIALIZER } from '@angular/core';
 import { provideRouter, withPreloading, PreloadAllModules, withViewTransitions, withInMemoryScrolling } from '@angular/router';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 
 import { routes } from './app.routes';
@@ -20,7 +21,9 @@ export const appConfig: ApplicationConfig = {
         anchorScrolling: 'enabled'
       })
     ),
+    provideClientHydration(withEventReplay()),
     provideHttpClient(
+      withFetch(),
       withInterceptors([sanitizationInterceptor, authInterceptor])
     ),
     provideOAuthClient(),

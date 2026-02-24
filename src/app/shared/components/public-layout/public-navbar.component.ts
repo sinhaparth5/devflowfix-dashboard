@@ -1,4 +1,5 @@
-import { Component, Input, HostListener, inject } from '@angular/core';
+import { Component, Input, HostListener, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService, ZitadelUser } from '../../../auth';
 
@@ -258,6 +259,7 @@ export class PublicNavbarComponent {
   @Input() activePage: string = '';
 
   private authService = inject(AuthService);
+  private readonly platformId = inject(PLATFORM_ID);
   isMobileMenuOpen = false;
   isScrolled = false;
 
@@ -272,7 +274,9 @@ export class PublicNavbarComponent {
 
   @HostListener('window:scroll')
   onWindowScroll() {
-    this.isScrolled = window.scrollY > 20;
+    if (isPlatformBrowser(this.platformId)) {
+      this.isScrolled = window.scrollY > 20;
+    }
   }
 
   toggleMobileMenu(): void {

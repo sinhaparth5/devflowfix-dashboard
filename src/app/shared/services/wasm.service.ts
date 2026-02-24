@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 type WasmModule = typeof import('devflowfix-wasm');
 
@@ -6,8 +7,14 @@ type WasmModule = typeof import('devflowfix-wasm');
 export class WasmService {
   private wasmModule: WasmModule | null = null;
   private initPromise: Promise<void> | null = null;
+  private readonly isBrowser: boolean;
+
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   async init(): Promise<void> {
+    if (!this.isBrowser) return; // WASM is browser-only — skip on server/prerender
     if (this.wasmModule) return;
     if (this.initPromise) return this.initPromise;
 
