@@ -4,23 +4,130 @@
   >
     <ng-content></ng-content>
     <div
-      class="items-center hidden w-full h-full lg:w-1/2 bg-brand-950 dark:bg-white/5 lg:grid relative"
+      class="items-center hidden w-full h-full lg:w-1/2 bg-brand-950 dark:bg-white/5 lg:grid relative overflow-hidden"
     >
+      <!-- Large ghost mandala watermark -->
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+        <svg viewBox="-64 -64 128 128" fill="none" stroke="white" class="w-[500px] h-[500px] opacity-[0.04] animate-rotate-slow" style="animation-duration:90s;">
+          <circle cx="0" cy="0" r="62" stroke-width="0.5"/>
+          <path d="M0,-46 C-12,-52 -10,-60 0,-63 C10,-60 12,-52 0,-46" fill="white" stroke="none" opacity="0.7"/>
+          <path d="M0,-46 C-12,-52 -10,-60 0,-63 C10,-60 12,-52 0,-46" fill="white" stroke="none" opacity="0.7" transform="rotate(45)"/>
+          <path d="M0,-46 C-12,-52 -10,-60 0,-63 C10,-60 12,-52 0,-46" fill="white" stroke="none" opacity="0.7" transform="rotate(90)"/>
+          <path d="M0,-46 C-12,-52 -10,-60 0,-63 C10,-60 12,-52 0,-46" fill="white" stroke="none" opacity="0.7" transform="rotate(135)"/>
+          <path d="M0,-46 C-12,-52 -10,-60 0,-63 C10,-60 12,-52 0,-46" fill="white" stroke="none" opacity="0.7" transform="rotate(180)"/>
+          <path d="M0,-46 C-12,-52 -10,-60 0,-63 C10,-60 12,-52 0,-46" fill="white" stroke="none" opacity="0.7" transform="rotate(225)"/>
+          <path d="M0,-46 C-12,-52 -10,-60 0,-63 C10,-60 12,-52 0,-46" fill="white" stroke="none" opacity="0.7" transform="rotate(270)"/>
+          <path d="M0,-46 C-12,-52 -10,-60 0,-63 C10,-60 12,-52 0,-46" fill="white" stroke="none" opacity="0.7" transform="rotate(315)"/>
+          <g stroke-width="1.2">
+            <path d="M0,-30 C-8,-36 -6,-44 0,-47 C6,-44 8,-36 0,-30"/>
+            <path d="M0,-30 C-8,-36 -6,-44 0,-47 C6,-44 8,-36 0,-30" transform="rotate(45)"/>
+            <path d="M0,-30 C-8,-36 -6,-44 0,-47 C6,-44 8,-36 0,-30" transform="rotate(90)"/>
+            <path d="M0,-30 C-8,-36 -6,-44 0,-47 C6,-44 8,-36 0,-30" transform="rotate(135)"/>
+            <path d="M0,-30 C-8,-36 -6,-44 0,-47 C6,-44 8,-36 0,-30" transform="rotate(180)"/>
+            <path d="M0,-30 C-8,-36 -6,-44 0,-47 C6,-44 8,-36 0,-30" transform="rotate(225)"/>
+            <path d="M0,-30 C-8,-36 -6,-44 0,-47 C6,-44 8,-36 0,-30" transform="rotate(270)"/>
+            <path d="M0,-30 C-8,-36 -6,-44 0,-47 C6,-44 8,-36 0,-30" transform="rotate(315)"/>
+          </g>
+          <circle cx="0" cy="-24" r="1.5" fill="white" stroke="none"/>
+          <circle cx="0" cy="-24" r="1.5" fill="white" stroke="none" transform="rotate(45)"/>
+          <circle cx="0" cy="-24" r="1.5" fill="white" stroke="none" transform="rotate(90)"/>
+          <circle cx="0" cy="-24" r="1.5" fill="white" stroke="none" transform="rotate(135)"/>
+          <circle cx="0" cy="-24" r="1.5" fill="white" stroke="none" transform="rotate(180)"/>
+          <circle cx="0" cy="-24" r="1.5" fill="white" stroke="none" transform="rotate(225)"/>
+          <circle cx="0" cy="-24" r="1.5" fill="white" stroke="none" transform="rotate(270)"/>
+          <circle cx="0" cy="-24" r="1.5" fill="white" stroke="none" transform="rotate(315)"/>
+          <circle cx="0" cy="0" r="12" stroke-width="0.8"/>
+          <circle cx="0" cy="0" r="6" fill="white" stroke="none"/>
+          <circle cx="0" cy="0" r="2.5" fill="none" stroke-width="1"/>
+        </svg>
+      </div>
+      <!-- Top-left rotating mandala -->
+      <div class="absolute top-8 left-8 w-20 h-20 opacity-25 animate-rotate-slow pointer-events-none" style="animation-duration:28s;" aria-hidden="true">
+        <svg viewBox="-32 -32 64 64" fill="none" stroke="white" class="w-full h-full">
+          <circle cx="0" cy="0" r="30" stroke-width="0.6"/>
+          <g stroke-width="1.4">
+            <path d="M0,-18 C-5,-22 -4,-27 0,-29 C4,-27 5,-22 0,-18"/>
+            <path d="M0,-18 C-5,-22 -4,-27 0,-29 C4,-27 5,-22 0,-18" transform="rotate(45)"/>
+            <path d="M0,-18 C-5,-22 -4,-27 0,-29 C4,-27 5,-22 0,-18" transform="rotate(90)"/>
+            <path d="M0,-18 C-5,-22 -4,-27 0,-29 C4,-27 5,-22 0,-18" transform="rotate(135)"/>
+            <path d="M0,-18 C-5,-22 -4,-27 0,-29 C4,-27 5,-22 0,-18" transform="rotate(180)"/>
+            <path d="M0,-18 C-5,-22 -4,-27 0,-29 C4,-27 5,-22 0,-18" transform="rotate(225)"/>
+            <path d="M0,-18 C-5,-22 -4,-27 0,-29 C4,-27 5,-22 0,-18" transform="rotate(270)"/>
+            <path d="M0,-18 C-5,-22 -4,-27 0,-29 C4,-27 5,-22 0,-18" transform="rotate(315)"/>
+          </g>
+          <circle cx="0" cy="-13" r="1.2" fill="white" stroke="none"/>
+          <circle cx="0" cy="-13" r="1.2" fill="white" stroke="none" transform="rotate(45)"/>
+          <circle cx="0" cy="-13" r="1.2" fill="white" stroke="none" transform="rotate(90)"/>
+          <circle cx="0" cy="-13" r="1.2" fill="white" stroke="none" transform="rotate(135)"/>
+          <circle cx="0" cy="-13" r="1.2" fill="white" stroke="none" transform="rotate(180)"/>
+          <circle cx="0" cy="-13" r="1.2" fill="white" stroke="none" transform="rotate(225)"/>
+          <circle cx="0" cy="-13" r="1.2" fill="white" stroke="none" transform="rotate(270)"/>
+          <circle cx="0" cy="-13" r="1.2" fill="white" stroke="none" transform="rotate(315)"/>
+          <circle cx="0" cy="0" r="6" stroke-width="0.8"/>
+          <circle cx="0" cy="0" r="2.5" fill="white" stroke="none"/>
+          <circle cx="0" cy="0" r="1" fill="none" stroke-width="0.8"/>
+        </svg>
+      </div>
+      <!-- Bottom-right ambi pendant -->
+      <div class="absolute bottom-12 right-10 w-14 h-20 opacity-20 animate-float pointer-events-none" aria-hidden="true">
+        <svg viewBox="-18 -30 36 60" fill="none" stroke="white" class="w-full h-full">
+          <path d="M0,-28 Q18,-24 16,0 Q14,20 0,26 Q-14,20 -16,0 Q-18,-24 0,-28 Z" stroke-width="1.2"/>
+          <path d="M0,-18 Q10,-14 9,2 Q8,14 0,18 Q-8,14 -9,2 Q-10,-14 0,-18 Z" stroke-width="0.9"/>
+          <circle cx="0" cy="4" r="3.5" stroke-width="0.9"/>
+          <circle cx="0" cy="4" r="1.5" fill="white" stroke="none"/>
+          <path d="M0,-26 Q4,-18 0,-10 Q-4,-18 0,-26" fill="white" stroke="none" opacity="0.6"/>
+        </svg>
+      </div>
+      <!-- Bottom-left lotus accent -->
+      <div class="absolute bottom-16 left-10 w-12 h-12 opacity-20 pointer-events-none" aria-hidden="true">
+        <svg viewBox="-16 -16 32 32" fill="none" stroke="white" class="w-full h-full">
+          <path d="M0,-12 C-4,-7 -4,-2 0,1 C4,-2 4,-7 0,-12" stroke-width="1.2"/>
+          <path d="M0,-12 C-4,-7 -4,-2 0,1 C4,-2 4,-7 0,-12" stroke-width="1.2" transform="rotate(60)"/>
+          <path d="M0,-12 C-4,-7 -4,-2 0,1 C4,-2 4,-7 0,-12" stroke-width="1.2" transform="rotate(120)"/>
+          <path d="M0,-12 C-4,-7 -4,-2 0,1 C4,-2 4,-7 0,-12" stroke-width="1.2" transform="rotate(180)"/>
+          <path d="M0,-12 C-4,-7 -4,-2 0,1 C4,-2 4,-7 0,-12" stroke-width="1.2" transform="rotate(240)"/>
+          <path d="M0,-12 C-4,-7 -4,-2 0,1 C4,-2 4,-7 0,-12" stroke-width="1.2" transform="rotate(300)"/>
+          <circle cx="0" cy="0" r="2.5" stroke-width="1"/>
+          <circle cx="0" cy="0" r="1" fill="white" stroke="none"/>
+        </svg>
+      </div>
       <div class="flex items-center justify-center z-1">
         <!-- ===== Common Grid Shape Start ===== -->
         <app-grid-shape />
-        <div class="flex flex-col items-center max-w-xs">
-          <a routerLink="/" class="block mb-4">
-            <img
-              width="231"
-              height="48"
-              src="/images/logo/auth-logo.svg"
-              alt="Logo"
-            />
+        <!-- DevFlowFix Branding -->
+        <div class="flex flex-col items-center max-w-xs relative z-10">
+          <a routerLink="/" class="block mb-6 text-center">
+            <div class="flex items-center gap-3 justify-center mb-3">
+              <!-- Lotus icon -->
+              <svg viewBox="-12 -12 24 24" fill="none" class="w-9 h-9 flex-shrink-0" aria-hidden="true">
+                <path d="M0,-10 C-4,-6 -4,-2 0,1 C4,-2 4,-6 0,-10" fill="#f59e0b"/>
+                <path d="M0,-10 C-4,-6 -4,-2 0,1 C4,-2 4,-6 0,-10" fill="#f59e0b" transform="rotate(72)"/>
+                <path d="M0,-10 C-4,-6 -4,-2 0,1 C4,-2 4,-6 0,-10" fill="#f59e0b" transform="rotate(144)"/>
+                <path d="M0,-10 C-4,-6 -4,-2 0,1 C4,-2 4,-6 0,-10" fill="#f59e0b" transform="rotate(216)"/>
+                <path d="M0,-10 C-4,-6 -4,-2 0,1 C4,-2 4,-6 0,-10" fill="#f59e0b" transform="rotate(288)"/>
+                <circle cx="0" cy="0" r="3.5" fill="#ff8800"/>
+                <circle cx="0" cy="0" r="1.4" fill="white"/>
+              </svg>
+              <span class="text-white font-bold text-3xl tracking-tight">DevFlow<span class="text-amber-400">Fix</span></span>
+            </div>
           </a>
-          <p class="text-center text-gray-400 dark:text-white/60">
-            Free and Open-Source Tailwind CSS Admin Dashboard Template
+          <p class="text-center text-gray-400 text-sm leading-relaxed">
+            Automated deployment failure resolution for modern engineering teams
           </p>
+          <!-- Mehndi divider -->
+          <div class="mt-6 flex items-center gap-3 opacity-40">
+            <div class="w-10 h-px bg-gray-500"></div>
+            <svg viewBox="-8 -8 16 16" fill="none" class="w-5 h-5" aria-hidden="true">
+              <path d="M0,-6 C-2,-4 -2,-1 0,1 C2,-1 2,-4 0,-6" fill="#f59e0b"/>
+              <path d="M0,-6 C-2,-4 -2,-1 0,1 C2,-1 2,-4 0,-6" fill="#f59e0b" transform="rotate(72)"/>
+              <path d="M0,-6 C-2,-4 -2,-1 0,1 C2,-1 2,-4 0,-6" fill="#f59e0b" transform="rotate(144)"/>
+              <path d="M0,-6 C-2,-4 -2,-1 0,1 C2,-1 2,-4 0,-6" fill="#f59e0b" transform="rotate(216)"/>
+              <path d="M0,-6 C-2,-4 -2,-1 0,1 C2,-1 2,-4 0,-6" fill="#f59e0b" transform="rotate(288)"/>
+              <circle cx="0" cy="0" r="2" fill="#ff8800"/>
+              <circle cx="0" cy="0" r="0.8" fill="white"/>
+            </svg>
+            <div class="w-10 h-px bg-gray-500"></div>
+          </div>
         </div>
       </div>
     </div>

@@ -31,12 +31,27 @@ export interface CookiePreferences {
                 <div class="flex flex-col lg:flex-row lg:items-center gap-6">
                   <div class="flex-1">
                     <div class="flex items-center gap-3 mb-3">
-                      <div class="w-10 h-10 bg-brand-100 dark:bg-brand-900/30 rounded-xl flex items-center justify-center">
-                        <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
+                      <!-- Lotus icon -->
+                      <svg viewBox="-12 -12 24 24" fill="none" class="w-10 h-10 flex-shrink-0" aria-hidden="true">
+                        <path d="M0,-10 C-4,-6 -4,-2 0,1 C4,-2 4,-6 0,-10" fill="#f59e0b"/>
+                        <path d="M0,-10 C-4,-6 -4,-2 0,1 C4,-2 4,-6 0,-10" fill="#f59e0b" transform="rotate(72)"/>
+                        <path d="M0,-10 C-4,-6 -4,-2 0,1 C4,-2 4,-6 0,-10" fill="#f59e0b" transform="rotate(144)"/>
+                        <path d="M0,-10 C-4,-6 -4,-2 0,1 C4,-2 4,-6 0,-10" fill="#f59e0b" transform="rotate(216)"/>
+                        <path d="M0,-10 C-4,-6 -4,-2 0,1 C4,-2 4,-6 0,-10" fill="#f59e0b" transform="rotate(288)"/>
+                        <circle cx="0" cy="0" r="3.5" fill="#ff8800"/>
+                        <circle cx="0" cy="0" r="1.4" fill="white"/>
+                      </svg>
+                      <div>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">We value your privacy</h3>
+                        <!-- Mehndi wave accent -->
+                        <div class="flex items-center gap-1 mt-0.5">
+                          <svg viewBox="-16 -3 32 6" fill="none" class="w-12 h-2 opacity-40" aria-hidden="true">
+                            <path d="M-14,0 Q-8,-2 -2,0 Q4,2 10,0 Q14,-1 14,0" stroke="#ff8800" stroke-width="1" fill="none"/>
+                            <circle cx="-10" cy="-1" r="0.7" fill="#f59e0b"/>
+                            <circle cx="4" cy="1.5" r="0.7" fill="#f59e0b"/>
+                          </svg>
+                        </div>
                       </div>
-                      <h3 class="text-lg font-bold text-gray-900 dark:text-white">We value your privacy</h3>
                     </div>
                     <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                       We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic.
@@ -54,8 +69,17 @@ export interface CookiePreferences {
                       Reject All
                     </button>
                     <button (click)="acceptAll()"
-                            class="px-5 py-2.5 text-sm font-medium text-white bg-brand-500 rounded-xl hover:bg-brand-600 transition-colors btn-shine">
-                      Accept All
+                            class="relative overflow-hidden px-5 py-2.5 text-sm font-medium text-white bg-brand-500 rounded-xl hover:bg-brand-600 transition-colors btn-shine">
+                      <svg class="absolute pointer-events-none" style="right:-14px;bottom:-12px;width:60px;height:60px;opacity:0.22;" viewBox="-30 -30 60 60" aria-hidden="true">
+                        <path d="M0,-18 C-6,-11 -6,-4 0,2 C6,-4 6,-11 0,-18" fill="white"/>
+                        <path d="M0,-18 C-6,-11 -6,-4 0,2 C6,-4 6,-11 0,-18" fill="white" transform="rotate(72)"/>
+                        <path d="M0,-18 C-6,-11 -6,-4 0,2 C6,-4 6,-11 0,-18" fill="white" transform="rotate(144)"/>
+                        <path d="M0,-18 C-6,-11 -6,-4 0,2 C6,-4 6,-11 0,-18" fill="white" transform="rotate(216)"/>
+                        <path d="M0,-18 C-6,-11 -6,-4 0,2 C6,-4 6,-11 0,-18" fill="white" transform="rotate(288)"/>
+                        <circle cx="0" cy="0" r="4.5" fill="white"/>
+                        <circle cx="0" cy="0" r="1.8" fill="none" stroke="rgba(255,136,0,0.5)" stroke-width="1"/>
+                      </svg>
+                      <span class="relative">Accept All</span>
                     </button>
                   </div>
                 </div>
@@ -64,7 +88,18 @@ export interface CookiePreferences {
               <!-- Preferences Panel -->
               <div class="p-6 md:p-8">
                 <div class="flex items-center justify-between mb-6">
-                  <h3 class="text-lg font-bold text-gray-900 dark:text-white">Cookie Preferences</h3>
+                  <div class="flex items-center gap-2">
+                    <svg viewBox="-6 -6 12 12" fill="none" class="w-4 h-4" aria-hidden="true">
+                      <path d="M0,-5 C-2,-3 -2,-1 0,1 C2,-1 2,-3 0,-5" fill="#f59e0b"/>
+                      <path d="M0,-5 C-2,-3 -2,-1 0,1 C2,-1 2,-3 0,-5" fill="#f59e0b" transform="rotate(72)"/>
+                      <path d="M0,-5 C-2,-3 -2,-1 0,1 C2,-1 2,-3 0,-5" fill="#f59e0b" transform="rotate(144)"/>
+                      <path d="M0,-5 C-2,-3 -2,-1 0,1 C2,-1 2,-3 0,-5" fill="#f59e0b" transform="rotate(216)"/>
+                      <path d="M0,-5 C-2,-3 -2,-1 0,1 C2,-1 2,-3 0,-5" fill="#f59e0b" transform="rotate(288)"/>
+                      <circle cx="0" cy="0" r="1.5" fill="#ff8800"/>
+                      <circle cx="0" cy="0" r="0.6" fill="white"/>
+                    </svg>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Cookie Preferences</h3>
+                  </div>
                   <button (click)="showPreferences = false" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>

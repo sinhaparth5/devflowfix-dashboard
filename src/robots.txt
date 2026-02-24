@@ -1,54 +1,36 @@
 # https://www.robotstxt.org/robotstxt.html
 # DevFlowFix - Automated Deployment Failure Resolution
 
-# Allow all crawlers
 User-agent: *
 Allow: /
 
-# Public pages - explicitly allow
-Allow: /signin
-Allow: /signup
-Allow: /about
-Allow: /product
-Allow: /pricing
-Allow: /contact
-Allow: /help-center
-Allow: /blog
-
-# Disallow protected dashboard routes
+# Disallow protected dashboard and API routes
 Disallow: /dashboard/
-Disallow: /dashboard/calendar
-Disallow: /dashboard/profile
-Disallow: /dashboard/webhooks
-Disallow: /dashboard/pr-management
-Disallow: /dashboard/incidents
-Disallow: /dashboard/admin/
-
-# Disallow common unnecessary paths
 Disallow: /api/
-Disallow: /*.json$
+
+# Disallow URLs with query parameters (Angular SPA — no query params needed for indexing)
 Disallow: /*?*
 
-# Allow important static assets
+# Allow static assets
 Allow: /images/
 Allow: /assets/
-Allow: /*.css$
-Allow: /*.js$
 
 # Crawl-delay for politeness (seconds)
 Crawl-delay: 1
 
-# Google specific
+# Google-specific
 User-agent: Googlebot
 Allow: /
 Disallow: /dashboard/
+Disallow: /api/
 
-# Bing specific
+# Bing-specific
 User-agent: Bingbot
 Allow: /
 Disallow: /dashboard/
+Disallow: /api/
 
-# Sitemap location
+# Sitemap location (canonical www URL)
 Sitemap: https://www.devflowfix.com/sitemap.xml
 
 # Host directive (for Yandex)

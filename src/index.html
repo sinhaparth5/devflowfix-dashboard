@@ -8,7 +8,6 @@
         dataLayer.push(arguments);
       }
 
-      // Set default consent to denied - GDPR compliant
       gtag("consent", "default", {
         analytics_storage: "denied",
         ad_storage: "denied",
@@ -20,7 +19,6 @@
         wait_for_update: 500,
       });
 
-      // Check for existing consent in cookie and apply it immediately
       (function () {
         try {
           // Helper function to get cookie by name
@@ -83,21 +81,23 @@
     ></script>
 
     <meta charset="utf-8" />
-    <title>DevFlowFix - Dashboard for AI agent for CI/CD pipelines</title>
+    <title>
+      DevFlowFix - Automated Deployment Failure Resolution | AI-Powered CI/CD
+    </title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <meta
       name="title"
-      content="DevFlowFix - Modern Project Management Dashboard"
+      content="DevFlowFix - Automated Deployment Failure Resolution"
     />
     <meta
       name="description"
-      content="DevFlowFix is a modern, feature-rich dashboard for project management, team collaboration, and workflow optimization. Built with Angular and designed for developers."
+      content="DevFlowFix automatically resolves 75% of deployment failures in under 8 minutes using AI-powered analysis. Integrates with GitHub Actions, ArgoCD, and Kubernetes. Start free."
     />
     <meta
       name="keywords"
-      content="devflowfix, project management, dashboard, angular, workflow, collaboration, development tools, team management"
+      content="devflowfix, deployment automation, CI/CD, kubernetes, github actions, argocd, deployment failure resolution, AI remediation, devops automation, automated deployment"
     />
     <meta name="author" content="DevFlowFix" />
     <meta name="robots" content="index, follow" />
@@ -105,14 +105,14 @@
     <meta name="theme-color" content="#ff8800" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.devflowfix.com" />
+    <meta property="og:url" content="https://www.devflowfix.com/" />
     <meta
       property="og:title"
-      content="DevFlowFix - Modern Project Management Dashboard"
+      content="DevFlowFix - Automated Deployment Failure Resolution"
     />
     <meta
       property="og:description"
-      content="DevFlowFix is a modern, feature-rich dashboard for project management, team collaboration, and workflow optimization."
+      content="DevFlowFix automatically resolves 75% of deployment failures in under 8 minutes. AI-powered CI/CD analysis for GitHub Actions, ArgoCD, and Kubernetes."
     />
     <meta
       property="og:image"
@@ -121,22 +121,20 @@
     <meta property="og:site_name" content="DevFlowFix" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://x.com/devflowfix" />
+    <meta name="twitter:url" content="https://www.devflowfix.com/" />
     <meta
       name="twitter:title"
-      content="DevFlowFix - Modern Project Management Dashboard"
+      content="DevFlowFix - Automated Deployment Failure Resolution"
     />
     <meta
       name="twitter:description"
-      content="DevFlowFix is a modern, feature-rich dashboard for project management, team collaboration, and workflow optimization."
+      content="DevFlowFix automatically resolves 75% of deployment failures in under 8 minutes. AI-powered analysis for GitHub Actions, ArgoCD, and Kubernetes."
     />
     <meta
       name="twitter:image"
       content="https://www.devflowfix.com/images/devflowfix_og_img.png"
     />
     <meta name="twitter:site" content="@devflowfix" />
-
-    <link rel="canonical" href="https://www.devflowfix.com/" />
 
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />

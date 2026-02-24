@@ -19,10 +19,10 @@ export interface SEOConfig {
 })
 export class SeoService {
   private defaultConfig: SEOConfig = {
-    title: 'DevFlowFix - Modern Project Management Dashboard',
-    description: 'DevFlowFix is a modern, feature-rich dashboard for project management, team collaboration, and workflow optimization. Built with Angular and designed for developers.',
-    keywords: 'devflowfix, project management, dashboard, angular, workflow, collaboration, development tools',
-    image: '/images/og-image.png',
+    title: 'DevFlowFix - Automated Deployment Failure Resolution',
+    description: 'DevFlowFix automatically resolves 75% of deployment failures in under 8 minutes using AI-powered analysis. Integrates with GitHub Actions, ArgoCD, and Kubernetes.',
+    keywords: 'devflowfix, deployment automation, CI/CD, kubernetes, github actions, argocd, deployment failure resolution, AI remediation, devops automation',
+    image: '/images/devflowfix_og_img.png',
     type: 'website',
     author: 'DevFlowFix',
     robots: 'index, follow'
@@ -58,20 +58,22 @@ export class SeoService {
     this.updateMetaTag('author', seoConfig.author || this.defaultConfig.author!);
     this.updateMetaTag('robots', seoConfig.robots || this.defaultConfig.robots!);
 
-    // Open Graph tags
+    // Open Graph tags — og:url must always be an absolute URL
+    const rawUrl = seoConfig.url || this.getCurrentUrl();
+    const absoluteUrl = rawUrl.startsWith('http') ? rawUrl : `${this.baseUrl}${rawUrl.startsWith('/') ? '' : '/'}${rawUrl}`;
     this.updateMetaTag('og:title', seoConfig.title, 'property');
     this.updateMetaTag('og:description', seoConfig.description, 'property');
     this.updateMetaTag('og:type', seoConfig.type || this.defaultConfig.type!, 'property');
-    this.updateMetaTag('og:url', seoConfig.url || this.getCurrentUrl(), 'property');
-    this.updateMetaTag('og:image', seoConfig.image || this.defaultConfig.image!, 'property');
+    this.updateMetaTag('og:url', absoluteUrl, 'property');
+    this.updateMetaTag('og:image', seoConfig.image ? (seoConfig.image.startsWith('http') ? seoConfig.image : `${this.baseUrl}${seoConfig.image}`) : `${this.baseUrl}/images/devflowfix_og_img.png`, 'property');
     this.updateMetaTag('og:site_name', 'DevFlowFix', 'property');
 
     // Twitter Card tags
     this.updateMetaTag('twitter:card', 'summary_large_image', 'name');
     this.updateMetaTag('twitter:title', seoConfig.title, 'name');
     this.updateMetaTag('twitter:description', seoConfig.description, 'name');
-    this.updateMetaTag('twitter:image', seoConfig.image || this.defaultConfig.image!, 'name');
-    this.updateMetaTag('twitter:site', '@devflowfix', 'name'); // Update with your Twitter handle
+    this.updateMetaTag('twitter:image', seoConfig.image ? (seoConfig.image.startsWith('http') ? seoConfig.image : `${this.baseUrl}${seoConfig.image}`) : `${this.baseUrl}/images/devflowfix_og_img.png`, 'name');
+    this.updateMetaTag('twitter:site', '@devflowfix', 'name');
 
     // Update canonical URL
     this.updateCanonicalUrl(seoConfig.url);
@@ -118,14 +120,11 @@ export class SeoService {
   }
 
   /**
-   * Create structured data (JSON-LD)
+   * Create structured data (JSON-LD) — replaces ALL existing ld+json scripts
    */
   addStructuredData(data: any): void {
-    // Remove existing structured data
-    const existingScript = document.querySelector('script[type="application/ld+json"]');
-    if (existingScript) {
-      existingScript.remove();
-    }
+    // Remove ALL existing structured data scripts (not just the first one)
+    document.querySelectorAll('script[type="application/ld+json"]').forEach(s => s.remove());
 
     // Add new structured data
     const script = document.createElement('script');
