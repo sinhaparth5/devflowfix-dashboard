@@ -1,18 +1,23 @@
-import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpErrorResponse } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { OAuthService } from 'angular-oauth2-oidc';
-import { catchError, throwError } from 'rxjs';
+import {
+  HttpInterceptorFn,
+  HttpRequest,
+  HttpHandlerFn,
+  HttpErrorResponse,
+} from "@angular/common/http";
+import { inject } from "@angular/core";
+import { Router } from "@angular/router";
+import { OAuthService } from "angular-oauth2-oidc";
+import { catchError, throwError } from "rxjs";
 
 /**
  * Get access token from cookie (for custom login flow)
  */
 function getAccessTokenFromCookie(): string | null {
-  const nameEQ = 'access_token=';
-  const ca = document.cookie.split(';');
+  const nameEQ = "access_token=";
+  const ca = document.cookie.split(";");
   for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
-    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+    while (c.charAt(0) === " ") c = c.substring(1, c.length);
     if (c.indexOf(nameEQ) === 0) {
       return decodeURIComponent(c.substring(nameEQ.length, c.length));
     }
@@ -29,28 +34,37 @@ function getAccessTokenFromCookie(): string | null {
  */
 export const authInterceptor: HttpInterceptorFn = (
   request: HttpRequest<unknown>,
-  next: HttpHandlerFn
+  next: HttpHandlerFn,
 ) => {
   const oauthService = inject(OAuthService);
   const router = inject(Router);
 
-  // Skip auth header for Zitadel/OAuth URLs
-  if (request.url.includes('zitadel.cloud')) {
+  // Parse once and reuse
+  let parsedUrl: URL | null = null;
+  try {
+    parsedUrl = new URL(request.url);
+  } catch {
+    /* relative URL — skip */
+  }
+
+  // Skip auth header for Zitadel/OAuth URLs (check exact hostname suffix)
+  if (
+    parsedUrl?.hostname.endsWith(".zitadel.cloud") ||
+    parsedUrl?.hostname === "zitadel.cloud"
+  ) {
     return next(request);
   }
 
-  // Only add auth header for API requests
-  const apiUrl = 'https://api.devflowfix.com';
-
-  if (request.url.startsWith(apiUrl)) {
+  // Only add auth header for API requests (exact origin match)
+  if (parsedUrl?.origin === "https://api.devflowfix.com") {
     // Try OAuth token first, then fall back to cookie-based token
     const token = oauthService.getAccessToken() || getAccessTokenFromCookie();
 
     if (token) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
     }
   }
@@ -60,11 +74,11 @@ export const authInterceptor: HttpInterceptorFn = (
       if (error.status === 401) {
         // Token is invalid or expired - redirect to login
         // Store the current URL to return after login
-        sessionStorage.setItem('returnUrl', router.url);
-        router.navigate(['/signin']);
+        sessionStorage.setItem("returnUrl", router.url);
+        router.navigate(["/signin"]);
       }
 
       return throwError(() => error);
-    })
+    }),
   );
 };
