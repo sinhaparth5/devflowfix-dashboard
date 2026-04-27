@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google Consent Mode - Set defaults BEFORE loading any tracking scripts -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -21,7 +20,6 @@
 
       (function () {
         try {
-          // Helper function to get cookie by name
           function getCookie(name) {
             var nameEQ = name + "=";
             var cookies = document.cookie.split(";");
@@ -44,13 +42,10 @@
               ad_personalization: preferences.marketing ? "granted" : "denied",
             });
           }
-        } catch (e) {
-          // If there's an error reading consent, defaults remain (denied)
-        }
+        } catch (e) {}
       })();
     </script>
 
-    <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
@@ -63,9 +58,6 @@
         f.parentNode.insertBefore(j, f);
       })(window, document, "script", "dataLayer", "GTM-T384SGWX");
     </script>
-    <!-- End Google Tag Manager -->
-
-    <!-- Google tag (gtag.js) -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-LPNVX4RD1L"
@@ -282,7 +274,6 @@
     </script>
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe
         src="https://www.googletagmanager.com/ns.html?id=GTM-T384SGWX"
@@ -292,9 +283,6 @@
         title="Google Tag Manager"
       ></iframe
     ></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
-    <!-- Skip to Main Content Link (WCAG 2.4.1) -->
     <a
       href="#main-content"
       class="skip-link"
