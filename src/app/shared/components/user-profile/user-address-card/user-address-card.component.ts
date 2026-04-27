@@ -5,6 +5,7 @@ import { ModalService } from '../../../services/modal.service';
 import { InputFieldComponent } from '../../form/input/input-field.component';
 import { LabelComponent } from '../../form/label/label.component';
 import { ModalComponent } from '../../ui/modal/modal.component';
+import { SanitizationService } from '../../../services/sanitization.service';
 import { UserDetailsService, UserDetails } from '../../../services/user-details.service';
 
 @Component({
@@ -22,7 +23,8 @@ export class UserAddressCardComponent implements OnInit {
 
   constructor(
     public modal: ModalService,
-    private userDetailsService: UserDetailsService
+    private userDetailsService: UserDetailsService,
+    private sanitizationService: SanitizationService
   ) {}
 
   isOpen = false;
@@ -74,15 +76,15 @@ export class UserAddressCardComponent implements OnInit {
 
     // Only send address fields
     const addressData: Partial<UserDetails> = {
-      country: this.userDetails.country,
-      city: this.userDetails.city,
-      postal_code: this.userDetails.postal_code,
+      country: this.sanitizationService.sanitizeText(this.userDetails.country || ''),
+      city: this.sanitizationService.sanitizeText(this.userDetails.city || ''),
+      postal_code: this.sanitizationService.sanitizeText(this.userDetails.postal_code || ''),
     };
 
     this.userDetailsService.updateUserDetails(addressData).subscribe({
       next: (updatedDetails) => {
         // Merge the response with existing data to preserve social links and other fields
-        this.userDetails = { ...this.userDetails, ...updatedDetails };
+        this.userDetails = { ...this.userDetails, ...addressData, ...updatedDetails };
         this.isSaving = false;
         this.closeModal();
       },

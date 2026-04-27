@@ -151,19 +151,19 @@ export class UserMetaCardComponent implements OnInit {
 
     // Prepare user details data - all fields that can be updated via user-details API
     const userDetailsData: Partial<UserDetails> = {
-      facebook_link: this.sanitizationService.sanitizeText(
+      facebook_link: this.sanitizationService.sanitizeUrl(
         this.userForm.get('facebook_link')?.value
       ) || '',
-      twitter_link: this.sanitizationService.sanitizeText(
+      twitter_link: this.sanitizationService.sanitizeUrl(
         this.userForm.get('twitter_link')?.value
       ) || '',
-      linkedin_link: this.sanitizationService.sanitizeText(
+      linkedin_link: this.sanitizationService.sanitizeUrl(
         this.userForm.get('linkedin_link')?.value
       ) || '',
-      instagram_link: this.sanitizationService.sanitizeText(
+      instagram_link: this.sanitizationService.sanitizeUrl(
         this.userForm.get('instagram_link')?.value
       ) || '',
-      github_link: this.sanitizationService.sanitizeText(
+      github_link: this.sanitizationService.sanitizeUrl(
         this.userForm.get('github_link')?.value
       ) || '',
     };
@@ -172,7 +172,14 @@ export class UserMetaCardComponent implements OnInit {
     this.userDetailsService.updateUserDetails(userDetailsData).subscribe({
       next: (details) => {
         // Merge the response with existing data to preserve all fields
-        this.userDetails = { ...this.userDetails, ...details };
+        this.userDetails = { ...this.userDetails, ...userDetailsData, ...details };
+        this.userForm.patchValue({
+          facebook_link: this.userDetails.facebook_link || '',
+          twitter_link: this.userDetails.twitter_link || '',
+          linkedin_link: this.userDetails.linkedin_link || '',
+          instagram_link: this.userDetails.instagram_link || '',
+          github_link: this.userDetails.github_link || '',
+        });
         this.isSaving = false;
         this.closeModal();
       },
