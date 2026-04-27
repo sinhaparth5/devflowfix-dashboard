@@ -24,20 +24,16 @@
   >
     <a routerLink="/dashboard">
       @if ((isExpanded$ | async) || (isHovered$ | async) || (isMobileOpen$ | async)) {
-      <img
-        class="dark:hidden"
-        src="/images/logo/logo.svg"
-        alt="Logo"
-        width="150"
-        height="40"
-      />
-      <img
-        class="hidden dark:block"
-        src="/images/logo/logo-dark.svg"
-        alt="Logo"
-        width="150"
-        height="40"
-      />
+      <span class="flex items-center gap-2 group" aria-label="DevFlowFix dashboard">
+        <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500 shadow-md transition-all duration-300 group-hover:scale-105">
+          <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+          </svg>
+        </span>
+        <span class="text-xl font-bold text-gray-900 transition-colors duration-300 dark:text-white">
+          DevFlow<span class="text-brand-500">Fix</span>
+        </span>
+      </span>
       } @else {
       <img src="/images/logo/logo-icon.svg" alt="Logo" width="32" height="32" />
       }
