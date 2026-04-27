@@ -9,6 +9,7 @@ export const sanitizationInterceptor: HttpInterceptorFn = (req, next) => {
   const skipSanitization = [
     '/me/avatar', // File upload endpoint
     '/user-details/me', // Profile updates are sanitized field-by-field before submit
+    '/events/', // Calendar event payloads are sanitized before service calls
     'zitadel.cloud', // OAuth provider - don't modify OAuth requests
   ];
 

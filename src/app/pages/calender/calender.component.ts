@@ -9,6 +9,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { ModalComponent } from '../../shared/components/ui/modal/modal.component';
 import { EventsService, CalendarEvent, CreateEventRequest, UpdateEventRequest } from '../../shared/services/events.service';
 import { Subscription } from 'rxjs';
+import { SanitizationService } from '../../shared/services/sanitization.service';
 
 interface FullCalendarEvent extends EventInput {
   extendedProps: {
@@ -77,7 +78,10 @@ export class CalenderComponent implements OnInit, OnDestroy {
   calendarOptions!: CalendarOptions;
   private subscriptions: Subscription[] = [];
 
-  constructor(private eventsService: EventsService) {}
+  constructor(
+    private eventsService: EventsService,
+    private sanitizationService: SanitizationService
+  ) {}
 
   ngOnInit() {
     this.initCalendarOptions();
@@ -182,10 +186,10 @@ export class CalenderComponent implements OnInit, OnDestroy {
     }));
   }
 
-  private mapCalendarEventToApi(event: FullCalendarEvent): CreateEventRequest | UpdateEventRequest {
+  private buildEventPayload(): CreateEventRequest {
     return {
-      title: this.eventTitle,
-      description: this.eventDescription,
+      title: this.sanitizationService.sanitizeText(this.eventTitle).trim(),
+      description: this.sanitizationService.sanitizeText(this.eventDescription || '').trim(),
       start_date: this.eventStartDate,
       end_date: this.eventEndDate || undefined,
       all_day: true,
@@ -235,7 +239,9 @@ export class CalenderComponent implements OnInit, OnDestroy {
   }
 
   handleAddOrUpdateEvent() {
-    if (!this.eventTitle.trim()) {
+    const eventPayload = this.buildEventPayload();
+
+    if (!eventPayload.title?.trim()) {
       this.error = 'Please enter an event title';
       return;
     }
@@ -250,14 +256,7 @@ export class CalenderComponent implements OnInit, OnDestroy {
 
     if (this.selectedEvent && this.selectedEvent.extendedProps.apiId) {
       // Update existing event
-      const updateData: UpdateEventRequest = {
-        title: this.eventTitle,
-        description: this.eventDescription,
-        start_date: this.eventStartDate,
-        end_date: this.eventEndDate || undefined,
-        all_day: true,
-        color: REVERSE_COLOR_MAP[this.eventLevel] || 'primary'
-      };
+      const updateData: UpdateEventRequest = eventPayload;
 
       this.eventsService.updateEvent(this.selectedEvent.extendedProps.apiId, updateData).subscribe({
         next: (updatedEvent) => {
@@ -266,18 +265,20 @@ export class CalenderComponent implements OnInit, OnDestroy {
             ev.extendedProps.apiId === this.selectedEvent!.extendedProps.apiId
               ? {
                   id: ev.id,
-                  title: this.eventTitle,
-                  start: this.eventStartDate,
-                  end: this.eventEndDate,
+                  title: updateData.title || '',
+                  start: updateData.start_date || '',
+                  end: updateData.end_date,
                   allDay: true,
                   extendedProps: {
                     calendar: this.eventLevel,
                     apiId: updatedEvent.id,
-                    description: this.eventDescription
+                    description: updateData.description
                   }
                 }
               : ev
           );
+          this.eventTitle = updateData.title || '';
+          this.eventDescription = updateData.description || '';
           this.updateCalendarEvents();
           this.isSaving = false;
           this.closeModal();
@@ -290,29 +291,24 @@ export class CalenderComponent implements OnInit, OnDestroy {
       });
     } else {
       // Create new event
-      const createData: CreateEventRequest = {
-        title: this.eventTitle,
-        description: this.eventDescription,
-        start_date: this.eventStartDate,
-        end_date: this.eventEndDate || undefined,
-        all_day: true,
-        color: REVERSE_COLOR_MAP[this.eventLevel] || 'primary'
-      };
+      const createData: CreateEventRequest = eventPayload;
 
       this.eventsService.createEvent(createData).subscribe({
         next: (newEvent) => {
           const calendarEvent: FullCalendarEvent = {
             id: newEvent.id || Date.now().toString(),
-            title: this.eventTitle,
-            start: this.eventStartDate,
-            end: this.eventEndDate,
+            title: createData.title,
+            start: createData.start_date,
+            end: createData.end_date,
             allDay: true,
             extendedProps: {
               calendar: this.eventLevel,
               apiId: newEvent.id,
-              description: this.eventDescription
+              description: createData.description
             }
           };
+          this.eventTitle = createData.title;
+          this.eventDescription = createData.description || '';
           this.events = [...this.events, calendarEvent];
           this.updateCalendarEvents();
           this.isSaving = false;
