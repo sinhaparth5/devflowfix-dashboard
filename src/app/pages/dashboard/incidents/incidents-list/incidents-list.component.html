@@ -1,5 +1,4 @@
 <div class="space-y-6">
-  <!-- Header -->
   <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
     <div>
       <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Incidents</h1>
@@ -26,13 +25,11 @@
     </div>
   </div>
 
-  <!-- Filters -->
   <app-incident-filter
     [filters]="filters"
     (filtersChange)="onFiltersChange($event)">
   </app-incident-filter>
 
-  <!-- Error Message -->
   @if (error) {
     <div class="flex items-center gap-3 rounded-xl border border-rose-200 bg-rose-50 p-4 dark:border-rose-800 dark:bg-rose-900/20">
       <svg class="h-5 w-5 shrink-0 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,7 +39,6 @@
     </div>
   }
 
-  <!-- Stats Summary Cards -->
   <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
     <div class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
       <div class="flex items-center justify-between">
@@ -104,9 +100,7 @@
     </div>
   </div>
 
-  <!-- Table -->
   <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
-    <!-- Loading State -->
     @if (isLoading) {
       <div class="flex flex-col items-center justify-center py-16">
         <div class="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600 dark:border-gray-700"></div>
@@ -114,7 +108,6 @@
       </div>
     }
 
-    <!-- Empty State -->
     @if (!isLoading && incidents.length === 0) {
       <div class="flex flex-col items-center justify-center py-16">
         <div class="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
@@ -127,7 +120,6 @@
       </div>
     }
 
-    <!-- Data Table -->
     @if (!isLoading && incidents.length > 0) {
       <div class="overflow-x-auto">
         <table class="w-full">
@@ -192,7 +184,6 @@
       </div>
     }
 
-    <!-- Pagination -->
     @if (!isLoading && incidents.length > 0) {
       <div class="flex flex-col items-center justify-between gap-4 border-t border-gray-100 bg-gray-50/50 px-6 py-4 dark:border-gray-800 dark:bg-gray-800/50 sm:flex-row">
         <p class="text-sm text-gray-600 dark:text-gray-400">

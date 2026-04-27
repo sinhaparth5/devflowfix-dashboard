@@ -1,21 +1,15 @@
 <div class="min-h-screen bg-[#f5f3f0] dark:bg-gray-900 overflow-hidden">
-  <!-- Shared Navbar -->
   <app-public-navbar activePage="contact"></app-public-navbar>
 
-  <!-- Main Content -->
   <main id="main-content" role="main">
 
-  <!-- Hero Section -->
   <section class="pt-12 pb-12 px-6 relative">
-    <!-- Floating Background Elements -->
     <div class="absolute top-20 right-10 w-64 h-64 bg-brand-200/30 rounded-full blur-3xl animate-float-slow"></div>
     <div class="absolute bottom-10 left-10 w-72 h-72 bg-mustard-200/20 rounded-full blur-3xl animate-float delay-500"></div>
 
-    <!-- Decorative Elements -->
     <div class="absolute top-32 left-16 w-16 h-16 border-2 border-dashed border-brand-300 rounded-full deco-circle opacity-40 hidden lg:block"></div>
     <div class="absolute bottom-20 right-20 w-12 h-12 border-2 border-brand-200 opacity-30 hidden lg:block" style="transform: rotate(45deg);"></div>
 
-    <!-- Floating Particles -->
     <div class="particle particle-1 hidden lg:block" aria-hidden="true" style="top: 20%; left: 10%;"></div>
     <div class="particle particle-2 hidden lg:block" aria-hidden="true" style="top: 60%; right: 15%;"></div>
 
@@ -33,11 +27,9 @@
     </div>
   </section>
 
-  <!-- Contact Form & Info -->
   <section class="py-12 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="grid md:grid-cols-2 gap-12">
-        <!-- Contact Form -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 border-4 border-black dark:border-gray-700 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,136,0,0.3)]">
           @if (submitted) {
             <div class="text-center py-12">
@@ -109,7 +101,6 @@
           }
         </div>
 
-        <!-- Contact Info -->
         <div class="space-y-8">
           <div>
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Get in Touch</h2>
@@ -178,7 +169,6 @@
     </div>
   </section>
 
-  <!-- FAQ Section -->
   <section class="py-16 px-6 bg-white dark:bg-gray-800 relative overflow-hidden">
     <div class="absolute -top-20 -right-20 w-80 h-80 bg-brand-100/20 rounded-full blur-3xl" aria-hidden="true"></div>
 
@@ -202,8 +192,6 @@
   </section>
 
   </main>
-  <!-- End Main Content -->
 
-  <!-- Shared Footer -->
   <app-public-footer></app-public-footer>
 </div>

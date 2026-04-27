@@ -1,5 +1,4 @@
 <div class="p-6">
-  <!-- Header -->
   <div class="flex items-center justify-between mb-6">
     <div>
       <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Admin - Global Statistics</h1>
@@ -12,24 +11,20 @@
     </a>
   </div>
 
-  <!-- Loading State -->
   @if (isLoading) {
     <div class="flex justify-center items-center p-12">
       <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
     </div>
   }
 
-  <!-- Error State -->
   @if (error) {
     <div class="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
       <p class="text-red-800 dark:text-red-400">{{ error }}</p>
     </div>
   }
 
-  <!-- Statistics Content -->
   @if (!isLoading && !error && stats) {
     <div>
-      <!-- Overview Cards -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
           <div class="flex items-center justify-between">
@@ -88,7 +83,6 @@
           </div>
         </div>
       </div>
-      <!-- Status Breakdown Cards -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
           <p class="text-sm text-gray-600 dark:text-gray-400">Pending</p>
@@ -107,7 +101,6 @@
           <p class="text-2xl font-bold text-orange-600 dark:text-orange-400 mt-1">{{ stats.rolled_back_count }}</p>
         </div>
       </div>
-      <!-- Charts -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">By Source</h3>

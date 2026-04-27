@@ -1,5 +1,4 @@
 <div class="space-y-6">
-  <!-- Header -->
   <div>
     <button
       (click)="goBack()"
@@ -12,7 +11,6 @@
     <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Incident Details</h1>
   </div>
 
-  <!-- Loading State -->
   @if (isLoading) {
     <div class="flex flex-col items-center justify-center py-16">
       <div class="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600 dark:border-gray-700"></div>
@@ -20,7 +18,6 @@
     </div>
   }
 
-  <!-- Error State -->
   @if (error) {
     <div class="flex items-center gap-3 rounded-xl border border-rose-200 bg-rose-50 p-4 dark:border-rose-800 dark:bg-rose-900/20">
       <svg class="h-5 w-5 shrink-0 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -30,10 +27,8 @@
     </div>
   }
 
-  <!-- Incident Details -->
   @if (!isLoading && !error && incident) {
     <div class="space-y-6">
-      <!-- Overview Card -->
       <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
         <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div class="flex items-center gap-4">
@@ -67,7 +62,6 @@
         </div>
       </div>
 
-      <!-- Description -->
       @if (incident.description) {
         <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Description</h3>
@@ -75,7 +69,6 @@
         </div>
       }
 
-      <!-- Error Log -->
       <div class="rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
         <div class="flex items-center justify-between border-b border-gray-100 px-6 py-4 dark:border-gray-800">
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Error Log</h3>
@@ -93,7 +86,6 @@
         </div>
       </div>
 
-      <!-- Stack Trace -->
       @if (incident.stack_trace) {
         <div class="rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <div class="flex items-center justify-between border-b border-gray-100 px-6 py-4 dark:border-gray-800">
@@ -113,7 +105,6 @@
         </div>
       }
 
-      <!-- Analysis -->
       @if (incident.analysis) {
         <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <div class="mb-4 flex items-center gap-2">
@@ -128,7 +119,6 @@
         </div>
       }
 
-      <!-- Remediation Steps -->
       @if (incident.remediation_steps && incident.remediation_steps.length > 0) {
         <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <div class="mb-4 flex items-center gap-2">
@@ -152,7 +142,6 @@
         </div>
       }
 
-      <!-- Repository Information -->
       @if (incident.repository) {
         <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <div class="mb-4 flex items-center gap-2">
@@ -184,7 +173,6 @@
         </div>
       }
 
-      <!-- Related PR -->
       @if (incident.pr_url) {
         <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Related Pull Request</h3>
@@ -204,7 +192,6 @@
         </div>
       }
 
-      <!-- Affected Services -->
       @if (incident.affected_services && incident.affected_services.length > 0) {
         <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Affected Services</h3>
@@ -221,7 +208,6 @@
         </div>
       }
 
-      <!-- Timeline -->
       <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
         <h3 class="mb-6 text-lg font-semibold text-gray-900 dark:text-white">Timeline</h3>
         <div class="relative space-y-6 pl-8 before:absolute before:left-[11px] before:top-2 before:h-[calc(100%-16px)] before:w-0.5 before:bg-gray-200 dark:before:bg-gray-700">

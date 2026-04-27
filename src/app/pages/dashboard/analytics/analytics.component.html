@@ -1,10 +1,8 @@
 <div class="grid grid-cols-12 gap-5 md:gap-6 2xl:gap-7">
 
-  <!-- Metrics Cards Row -->
   <div class="col-span-12">
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4 md:gap-6">
 
-      <!-- Total Incidents Card -->
       <div class="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-gray-300 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-gray-700">
         <div class="flex items-start justify-between">
           <div class="flex-1">
@@ -30,7 +28,6 @@
         </div>
       </div>
 
-      <!-- Success Rate Card -->
       <div class="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-gray-300 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-gray-700">
         <div class="flex items-start justify-between">
           <div class="flex-1">
@@ -56,7 +53,6 @@
         </div>
       </div>
 
-      <!-- Resolved Card -->
       <div class="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-gray-300 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-gray-700">
         <div class="flex items-start justify-between">
           <div class="flex-1">
@@ -82,7 +78,6 @@
         </div>
       </div>
 
-      <!-- Failed Card -->
       <div class="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-gray-300 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-gray-700">
         <div class="flex items-start justify-between">
           <div class="flex-1">
@@ -111,7 +106,6 @@
     </div>
   </div>
 
-  <!-- Charts Row: Trends + MTTR -->
   <div class="col-span-12 xl:col-span-8">
     <div class="h-full rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
       <div class="mb-6 flex items-center justify-between">
@@ -159,7 +153,6 @@
     </div>
   </div>
 
-  <!-- MTTR Card -->
   <div class="col-span-12 xl:col-span-4">
     <div class="h-full rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
       <div class="mb-6">
@@ -176,7 +169,6 @@
         </div>
       } @else if (mttr) {
         <div class="space-y-5">
-          <!-- Primary MTTR Display -->
           <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 p-5 text-white shadow-lg shadow-blue-500/25">
             <div class="relative z-10">
               <p class="text-sm font-medium text-blue-100">Average</p>
@@ -185,7 +177,6 @@
             <div class="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-white/10"></div>
             <div class="absolute -bottom-6 -right-6 h-20 w-20 rounded-full bg-white/5"></div>
           </div>
-          <!-- Secondary Stats -->
           <div class="grid grid-cols-2 gap-4">
             <div class="rounded-xl border border-gray-100 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-800/50">
               <p class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Median</p>
@@ -200,7 +191,6 @@
               </p>
             </div>
           </div>
-          <!-- Sample Size -->
           <div class="flex items-center gap-2 rounded-lg bg-gray-50 px-4 py-2.5 dark:bg-gray-800/50">
             <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -222,7 +212,6 @@
     </div>
   </div>
 
-  <!-- Breakdown Charts Row -->
   <div class="col-span-12 lg:col-span-6">
     <div class="h-full rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
       <div class="mb-6">
@@ -281,7 +270,6 @@
     </div>
   </div>
 
-  <!-- Top Repositories -->
   <div class="col-span-12">
     <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
       <div class="mb-6 flex items-center justify-between">
@@ -311,7 +299,6 @@
         <div class="space-y-3">
           @for (repo of topRepositories; track repo.repository; let i = $index) {
             <div class="group flex items-center gap-4 rounded-xl border border-transparent p-3 transition-all hover:border-gray-100 hover:bg-gray-50 dark:hover:border-gray-800 dark:hover:bg-gray-800/50">
-              <!-- Rank Badge -->
               <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg font-semibold"
                    [class]="i === 0 ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400' :
                             i === 1 ? 'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300' :
@@ -319,16 +306,13 @@
                             'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'">
                 {{ i + 1 }}
               </div>
-              <!-- Repository Info -->
               <div class="min-w-0 flex-1">
                 <p class="truncate text-sm font-medium text-gray-900 dark:text-white">{{ repo.repository }}</p>
-                <!-- Progress Bar -->
                 <div class="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
                   <div class="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-500"
                        [style.width.%]="(repo.count / topRepositories[0].count) * 100"></div>
                 </div>
               </div>
-              <!-- Count Badge -->
               <div class="shrink-0">
                 <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1.5 text-sm font-semibold text-blue-700 dark:bg-blue-500/10 dark:text-blue-400">
                   {{ repo.count }}

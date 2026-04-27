@@ -1,21 +1,15 @@
 <div class="min-h-screen bg-[#f5f3f0] dark:bg-gray-900 overflow-hidden">
-  <!-- Shared Navbar -->
   <app-public-navbar activePage="about"></app-public-navbar>
 
-  <!-- Main Content -->
   <main id="main-content" role="main">
 
-  <!-- Hero Section -->
   <section class="pt-12 pb-20 px-6 relative">
-    <!-- Floating Background Elements -->
     <div class="absolute top-20 right-10 w-72 h-72 bg-brand-200/30 rounded-full blur-3xl animate-float-slow"></div>
     <div class="absolute bottom-10 left-10 w-64 h-64 bg-mustard-200/20 rounded-full blur-3xl animate-float delay-500"></div>
 
-    <!-- Decorative Elements -->
     <div class="absolute top-40 left-16 w-16 h-16 border-2 border-dashed border-brand-300 rounded-full deco-circle opacity-40 hidden lg:block"></div>
     <div class="absolute bottom-32 right-20 w-12 h-12 border-2 border-mustard-300 deco-square opacity-30 hidden lg:block" style="transform: rotate(45deg);"></div>
 
-    <!-- Floating Particles -->
     <div class="particle particle-1 hidden lg:block" aria-hidden="true"  style="top: 20%; left: 8%;"></div>
     <div class="particle particle-2 hidden lg:block" aria-hidden="true"  style="top: 50%; right: 12%;"></div>
     <div class="particle particle-3 hidden lg:block" aria-hidden="true"  style="bottom: 30%; left: 15%;"></div>
@@ -34,9 +28,7 @@
     </div>
   </section>
 
-  <!-- Video Section -->
   <section class="py-16 px-6 bg-white dark:bg-gray-800 relative overflow-hidden">
-    <!-- Background decorations -->
     <div class="absolute top-10 left-10 w-64 h-64 bg-brand-100/20 rounded-full blur-3xl" aria-hidden="true"></div>
     <div class="absolute bottom-10 right-10 w-48 h-48 bg-mustard-100/20 rounded-full blur-3xl" aria-hidden="true"></div>
 
@@ -53,17 +45,12 @@
         </p>
       </div>
 
-      <!-- Video Container -->
       <div appScrollAnimate animationType="fade-up" [animationDelay]="200" class="relative group">
-        <!-- Decorative frame -->
         <div class="absolute -inset-4 bg-gradient-to-r from-brand-500 via-mustard-500 to-brand-500 rounded-3xl opacity-20 blur-xl group-hover:opacity-30 transition-opacity duration-500"></div>
 
-        <!-- Video wrapper with aspect ratio -->
         <div class="relative bg-gray-900 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-200 dark:ring-gray-700">
-          <!-- Play button overlay gradient -->
           <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-          <!-- Responsive iframe container -->
           <div class="relative w-full" style="padding-bottom: 56.25%;">
             <iframe
               class="absolute top-0 left-0 w-full h-full"
@@ -77,12 +64,10 @@
           </div>
         </div>
 
-        <!-- Decorative elements -->
         <div class="absolute -bottom-3 -right-3 w-24 h-24 border-2 border-brand-300/30 rounded-xl rotate-12 hidden md:block"></div>
         <div class="absolute -top-3 -left-3 w-16 h-16 border-2 border-mustard-300/30 rounded-full hidden md:block"></div>
       </div>
 
-      <!-- Video stats/highlights -->
       <div appScrollAnimate animationType="fade-up" [animationDelay]="400" class="grid grid-cols-3 gap-6 mt-10">
         <div class="text-center">
           <div class="text-2xl md:text-3xl font-bold text-brand-500 mb-1">2 min</div>
@@ -100,9 +85,7 @@
     </div>
   </section>
 
-  <!-- Mission Section -->
   <section class="py-20 px-6 relative overflow-hidden">
-    <!-- Background decorations -->
     <div class="absolute -top-20 -right-20 w-80 h-80 bg-brand-100/30 rounded-full blur-3xl" aria-hidden="true"></div>
 
     <div class="max-w-6xl mx-auto relative z-10">
@@ -117,7 +100,6 @@
           </p>
         </div>
         <div appScrollAnimate animationType="fade-left" [animationDelay]="200" class="bg-gradient-to-br from-brand-500 to-mustard-500 rounded-2xl p-8 text-white relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
-          <!-- Animated background shapes -->
           <div class="absolute top-4 right-4 w-20 h-20 border-2 border-white/20 rounded-full animate-float-slow"></div>
           <div class="absolute bottom-4 left-4 w-12 h-12 border border-white/10 rounded-lg rotate-45 animate-float"></div>
 
@@ -131,9 +113,7 @@
     </div>
   </section>
 
-  <!-- Values Section -->
   <section class="py-20 px-6 relative">
-    <!-- Background particles -->
     <div class="particle particle-4 hidden lg:block" aria-hidden="true" style="top: 10%; right: 20%;"></div>
     <div class="particle particle-5 hidden lg:block" aria-hidden="true" style="bottom: 20%; left: 10%;"></div>
 
@@ -171,9 +151,7 @@
     </div>
   </section>
 
-  <!-- Timeline Section -->
   <section class="py-20 px-6 bg-white dark:bg-gray-800 relative overflow-hidden">
-    <!-- Background decorations -->
     <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-brand-100/20 rounded-full blur-3xl" aria-hidden="true"></div>
 
     <div class="max-w-4xl mx-auto relative z-10">
@@ -194,9 +172,7 @@
     </div>
   </section>
 
-  <!-- CTA Section -->
   <section class="py-20 px-6 relative">
-    <!-- Background decorations -->
     <div class="absolute top-10 left-10 w-20 h-20 border-2 border-brand-200 rounded-full animate-float-slow opacity-40"></div>
     <div class="absolute bottom-10 right-10 w-16 h-16 bg-mustard-100 rounded-lg animate-float rotate-12 opacity-30"></div>
 
@@ -219,8 +195,6 @@
   </section>
 
   </main>
-  <!-- End Main Content -->
 
-  <!-- Shared Footer -->
   <app-public-footer></app-public-footer>
 </div>

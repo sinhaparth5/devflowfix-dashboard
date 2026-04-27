@@ -8,7 +8,6 @@
     </p>
   </div>
 
-  <!-- Success Message -->
   @if (showSuccess) {
     <div class="mb-5 rounded-lg bg-success-50 p-4 dark:bg-success-900/20">
       <p class="text-sm font-medium text-success-700 dark:text-success-400">
@@ -17,7 +16,6 @@
     </div>
   }
 
-  <!-- Error Message -->
   @if (errorMessage) {
     <div class="mb-5 rounded-lg bg-error-50 p-4 dark:bg-error-900/20">
       <p class="text-sm font-medium text-error-700 dark:text-error-400">
@@ -28,7 +26,6 @@
 
   <form (submit)="onSubmit(); $event.preventDefault()">
     <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-      <!-- Owner Field (Required) -->
       <div>
         <app-label>
           Owner (GitHub Organization/User) <span class="text-error-500">*</span>
@@ -44,7 +41,6 @@
         }
       </div>
 
-      <!-- Repository Field (Optional) -->
       <div>
         <app-label>
           Repository (Optional)
@@ -60,7 +56,6 @@
       </div>
     </div>
 
-    <!-- Token Field (Required) -->
     <div class="mt-5">
       <app-label>
         GitHub Personal Access Token <span class="text-error-500">*</span>
@@ -80,7 +75,6 @@
       </p>
     </div>
 
-    <!-- Description Field (Optional) -->
     <div class="mt-5">
       <app-label>
         Description (Optional)
@@ -93,7 +87,6 @@
       </app-text-area>
     </div>
 
-    <!-- Scopes Field (Optional) -->
     <div class="mt-5">
       <app-label>
         Scopes (Optional)
@@ -108,7 +101,6 @@
       </p>
     </div>
 
-    <!-- Submit Button -->
     <div class="mt-6">
       <button
         type="submit"

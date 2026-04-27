@@ -4,7 +4,6 @@
   [value]="value"
   (change)="onChange($event)"
 >
-  <!-- Placeholder option -->
   <option
     value=""
     disabled
@@ -13,7 +12,6 @@
   >
     {{ placeholder }}
   </option>
-  <!-- Map over options -->
   @for (option of options; track $index) {
   <option
     [value]="option.value"

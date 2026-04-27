@@ -5,7 +5,6 @@
     </h4>
   </div>
 
-  <!-- Filters -->
   <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div class="flex-1 sm:max-w-xs">
@@ -32,7 +31,6 @@
     </div>
   </div>
 
-  <!-- Error Message -->
   @if (errorMessage && !isLoading) {
     <div class="px-7 py-4">
       <div class="rounded-lg bg-error-50 p-4 dark:bg-error-900/20">
@@ -43,7 +41,6 @@
     </div>
   }
 
-  <!-- Loading State -->
   @if (isLoading) {
     <div class="px-7 py-12">
       <div class="flex items-center justify-center">
@@ -58,7 +55,6 @@
     </div>
   }
 
-  <!-- Table -->
   @if (!isLoading && tokens.length > 0) {
     <div class="overflow-x-auto">
       <table class="w-full table-auto">
@@ -87,7 +83,6 @@
         <tbody>
           @for (token of tokens; track token.token_id) {
             <tr class="border-b border-stroke dark:border-strokedark">
-              <!-- Owner/Repo -->
               <td class="px-7 py-5">
                 <p class="text-black dark:text-white">
                   {{ token.owner }}@if (token.repo) {<span class="text-gray-500">/{{ token.repo }}</span>} @else {<span class="text-gray-400">/*</span>}
@@ -99,14 +94,12 @@
                 }
               </td>
 
-              <!-- Masked Token -->
               <td class="px-4 py-5">
                 <code class="text-sm font-mono text-gray-600 dark:text-gray-300">
                   {{ token.token_masked }}
                 </code>
               </td>
 
-              <!-- Scopes -->
               <td class="px-4 py-5">
                 <div class="flex flex-wrap gap-1">
                   @for (scope of token.scopes; track scope) {
@@ -117,21 +110,18 @@
                 </div>
               </td>
 
-              <!-- Status -->
               <td class="px-4 py-5">
                 <app-badge [color]="getBadgeColor(token.is_active)">
                   {{ token.is_active ? 'Active' : 'Inactive' }}
                 </app-badge>
               </td>
 
-              <!-- Created Date -->
               <td class="px-4 py-5">
                 <p class="text-sm text-gray-600 dark:text-gray-300">
                   {{ formatDate(token.created_at) }}
                 </p>
               </td>
 
-              <!-- Actions -->
               <td class="px-4 py-5">
                 @if (token.is_active) {
                   <button
@@ -152,7 +142,6 @@
     </div>
   }
 
-  <!-- Empty State -->
   @if (!isLoading && tokens.length === 0 && !errorMessage) {
     <div class="px-7 py-12">
       <div class="text-center">

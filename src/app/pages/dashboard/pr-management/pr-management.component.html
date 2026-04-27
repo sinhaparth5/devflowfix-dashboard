@@ -1,5 +1,4 @@
 <div class="space-y-6">
-  <!-- Header -->
   <div>
     <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">PR Management</h1>
     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -7,7 +6,6 @@
     </p>
   </div>
 
-  <!-- Tab Navigation -->
   <div class="rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
     <div class="border-b border-gray-100 dark:border-gray-800">
       <nav class="flex gap-1 px-4" aria-label="Tabs">
@@ -62,14 +60,11 @@
       </nav>
     </div>
 
-    <!-- Tab Content -->
     <div class="p-6">
-      <!-- Pull Requests Tab -->
       @if (activeTab === 'prs') {
         <app-pr-list-table (viewDetails)="openPRDetails($event)"></app-pr-list-table>
       }
 
-      <!-- GitHub Tokens Tab -->
       @if (activeTab === 'tokens') {
         <div class="space-y-6">
           <app-token-registration-form (tokenRegistered)="onTokenRegistered()"></app-token-registration-form>
@@ -77,7 +72,6 @@
         </div>
       }
 
-      <!-- Statistics Tab -->
       @if (activeTab === 'stats') {
         <app-pr-stats-dashboard></app-pr-stats-dashboard>
       }
@@ -85,7 +79,6 @@
   </div>
 </div>
 
-<!-- PR Details Modal -->
 <app-pr-details-modal
   [isOpen]="isPRDetailsModalOpen"
   [prId]="selectedPRId"

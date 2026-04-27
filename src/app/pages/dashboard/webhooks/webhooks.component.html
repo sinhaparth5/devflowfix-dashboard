@@ -1,5 +1,4 @@
 <div class="space-y-6">
-  <!-- Header -->
   <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
     <div>
       <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Webhook Management</h1>
@@ -18,7 +17,6 @@
     </button>
   </div>
 
-  <!-- Error Message -->
   @if (errorMessage) {
     <div class="flex items-center gap-3 rounded-xl border border-rose-200 bg-rose-50 p-4 dark:border-rose-800 dark:bg-rose-900/20">
       <svg class="h-5 w-5 shrink-0 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -28,7 +26,6 @@
     </div>
   }
 
-  <!-- Success Message -->
   @if (successMessage && !showSecret) {
     <div class="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 dark:border-emerald-800 dark:bg-emerald-900/20">
       <svg class="h-5 w-5 shrink-0 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,7 +35,6 @@
     </div>
   }
 
-  <!-- Loading State -->
   @if (isLoading) {
     <div class="flex flex-col items-center justify-center py-16">
       <div class="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600 dark:border-gray-700"></div>
@@ -46,7 +42,6 @@
     </div>
   }
 
-  <!-- Generated Secret Display -->
   @if (showSecret && generatedSecret) {
     <div class="relative overflow-hidden rounded-2xl border-2 border-blue-500 bg-gradient-to-br from-blue-50 to-indigo-50 p-6 dark:from-blue-900/20 dark:to-indigo-900/20">
       <div class="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-blue-500/10"></div>
@@ -72,7 +67,6 @@
           </button>
         </div>
 
-        <!-- Webhook Secret -->
         <div class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
           <label class="mb-2 block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Webhook Secret</label>
           <div class="flex gap-3">
@@ -87,7 +81,6 @@
           </div>
         </div>
 
-        <!-- Webhook URL -->
         <div class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
           <label class="mb-2 block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Webhook URL</label>
           <div class="flex gap-3">
@@ -102,7 +95,6 @@
           </div>
         </div>
 
-        <!-- Setup Instructions -->
         <div class="rounded-xl border border-blue-200 bg-blue-50/50 p-5 dark:border-blue-800 dark:bg-blue-900/20">
           <h3 class="mb-4 flex items-center gap-2 font-semibold text-gray-900 dark:text-white">
             <svg class="h-5 w-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,10 +117,8 @@
     </div>
   }
 
-  <!-- Current Configuration -->
   @if (webhookInfo && !isLoading) {
     <div class="grid gap-6 lg:grid-cols-2">
-      <!-- Status Card -->
       <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900 lg:col-span-2">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-4">
@@ -155,14 +145,12 @@
         </div>
       </div>
 
-      <!-- Webhook Configuration Card -->
       <div class="rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
         <div class="border-b border-gray-100 px-6 py-4 dark:border-gray-800">
           <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Configuration</h2>
           <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Current webhook settings</p>
         </div>
         <div class="divide-y divide-gray-100 dark:divide-gray-800">
-          <!-- Secret Configured -->
           <div class="flex items-center justify-between px-6 py-4">
             <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Secret Configured</span>
             <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold"
@@ -179,7 +167,6 @@
           </div>
 
           @if (webhookInfo.webhook_configuration.secret_configured) {
-            <!-- Secret Preview -->
             <div class="flex items-center justify-between px-6 py-4">
               <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Secret Preview</span>
               <code class="rounded-md bg-gray-100 px-3 py-1 font-mono text-xs text-gray-700 dark:bg-gray-800 dark:text-gray-300">
@@ -187,20 +174,17 @@
               </code>
             </div>
 
-            <!-- Secret Length -->
             <div class="flex items-center justify-between px-6 py-4">
               <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Secret Length</span>
               <span class="text-sm text-gray-900 dark:text-white">{{ webhookInfo.webhook_configuration.secret_length }} characters</span>
             </div>
 
-            <!-- Last Updated -->
             <div class="flex items-center justify-between px-6 py-4">
               <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Last Updated</span>
               <span class="text-sm text-gray-900 dark:text-white">{{ formatDate(webhookInfo.webhook_configuration.last_updated ?? null) }}</span>
             </div>
           }
 
-          <!-- Webhook URL -->
           <div class="px-6 py-4">
             <div class="mb-2 flex items-center justify-between">
               <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Webhook URL</span>
@@ -217,14 +201,12 @@
         </div>
       </div>
 
-      <!-- GitHub Settings Card -->
       <div class="rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
         <div class="border-b border-gray-100 px-6 py-4 dark:border-gray-800">
           <h2 class="text-lg font-semibold text-gray-900 dark:text-white">GitHub Settings</h2>
           <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Use these when configuring GitHub</p>
         </div>
         <div class="divide-y divide-gray-100 dark:divide-gray-800">
-          <!-- Payload URL -->
           <div class="px-6 py-4">
             <span class="mb-2 block text-sm font-medium text-gray-600 dark:text-gray-400">Payload URL</span>
             <code class="block rounded-lg bg-gray-50 p-3 font-mono text-xs text-blue-600 break-all dark:bg-gray-800 dark:text-blue-400">
@@ -232,7 +214,6 @@
             </code>
           </div>
 
-          <!-- Content Type -->
           <div class="flex items-center justify-between px-6 py-4">
             <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Content Type</span>
             <code class="rounded-md bg-gray-100 px-3 py-1 font-mono text-xs text-gray-700 dark:bg-gray-800 dark:text-gray-300">
@@ -240,7 +221,6 @@
             </code>
           </div>
 
-          <!-- SSL Verification -->
           <div class="flex items-center justify-between px-6 py-4">
             <span class="text-sm font-medium text-gray-600 dark:text-gray-400">SSL Verification</span>
             <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400">
@@ -251,7 +231,6 @@
             </span>
           </div>
 
-          <!-- Events -->
           <div class="px-6 py-4">
             <span class="mb-3 block text-sm font-medium text-gray-600 dark:text-gray-400">Subscribed Events</span>
             <div class="flex flex-wrap gap-2">

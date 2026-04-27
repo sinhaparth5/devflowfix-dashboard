@@ -1,5 +1,4 @@
 <div class="space-y-6">
-  <!-- Header -->
   <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
     <div>
       <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Incident Statistics</h1>
@@ -15,7 +14,6 @@
     </a>
   </div>
 
-  <!-- Loading State -->
   @if (isLoading) {
     <div class="flex flex-col items-center justify-center py-16">
       <div class="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600 dark:border-gray-700"></div>
@@ -23,7 +21,6 @@
     </div>
   }
 
-  <!-- Error State -->
   @if (error) {
     <div class="flex items-center gap-3 rounded-xl border border-rose-200 bg-rose-50 p-4 dark:border-rose-800 dark:bg-rose-900/20">
       <svg class="h-5 w-5 shrink-0 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -33,12 +30,9 @@
     </div>
   }
 
-  <!-- Statistics Content -->
   @if (!isLoading && !error && stats) {
     <div class="space-y-6">
-      <!-- Overview Cards -->
       <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
-        <!-- Total Incidents -->
         <div class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-900">
           <div class="flex items-start justify-between">
             <div>
@@ -53,7 +47,6 @@
           </div>
         </div>
 
-        <!-- Success Rate -->
         <div class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-900">
           <div class="flex items-start justify-between">
             <div>
@@ -70,7 +63,6 @@
           </div>
         </div>
 
-        <!-- Resolved -->
         <div class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-900">
           <div class="flex items-start justify-between">
             <div>
@@ -85,7 +77,6 @@
           </div>
         </div>
 
-        <!-- Avg Resolution Time -->
         <div class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-900">
           <div class="flex items-start justify-between">
             <div>
@@ -103,7 +94,6 @@
         </div>
       </div>
 
-      <!-- Status Breakdown Cards -->
       <div class="grid grid-cols-2 gap-5 lg:grid-cols-4">
         <div class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <div class="flex items-center gap-3">
@@ -162,9 +152,7 @@
         </div>
       </div>
 
-      <!-- Charts Row 1 -->
       <div class="grid gap-6 lg:grid-cols-2">
-        <!-- Source Distribution -->
         <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Incidents by Source</h3>
@@ -193,7 +181,6 @@
           }
         </div>
 
-        <!-- Outcome Distribution -->
         <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Incidents by Outcome</h3>
@@ -223,9 +210,7 @@
         </div>
       </div>
 
-      <!-- Charts Row 2 -->
       <div class="grid gap-6 lg:grid-cols-2">
-        <!-- Severity Distribution -->
         <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Incidents by Severity</h3>
@@ -254,7 +239,6 @@
           }
         </div>
 
-        <!-- Top Failure Types -->
         <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Top Failure Types</h3>

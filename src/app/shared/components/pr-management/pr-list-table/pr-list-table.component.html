@@ -8,10 +8,8 @@
     </p>
   </div>
 
-  <!-- Filters -->
   <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-      <!-- Incident ID Filter -->
       <div>
         <label class="mb-2 block text-sm font-medium text-black dark:text-white">
           Incident ID
@@ -24,7 +22,6 @@
         </app-input-field>
       </div>
 
-      <!-- Repository Filter -->
       <div>
         <label class="mb-2 block text-sm font-medium text-black dark:text-white">
           Repository
@@ -37,7 +34,6 @@
         </app-input-field>
       </div>
 
-      <!-- Status Filter -->
       <div>
         <label class="mb-2 block text-sm font-medium text-black dark:text-white">
           Status
@@ -51,7 +47,6 @@
     </div>
   </div>
 
-  <!-- Error Message -->
   @if (errorMessage && !isLoading) {
     <div class="px-7 py-4">
       <div class="rounded-lg bg-error-50 p-4 dark:bg-error-900/20">
@@ -62,7 +57,6 @@
     </div>
   }
 
-  <!-- Loading State -->
   @if (isLoading) {
     <div class="px-7 py-12">
       <div class="flex items-center justify-center">
@@ -77,7 +71,6 @@
     </div>
   }
 
-  <!-- Table -->
   @if (!isLoading && prs.length > 0) {
     <div class="overflow-x-auto">
       <table class="w-full table-auto">
@@ -109,7 +102,6 @@
         <tbody>
           @for (pr of prs; track pr.id) {
             <tr class="border-b border-stroke dark:border-strokedark hover:bg-gray-50 dark:hover:bg-meta-4">
-              <!-- PR Info -->
               <td class="px-7 py-5">
                 <p class="font-medium text-black dark:text-white">
                   #{{ pr.pr_number }} {{ pr.title }}
@@ -124,7 +116,6 @@
                 }
               </td>
 
-              <!-- Repository -->
               <td class="px-4 py-5">
                 <p class="text-sm text-black dark:text-white">
                   {{ pr.repository }}
@@ -134,7 +125,6 @@
                 </p>
               </td>
 
-              <!-- Status -->
               <td class="px-4 py-5">
                 <app-badge [color]="getStatusBadgeColor(pr.status)">
                   {{ pr.status }}
@@ -146,14 +136,12 @@
                 }
               </td>
 
-              <!-- Confidence Score -->
               <td class="px-4 py-5">
                 <app-badge [color]="getConfidenceBadgeColor(pr.confidence_score)">
                   {{ formatConfidence(pr.confidence_score) }}
                 </app-badge>
               </td>
 
-              <!-- Changes -->
               <td class="px-4 py-5">
                 <p class="text-sm text-black dark:text-white">
                   {{ pr.files_changed }} file{{ pr.files_changed !== 1 ? 's' : '' }}
@@ -165,14 +153,12 @@
                 </p>
               </td>
 
-              <!-- Created Date -->
               <td class="px-4 py-5">
                 <p class="text-sm text-gray-600 dark:text-gray-300">
                   {{ formatDate(pr.created_at) }}
                 </p>
               </td>
 
-              <!-- Actions -->
               <td class="px-4 py-5">
                 <div class="flex gap-2">
                   <button
@@ -200,7 +186,6 @@
       </table>
     </div>
 
-    <!-- Pagination -->
     <div class="border-t border-stroke px-7 py-4 dark:border-strokedark">
       <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
         <p class="text-sm text-gray-600 dark:text-gray-300">
@@ -236,7 +221,6 @@
     </div>
   }
 
-  <!-- Empty State -->
   @if (!isLoading && prs.length === 0 && !errorMessage) {
     <div class="px-7 py-12">
       <div class="text-center">

@@ -1,5 +1,4 @@
 <div class="p-6">
-  <!-- Header -->
   <div class="flex items-center justify-between mb-6">
     <div>
       <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Admin - All Incidents</h1>
@@ -12,20 +11,17 @@
     </a>
   </div>
 
-  <!-- Filters -->
   <app-incident-filter
     [filters]="filters"
     (filtersChange)="onFiltersChange($event)">
   </app-incident-filter>
 
-  <!-- Error Message -->
   @if (error) {
     <div class="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
       <p class="text-red-800 dark:text-red-400">{{ error }}</p>
     </div>
   }
 
-  <!-- Stats Summary -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
       <p class="text-sm text-gray-600 dark:text-gray-400">Total Incidents</p>
@@ -41,9 +37,7 @@
     </div>
   </div>
 
-  <!-- Table -->
   <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-    <!-- Loading State -->
     @if (isLoading) {
       <div class="p-8 text-center">
         <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
@@ -51,7 +45,6 @@
       </div>
     }
 
-    <!-- Empty State -->
     @if (!isLoading && incidents.length === 0) {
       <div class="p-8 text-center">
         <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -62,7 +55,6 @@
       </div>
     }
 
-    <!-- Data Table -->
     @if (!isLoading && incidents.length > 0) {
       <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -127,7 +119,6 @@
       </div>
     }
 
-    <!-- Pagination -->
     @if (!isLoading && incidents.length > 0) {
       <div class="px-6 py-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
         <div class="flex items-center justify-between">
@@ -166,7 +157,6 @@
     }
   </div>
 
-  <!-- Assign Modal -->
   @if (assigningIncidentId) {
     <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4">

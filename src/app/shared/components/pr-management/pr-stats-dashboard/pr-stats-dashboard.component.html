@@ -1,4 +1,4 @@
-<!-- Loading State -->
+
 @if (isLoading) {
   <div class="py-12">
     <div class="flex items-center justify-center">
@@ -13,7 +13,6 @@
   </div>
 }
 
-<!-- Error Message -->
 @if (errorMessage && !isLoading) {
   <div class="py-4">
     <div class="rounded-lg bg-error-50 p-4 dark:bg-error-900/20">
@@ -31,12 +30,9 @@
   </div>
 }
 
-<!-- Statistics Dashboard -->
 @if (statistics && !isLoading) {
   <div class="space-y-6">
-    <!-- Overview Cards -->
     <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
-      <!-- Total PRs Card -->
       <div class="rounded-sm border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark">
         <div class="flex items-center justify-between">
           <div>
@@ -55,7 +51,6 @@
         </div>
       </div>
 
-      <!-- Merge Rate Card -->
       <div class="rounded-sm border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark">
         <div class="flex items-center justify-between">
           <div>
@@ -74,7 +69,6 @@
         </div>
       </div>
 
-      <!-- Merged Count Card -->
       <div class="rounded-sm border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark">
         <div class="flex items-center justify-between">
           <div>
@@ -94,9 +88,7 @@
       </div>
     </div>
 
-    <!-- Charts and Metrics Section -->
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-      <!-- Status Distribution Chart -->
       <div class="rounded-sm border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark">
         <h4 class="mb-4 text-xl font-semibold text-black dark:text-white">
           Status Distribution
@@ -115,14 +107,12 @@
         </div>
       </div>
 
-      <!-- Code Changes Metrics -->
       <div class="rounded-sm border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark">
         <h4 class="mb-4 text-xl font-semibold text-black dark:text-white">
           Code Changes Overview
         </h4>
 
         <div class="space-y-6">
-          <!-- Average Files per PR -->
           <div class="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
             <div class="mb-2 flex items-center justify-between">
               <span class="text-sm font-medium text-gray-600 dark:text-gray-400">
@@ -137,7 +127,6 @@
             </p>
           </div>
 
-          <!-- Total Additions -->
           <div class="rounded-lg bg-success-50 p-4 dark:bg-success-900/20">
             <div class="mb-2 flex items-center justify-between">
               <span class="text-sm font-medium text-success-700 dark:text-success-400">
@@ -152,7 +141,6 @@
             </p>
           </div>
 
-          <!-- Total Deletions -->
           <div class="rounded-lg bg-error-50 p-4 dark:bg-error-900/20">
             <div class="mb-2 flex items-center justify-between">
               <span class="text-sm font-medium text-error-700 dark:text-error-400">
@@ -167,7 +155,6 @@
             </p>
           </div>
 
-          <!-- Net Change -->
           <div class="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
             <div class="mb-2 flex items-center justify-between">
               <span class="text-sm font-medium text-gray-600 dark:text-gray-400">
@@ -185,7 +172,6 @@
       </div>
     </div>
 
-    <!-- Status Breakdown Table -->
     <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div class="border-b border-stroke px-7 py-5 dark:border-strokedark">
         <h4 class="text-xl font-semibold text-black dark:text-white">

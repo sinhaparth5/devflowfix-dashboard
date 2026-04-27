@@ -1,5 +1,4 @@
 <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
-  <!-- Loading overlay -->
   @if (isLoading) {
     <div class="absolute inset-0 bg-white/50 dark:bg-gray-900/50 z-10 flex items-center justify-center rounded-2xl">
       <div class="flex items-center gap-2 text-gray-600 dark:text-gray-400">
@@ -31,7 +30,6 @@
         </p>
       </div>
 
-      <!-- Error message -->
       @if (error) {
         <div class="mt-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
           <div class="flex items-center gap-2 text-red-700 dark:text-red-400">
@@ -59,7 +57,6 @@
         </div>
       </div>
 
-      <!-- Description field -->
       <div class="mt-6">
         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
           Description
@@ -144,7 +141,6 @@
       </div>
 
       <div class="flex items-center gap-3 mt-6 modal-footer sm:justify-between">
-        <!-- Delete button (only for existing events) -->
         <div>
           @if (selectedEvent?.extendedProps?.apiId) {
             <button
